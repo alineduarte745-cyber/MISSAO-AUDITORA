@@ -1,9 +1,9 @@
 {
-  "name": "Missão Auditora — RPG de Estudos",
+  "name": "Missão Auditora — Companheiros",
   "short_name": "Missão Auditora",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0f0f10",
-  "theme_color": "#171717",
-  "description": "RPG pessoal de constância nos estudos para a carreira fiscal."
+  "background_color": "#fff3f8",
+  "theme_color": "#ff8db3",
+  "description": "Seu RPG colorido de estudos com animais que evoluem."
 }
