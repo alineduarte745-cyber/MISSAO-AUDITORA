@@ -244,6 +244,176 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 }
 </style>
 
+
+<style id="approval-finale-style">
+.approval-final-btn{
+  width:100%;
+  margin-top:16px;
+  background:linear-gradient(135deg,#ffd43b,#ff4f9a,#8b5cf6) !important;
+  font-size:16px !important;
+}
+.approval-overlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(255,255,255,.98),rgba(255,236,132,.88) 20%,rgba(255,112,183,.72) 48%,rgba(105,82,255,.88) 100%);
+}
+.approval-overlay.show{display:flex;animation:finalFade .8s ease both}
+.approval-world{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 90%,#8cff83 0 20%,transparent 21%),
+    radial-gradient(circle at 15% 85%,#4fda69 0 25%,transparent 26%),
+    radial-gradient(circle at 85% 86%,#42c967 0 27%,transparent 28%);
+  filter:saturate(1.35);
+}
+.approval-rays{
+  position:absolute;
+  width:130vmax;
+  height:130vmax;
+  border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.32) 0 8deg,transparent 8deg 18deg);
+  animation:spinFinal 22s linear infinite;
+}
+.approval-card{
+  position:relative;
+  z-index:4;
+  width:min(90vw,650px);
+  text-align:center;
+  padding:34px 22px 28px;
+  border-radius:30px;
+  background:rgba(255,255,255,.88);
+  border:3px solid #fff8b5;
+  box-shadow:0 0 50px #fff3a8,0 20px 60px #5c329566;
+  backdrop-filter:blur(7px);
+  animation:finalPop .9s cubic-bezier(.2,.9,.25,1.2) both;
+}
+.approval-crown{font-size:82px;animation:crownFloat 1.8s ease-in-out infinite}
+.approval-title{
+  margin:5px 0;
+  font-size:clamp(31px,7vw,58px);
+  line-height:.98;
+  font-weight:1000;
+  color:#6a2e91;
+  text-shadow:0 3px #fff,0 0 20px #ffd85a;
+}
+.approval-sub{
+  font-size:clamp(19px,4vw,28px);
+  font-weight:1000;
+  color:#d52c77;
+  margin:12px 0 7px;
+}
+.approval-text{font-weight:850;color:#66536c;line-height:1.45}
+.approval-pets{
+  margin:17px auto 8px;
+  font-size:32px;
+  line-height:1.6;
+  max-width:520px;
+  filter:drop-shadow(0 5px 4px #70477c35);
+}
+.approval-close{
+  margin-top:18px;
+  background:linear-gradient(135deg,#7a5cff,#ff4f9a) !important;
+}
+.sparkle{
+  position:absolute;
+  z-index:3;
+  font-size:30px;
+  animation:sparkleFall linear infinite;
+  top:-10vh;
+}
+@keyframes finalFade{from{opacity:0}to{opacity:1}}
+@keyframes finalPop{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes spinFinal{to{transform:rotate(360deg)}}
+@keyframes crownFloat{50%{transform:translateY(-10px) rotate(3deg)}}
+@keyframes sparkleFall{
+  to{transform:translateY(120vh) rotate(720deg)}
+}
+</style>
+
+
+<style id="journey-achievements-style">
+.achievements{
+  margin-top:16px;
+  padding:15px;
+  border-radius:20px;
+  background:linear-gradient(145deg,#fff9df,#ffe9f4 55%,#eee7ff);
+  border:2px solid #fff;
+  box-shadow:0 10px 25px #7859a722;
+}
+.achievements h3{
+  margin:0 0 10px;
+  text-align:center;
+  color:#633b91;
+}
+.achievementGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.achievement{
+  min-height:92px;
+  padding:12px 10px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:900;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+  background:#eeeaf2;
+  color:#8a7f91;
+  filter:grayscale(.75);
+  opacity:.7;
+}
+.achievement.unlocked{
+  background:linear-gradient(135deg,#fff09a,#ffb6d5 55%,#c9b5ff);
+  color:#5a3c73;
+  filter:none;
+  opacity:1;
+  box-shadow:0 7px 18px #8a5fcc28;
+  animation:achievementGlow 2.4s ease-in-out infinite;
+}
+.achievementIcon{font-size:34px}
+.achievementTitle{font-size:13px}
+.achievementHours{font-size:11px;opacity:.8}
+.achievement.locked .achievementTitle{font-size:18px;letter-spacing:2px}
+@keyframes achievementGlow{
+  50%{transform:translateY(-2px);box-shadow:0 10px 22px #ff7dbb35}
+}
+.achievementToast{
+  position:fixed;
+  left:50%;
+  bottom:24px;
+  transform:translateX(-50%) translateY(30px);
+  z-index:100000;
+  min-width:min(88vw,420px);
+  padding:15px 18px;
+  border-radius:18px;
+  text-align:center;
+  background:linear-gradient(135deg,#fff1a2,#ffb7d7,#cbb9ff);
+  box-shadow:0 14px 35px #5b3f7a55;
+  font-weight:950;
+  color:#53326e;
+  opacity:0;
+  pointer-events:none;
+  transition:.35s ease;
+}
+.achievementToast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+@media(max-width:520px){
+  .achievementGrid{grid-template-columns:1fr}
+}
+</style>
+
 </head><body><main>
 
 <section class="card top">
@@ -311,6 +481,42 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 
 <section class="card" style="text-align:center">
 <b>“Eu não preciso de vontade. Eu só preciso começar.”</b><br>
+
+
+<section class="achievements" id="achievementsBox">
+  <h3>🏆 Conquistas da Jornada</h3>
+  <div id="achievementGrid" class="achievementGrid"></div>
+</section>
+<div id="achievementToast" class="achievementToast"></div>
+
+<div style="margin-top:18px">
+  <button id="approvalFinalBtn" class="approval-final-btn">👑 UM DIA: MISSÃO CUMPRIDA</button>
+  <div style="font-size:11px;font-weight:800;color:#85778b;margin-top:6px;text-align:center">
+    Só aperte quando chegar o grande dia. ✨
+  </div>
+</div>
+
+<div id="approvalOverlay" class="approval-overlay" aria-hidden="true">
+  <div class="approval-world"></div>
+  <div class="approval-rays"></div>
+  <div id="sparkles"></div>
+  <div class="approval-card">
+    <div class="approval-crown">👑</div>
+    <div class="approval-title">MISSÃO<br>CUMPRIDA</div>
+    <div class="approval-sub">AUDITORA FISCAL</div>
+    <div class="approval-text">
+      A floresta inteira se acendeu.<br>
+      Cada dia em que você apareceu trouxe você até aqui. 🌳✨
+    </div>
+    <div class="approval-pets">
+      🐣 🐰 🦊 🐼 🦁 🐨 🦦 🦌 🐯 🦝<br>
+      🐶 🐱 🐸 🦆 🦋 🦉 🐧 🦄 🐲 🐉
+    </div>
+    <div class="approval-text">🏆 A missão terminou. A floresta fica.</div>
+    <button id="approvalClose" class="approval-close">🌳 VOLTAR À MINHA FLORESTA</button>
+  </div>
+</div>
+
 <button id="reset" class="danger">Reiniciar campanha</button>
 </section>
 
@@ -332,7 +538,7 @@ function previousDay(ds){
 let s={
   xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},
   campaignStart:localDate(),lastOpened:localDate(),petDead:false,deathDate:null,
-  shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null
+  shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[]
 };
 
 try{
@@ -348,6 +554,7 @@ if(typeof s.shields!=='number')s.shields=1;
 if(typeof s.lastShieldAward!=='number')s.lastShieldAward=0;
 if(!s.protectedDays)s.protectedDays={};
 if(!('visitedRegion' in s))s.visitedRegion=null;
+if(!Array.isArray(s.unlockedAchievements))s.unlockedAchievements=[];
 }catch(e){}
 
 while(s.days.length<30)s.days.push(false);
@@ -656,7 +863,68 @@ function renderForestMap(stageIndex){
   });
 }
 
+
+const journeyMilestones=[
+  {hours:100,icon:'🌱',title:'Raízes Criadas'},
+  {hours:250,icon:'🌷',title:'Jardim Florescendo'},
+  {hours:500,icon:'🌳',title:'Floresta Forte'},
+  {hours:1000,icon:'💎',title:'Mil Horas de Jornada'},
+  {hours:1500,icon:'🔥',title:'Lenda da Constância'},
+  {hours:2000,icon:'👑',title:'Guardiã da Floresta'}
+];
+
+function renderAchievements(){
+  const grid=document.getElementById('achievementGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  let firstLockedShown=false;
+
+  journeyMilestones.forEach((m,idx)=>{
+    const unlocked=s.hours>=m.hours;
+    const box=document.createElement('div');
+    box.className='achievement '+(unlocked?'unlocked':'locked');
+
+    if(unlocked){
+      box.innerHTML=
+        '<div class="achievementIcon">'+m.icon+'</div>'+
+        '<div class="achievementTitle">'+m.title+'</div>'+
+        '<div class="achievementHours">'+m.hours+'h conquistadas</div>';
+    }else if(!firstLockedShown){
+      firstLockedShown=true;
+      box.innerHTML=
+        '<div class="achievementIcon">🔒</div>'+
+        '<div class="achievementTitle">???</div>'+
+        '<div class="achievementHours">Próxima conquista escondida</div>';
+    }else{
+      box.style.display='none';
+    }
+    grid.appendChild(box);
+  });
+}
+
+function checkNewAchievements(){
+  let newlyUnlocked=null;
+  for(const m of journeyMilestones){
+    const key=String(m.hours);
+    if(s.hours>=m.hours && !s.unlockedAchievements.includes(key)){
+      s.unlockedAchievements.push(key);
+      newlyUnlocked=m;
+    }
+  }
+  if(newlyUnlocked){
+    save();
+    const toast=document.getElementById('achievementToast');
+    if(toast){
+      toast.innerHTML='🏆 NOVA CONQUISTA!<br><span style="font-size:24px">'+newlyUnlocked.icon+'</span> '+newlyUnlocked.title;
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'),4200);
+    }
+  }
+}
+
 function render(){
+  checkNewAchievements();
+  renderAchievements();
   checkMissedDays();
   autoMarkAdventure();
 
@@ -785,7 +1053,7 @@ $('#addHours').addEventListener('click',()=>{
 
 $('#reset').addEventListener('click',()=>{
   if(confirm('Quer mesmo apagar o progresso desta campanha?')){
-    s={xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},campaignStart:today(),lastOpened:today(),petDead:false,deathDate:null,shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null};
+    s={xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},campaignStart:today(),lastOpened:today(),petDead:false,deathDate:null,shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[]};
     save();render()
   }
 });
@@ -801,5 +1069,36 @@ if(mapToggle){
     mapToggle.textContent=panel.classList.contains('open')?'✖️ FECHAR MAPA':'🗺️ MAPA DA FLORESTA';
   };
 }
+
+
+
+function openApprovalFinale(){
+  const overlay=document.getElementById('approvalOverlay');
+  const holder=document.getElementById('sparkles');
+  if(!overlay || !holder)return;
+  holder.innerHTML='';
+  const symbols=['✨','⭐','🌟','💫','🌸','🌷','🦋','👑'];
+  for(let n=0;n<48;n++){
+    const s=document.createElement('span');
+    s.className='sparkle';
+    s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    s.style.left=(Math.random()*100)+'vw';
+    s.style.animationDuration=(3+Math.random()*5)+'s';
+    s.style.animationDelay=(-Math.random()*5)+'s';
+    s.style.fontSize=(18+Math.random()*28)+'px';
+    holder.appendChild(s);
+  }
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden','false');
+}
+const approvalFinalBtn=document.getElementById('approvalFinalBtn');
+if(approvalFinalBtn)approvalFinalBtn.onclick=openApprovalFinale;
+
+const approvalClose=document.getElementById('approvalClose');
+if(approvalClose)approvalClose.onclick=()=>{
+  const overlay=document.getElementById('approvalOverlay');
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden','true');
+};
 
 </script></main></body></html>
