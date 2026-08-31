@@ -1,42 +1,309 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ff8db3"><link rel="manifest" href="manifest.webmanifest"><title>Missão Auditora</title>
 <style>
 :root{--pink:#ff8db3;--purple:#a98bff;--yellow:#ffd86b;--green:#8ee6a2;--sky:#9bdcff;--ink:#40394a;--paper:#fffafc}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:var(--ink);background:linear-gradient(#fff3f8,#f4f7ff)}main{max-width:760px;margin:auto;padding:16px}
-.card{background:#fff;border:2px solid #f3dce7;border-radius:22px;padding:17px;margin-bottom:14px;box-shadow:0 6px 20px #bd8da51c}
-.top{background:linear-gradient(135deg,#ffd4e4,#e1dcff 55%,#d6f5ff);position:relative;overflow:hidden}.top:after{content:"☁️  ✨  ☁️";position:absolute;right:15px;top:12px;opacity:.7}
-h1,h2,p{margin-top:0}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;color:#8c6380}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.level{font-size:26px;font-weight:900}.pet{font-size:74px;filter:drop-shadow(0 6px 4px #b88ca733)}
-.xpbar,.goalbar{height:14px;background:#f1e8ef;border-radius:99px;overflow:hidden}.xpfill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));transition:.3s}.goalfill{height:100%;background:linear-gradient(90deg,var(--green),var(--yellow));transition:.3s}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.stat{background:#fff;border-radius:17px;padding:11px;text-align:center;border:2px solid #eee}.stat b{font-size:21px;display:block}.muted{color:#877d89;font-size:13px}
-button,input{font:inherit}button{min-height:48px;border:0;border-radius:14px;padding:10px 14px;font-weight:900;color:var(--ink);background:#f3edf3}button.primary{width:100%;background:linear-gradient(90deg,#ff9bc0,#ffc17f);font-size:16px}.controls{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}input{min-width:0;border:2px solid #eadde5;border-radius:14px;padding:12px;font-size:16px}
-.garden{background:linear-gradient(#dff4ff 0 48%,#d9f2c4 48%);border-radius:18px;padding:18px 10px 10px;text-align:center;min-height:165px}.scene{font-size:44px;line-height:1.5;word-spacing:8px}.petname{font-size:20px;font-weight:900}.days{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.day.done{background:var(--green)}.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.badge{padding:10px 5px;text-align:center;border-radius:15px;background:#f8f2f6;opacity:.3}.badge.on{opacity:1;background:#fff2c7}.badge span{font-size:26px}.msg{font-weight:800;margin:12px 0 0}.danger{font-size:12px;color:#988;background:transparent}
-@media(min-width:560px){.days{grid-template-columns:repeat(10,1fr)}}@media(max-width:410px){.badges{grid-template-columns:repeat(2,1fr)}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:var(--ink);background:
+radial-gradient(circle at 12% 6%,#ffddeb 0 8%,transparent 22%),
+radial-gradient(circle at 88% 7%,#dff4ff 0 10%,transparent 24%),
+linear-gradient(#fff3f8,#f4f7ff)}
+main{max-width:760px;margin:auto;padding:16px}
+.card{background:#fff;border:2px solid #f3dce7;border-radius:24px;padding:18px;margin-bottom:14px;box-shadow:0 8px 24px #bd8da51c}
+.top{background:linear-gradient(135deg,#ffd4e4,#e1dcff 55%,#d6f5ff);position:relative;overflow:hidden}
+.top:after{content:"☁️  ✨  ☁️";position:absolute;right:15px;top:12px;opacity:.7}
+h1,h2,p{margin-top:0}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;color:#8c6380}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.level{font-size:26px;font-weight:900}
+.pet{font-size:90px;filter:drop-shadow(0 7px 5px #b88ca733);transition:.3s}
+.xpbar,.goalbar{height:15px;background:#f1e8ef;border-radius:99px;overflow:hidden}
+.xpfill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));transition:.3s}
+.goalfill{height:100%;background:linear-gradient(90deg,var(--green),var(--yellow));transition:.3s}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+.stat{background:#fff;border-radius:17px;padding:11px;text-align:center;border:2px solid #eee}
+.stat b{font-size:21px;display:block}.muted{color:#877d89;font-size:13px}
+button,input{font:inherit}button{min-height:48px;border:0;border-radius:14px;padding:10px 14px;font-weight:900;color:var(--ink);background:#f3edf3;cursor:pointer}
+button.primary{width:100%;background:linear-gradient(90deg,#ff9bc0,#ffc17f);font-size:16px;box-shadow:0 6px 16px #ff8db32d}
+.controls{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}
+input{min-width:0;border:2px solid #eadde5;border-radius:14px;padding:12px;font-size:16px}
+
+.garden{
+background:
+radial-gradient(circle at 82% 15%,#ffe98a 0 7%,transparent 8%),
+radial-gradient(ellipse at 25% 20%,#fff 0 8%,transparent 9%),
+linear-gradient(#ccefff 0 52%,#d9f2c4 52% 78%,#bce29d 78%);
+border-radius:22px;padding:20px 10px 14px;text-align:center;min-height:315px;
+position:relative;overflow:hidden;border:2px solid #e7f1e0
+}
+.garden:before{content:"☁️        ☁️";position:absolute;top:12px;left:16px;right:16px;font-size:25px;opacity:.9}
+.scene{font-size:52px;line-height:1.45;word-spacing:7px;min-height:180px;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+.bigpet{font-size:145px;display:inline-block;filter:drop-shadow(0 12px 8px #9f78963a);animation:floaty 3s ease-in-out infinite}
+.bigpet.dead{filter:grayscale(1) opacity(.7);animation:none;transform:rotate(-8deg)}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.petname{font-size:30px;font-weight:950;position:relative;z-index:2;letter-spacing:.02em}
+.petstatus{margin-top:7px;font-weight:800;color:#6d6070;position:relative;z-index:2}
+.deathnote{margin-top:10px;background:#fff0f0;color:#a94b4b;border-radius:14px;padding:10px;font-size:13px;font-weight:800}
+
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.day{border:2px solid #eee;background:#faf7fa}
+.day.done{background:linear-gradient(135deg,#a9edb6,#fff19a,#ffcbe0)}
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.badge{padding:10px 5px;text-align:center;border-radius:15px;background:#f8f2f6;opacity:.3;transition:.25s}
+.badge.on{opacity:1;background:linear-gradient(135deg,#fff2c7,#ffe0ef);transform:translateY(-2px);box-shadow:0 6px 14px #c9a96f22}
+.badge span{font-size:28px}
+.msg{font-weight:800;margin:12px 0 0}.danger{font-size:12px;color:#988;background:transparent}
+.journeyTotal{text-align:center;color:#9b8f98;font-size:13px;margin-top:15px}
+@media(min-width:560px){.days{grid-template-columns:repeat(10,1fr)}}
+@media(max-width:410px){.badges{grid-template-columns:repeat(2,1fr)}.bigpet{font-size:122px}.scene{font-size:44px}}
 </style></head><body><main>
-<section class="card top"><div class="eyebrow">🌈 MISSÃO AUDITORA • SUA COMPANHEIRA DE ESTUDOS</div><div class="row"><div><div id="level" class="level">Nível 1 • Ovo da Aprovação</div><p id="xpText" class="muted">0 XP • seu bichinho está esperando você começar</p></div><div id="pet" class="pet">🥚</div></div><div class="xpbar"><div id="xpfill" class="xpfill" style="width:0"></div></div></section>
-<div class="stats"><div class="stat"><span class="muted">✨ XP</span><b id="xp">0</b></div><div class="stat"><span class="muted">🔥 Sequência</span><b id="streak">0</b></div><div class="stat"><span class="muted">📚 Horas</span><b id="hoursTotal">0h</b></div></div>
-<section class="card"><h2>🌸 Missão de hoje</h2><div class="row"><b id="todayHours" style="font-size:28px">0h / 4h</b><span id="mood">🥚 Esperando o primeiro estudo</span></div><div class="goalbar" style="margin:10px 0 14px"><div id="goalfill" class="goalfill" style="width:0"></div></div><button id="start" class="primary">✨ COMECEI A ESTUDAR +20 XP</button><div class="controls"><input id="hours" type="number" min=".25" max="12" step=".25" value="1" aria-label="Horas estudadas"><button id="addHours">Registrar</button></div><p id="message" class="msg">Seu único trabalho agora é começar. 💗</p></section>
-<section class="card"><h2>🐾 Seu companheiro</h2><div class="garden"><div id="scene" class="scene">🌱 🌱 🥚 🌱 🌱</div><div id="petname" class="petname">Ovo da Aprovação</div><div id="unlock" class="muted">Estude para descobrir quem vai nascer!</div></div></section>
-<section class="card"><h2>🗺️ 30 dias de aventura</h2><p class="muted">Cada dia marcado ajuda seu animal e o jardim a crescer.</p><div id="days" class="days"></div></section>
-<section class="card"><h2>🏆 Tesouros desbloqueáveis</h2><div class="badges"><div id="b3" class="badge"><span>🌷</span><br><b>3 dias</b></div><div id="b7" class="badge"><span>🦋</span><br><b>7 dias</b></div><div id="b14" class="badge"><span>🌳</span><br><b>14 dias</b></div><div id="b30" class="badge"><span>👑</span><br><b>30 dias</b></div></div></section>
-<section class="card" style="text-align:center"><b>“Eu não preciso de vontade. Eu só preciso começar.”</b><br><button id="reset" class="danger">Reiniciar campanha</button></section>
+
+<section class="card top">
+<div class="eyebrow">🌈 MISSÃO AUDITORA • SUA COMPANHEIRA DE ESTUDOS</div>
+<div class="row">
+<div><div id="level" class="level">Nível 1 • Ovo da Aprovação</div><p id="xpText" class="muted">0 XP • seu bichinho está esperando você começar</p></div>
+<div id="pet" class="pet">🥚</div>
+</div>
+<div class="xpbar"><div id="xpfill" class="xpfill" style="width:0"></div></div>
+</section>
+
+<div class="stats">
+<div class="stat"><span class="muted">✨ XP</span><b id="xp">0</b></div>
+<div class="stat"><span class="muted">🔥 Sequência</span><b id="streak">0</b></div>
+</div>
+
+<section class="card">
+<h2>🌸 Missão de hoje</h2>
+<div class="row"><b id="todayHours" style="font-size:28px">0h / 4h</b><span id="mood">🥚 Esperando o primeiro estudo</span></div>
+<div class="goalbar" style="margin:10px 0 14px"><div id="goalfill" class="goalfill" style="width:0"></div></div>
+<button id="start" class="primary">✨ COMECEI A ESTUDAR +20 XP</button>
+<div class="controls"><input id="hours" type="number" min=".25" max="12" step=".25" value="1" aria-label="Horas estudadas"><button id="addHours">Registrar</button></div>
+<p id="message" class="msg">Seu único trabalho agora é começar. 💗</p>
+</section>
+
+<section class="card">
+<h2>🐾 Seu companheiro</h2>
+<div class="garden">
+<div id="scene" class="scene"><span id="bigpet" class="bigpet">🥚</span></div>
+<div id="petname" class="petname">Ovo da Aprovação</div>
+<div id="unlock" class="petstatus">Estude para descobrir quem vai nascer!</div>
+<div id="deathnote" class="deathnote" style="display:none"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>🗺️ 30 dias de aventura</h2>
+<p class="muted">Cada dia marcado ajuda seu animal e o jardim a crescer.</p>
+<div id="days" class="days"></div>
+<div class="journeyTotal">📚 Total da jornada: <b id="hoursTotal">0h</b></div>
+</section>
+
+<section class="card">
+<h2>🏆 Tesouros desbloqueáveis</h2>
+<div class="badges">
+<div id="b3" class="badge"><span>🌷</span><br><b>3 dias</b><br><small>Flor do começo</small></div>
+<div id="b7" class="badge"><span>🦋</span><br><b>7 dias</b><br><small>Borboleta da constância</small></div>
+<div id="b14" class="badge"><span>🌳</span><br><b>14 dias</b><br><small>Árvore da disciplina</small></div>
+<div id="b30" class="badge"><span>👑</span><br><b>30 dias</b><br><small>Coroa da aventura</small></div>
+</div>
+</section>
+
+<section class="card" style="text-align:center">
+<b>“Eu não preciso de vontade. Eu só preciso começar.”</b><br>
+<button id="reset" class="danger">Reiniciar campanha</button>
+</section>
+
 <script>
-const KEY='missao-auditora-pets-v2', oldKey='missao-auditora-v1';
-let s={xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{}};
-try{let x=JSON.parse(localStorage.getItem(KEY));if(!x){let o=JSON.parse(localStorage.getItem(oldKey));if(o)x={...s,...o,daily:{}}}if(x)s={...s,...x}}catch(e){}
-while(s.days.length<30)s.days.push(false);s.days=s.days.slice(0,30);
+const KEY='missao-auditora-pets-v3', oldKeys=['missao-auditora-pets-v2','missao-auditora-v1'];
+
+function localDate(d=new Date()){
+  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function dateObj(ds){
+  const [y,m,d]=ds.split('-').map(Number);
+  return new Date(y,m-1,d,12,0,0);
+}
+function previousDay(ds){
+  const d=dateObj(ds); d.setDate(d.getDate()-1); return localDate(d);
+}
+
+let s={
+  xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},
+  campaignStart:localDate(),lastOpened:localDate(),petDead:false,deathDate:null
+};
+
+try{
+  let x=JSON.parse(localStorage.getItem(KEY));
+  if(!x){
+    for(const k of oldKeys){
+      let o=JSON.parse(localStorage.getItem(k));
+      if(o){x={...s,...o,campaignStart:localDate(),lastOpened:localDate(),petDead:false,deathDate:null};break}
+    }
+  }
+  if(x)s={...s,...x};
+}catch(e){}
+
+while(s.days.length<30)s.days.push(false);
+s.days=s.days.slice(0,30);
+
 const stages=[
-{xp:0,pet:'🥚',name:'Ovo da Aprovação',scene:'🌱 🌱 🥚 🌱 🌱',next:'🐣 Algo está se mexendo lá dentro...'},
-{xp:80,pet:'🐣',name:'Pintinho Curioso',scene:'🌱 🌷 🐣 🌱 🌼',next:'Continue estudando: seu companheiro vai evoluir!'},
-{xp:200,pet:'🐰',name:'Coelhinha Focada',scene:'🌷 🌿 🐰 🌼 🦋',next:'Mais XP desbloqueia um novo companheiro.'},
-{xp:400,pet:'🦊',name:'Raposa Disciplinada',scene:'🌳 🌸 🦊 🍄 🦋',next:'Seu mundo está ficando enorme!'},
-{xp:700,pet:'🐼',name:'Panda Especialista',scene:'🌳 🌺 🐼 🌻 🌈',next:'Rumo ao guardião final.'},
-{xp:1100,pet:'🦁',name:'Leoa Auditora',scene:'🌸 🌳 🦁 👑 🌈 ✨',next:'🏆 Guardiã da Aprovação desbloqueada!'}];
-const $=q=>document.querySelector(q),today=()=>new Date().toISOString().slice(0,10);function save(){localStorage.setItem(KEY,JSON.stringify(s))}
+{xp:0,pet:'🥚',name:'Pingo',title:'Ovo da Aprovação',next:'🐣 Pipoca está esperando para nascer...'},
+{xp:80,pet:'🐣',name:'Pipoca',title:'Guardiã dos Primeiros Passos',next:'🔒 Luna 🐰 espera por você no Nível 3.'},
+{xp:200,pet:'🐰',name:'Luna',title:'Guardiã do Foco',next:'🔒 Amora 🦊 espera por você no Nível 4.'},
+{xp:400,pet:'🦊',name:'Amora',title:'Guardiã da Disciplina',next:'🔒 Mochi 🐼 espera por você no Nível 5.'},
+{xp:700,pet:'🐼',name:'Mochi',title:'Guardiã da Constância',next:'🔒 Atena 🦁 espera por você no nível final.'},
+{xp:1100,pet:'🦁',name:'Atena',title:'Guardiã da Aprovação 👑',next:'🏆 Atena chegou. Guardiã final desbloqueada!'}
+];
+
+const $=q=>document.querySelector(q);
+const today=()=>localDate();
+
+function save(){localStorage.setItem(KEY,JSON.stringify(s))}
 function stage(){let z=stages[0];for(const a of stages)if(s.xp>=a.xp)z=a;return z}
-function render(){let n=s.days.filter(Boolean).length,streak=0;for(const d of s.days){if(d)streak++;else break}let a=stage(),i=stages.indexOf(a),next=stages[Math.min(i+1,stages.length-1)],pct=i===stages.length-1?100:(s.xp-a.xp)/(next.xp-a.xp)*100,t=s.daily[today()]||0;
-$('#level').textContent='Nível '+(i+1)+' • '+a.name;$('#pet').textContent=a.pet;$('#petname').textContent=a.name;$('#scene').textContent=a.scene;$('#unlock').textContent=a.next;$('#xp').textContent=s.xp;$('#streak').textContent=streak;$('#hoursTotal').textContent=(Math.round(s.hours*100)/100)+'h';$('#xpfill').style.width=Math.max(0,Math.min(100,pct))+'%';$('#xpText').textContent=i===stages.length-1?s.xp+' XP • evolução máxima':s.xp+' XP • '+(next.xp-s.xp)+' XP para '+next.name;$('#todayHours').textContent=(Math.round(t*100)/100)+'h / 4h';$('#goalfill').style.width=Math.min(100,t/4*100)+'%';$('#mood').textContent=t>=4?a.pet+' Radiante! Meta completa ✨':t>=2?a.pet+' Está animada! 🌸':t>0?a.pet+' Feliz por você ter começado 💗':a.pet+' Esperando o primeiro estudo';
-let box=$('#days');box.innerHTML='';s.days.forEach((on,j)=>{let b=document.createElement('button');b.className='day'+(on?' done':'');b.textContent=on?'🌟':j+1;b.setAttribute('aria-pressed',on);b.addEventListener('click',()=>{s.days[j]=!s.days[j];s.xp=Math.max(0,s.xp+(s.days[j]?10:-10));save();render()});box.appendChild(b)});[[3,'#b3'],[7,'#b7'],[14,'#b14'],[30,'#b30']].forEach(([x,id])=>$(id).classList.toggle('on',n>=x));$('#start').textContent=s.starts[today()]?'💗 VOCÊ JÁ COMEÇOU HOJE':'✨ COMECEI A ESTUDAR +20 XP'}
-$('#start').addEventListener('click',()=>{let t=today();if(s.starts[t]){$('#message').textContent='Seu companheiro já comemorou seu começo de hoje! 🥰';return}s.starts[t]=true;s.xp+=20;$('#message').textContent='AEEEE! Você começou! +20 XP ✨ Agora faça só o próximo bloco.';save();render()});
-$('#addHours').addEventListener('click',()=>{let h=Number($('#hours').value);if(!Number.isFinite(h)||h<=0||h>12){$('#message').textContent='Coloque entre 0,25 e 12 horas.';return}let t=today();s.hours+=h;s.daily[t]=(s.daily[t]||0)+h;s.xp+=Math.round(h*20);$('#message').textContent=h>=4?'🏆 4 HORAS! Seu companheiro está radiante! ✨':'🌷 '+h+'h cultivadas. Seu mundo cresceu!';save();render()});
-$('#reset').addEventListener('click',()=>{if(confirm('Quer mesmo apagar o progresso desta campanha?')){s={xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{}};save();render()}});
-render();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+function checkMissedDays(){
+  const now=today();
+  if(!s.lastOpened){s.lastOpened=now;save();return}
+  if(s.lastOpened===now)return;
+
+  // Verifica apenas os dias completamente encerrados desde a última abertura.
+  let cursor=dateObj(s.lastOpened);
+  cursor.setDate(cursor.getDate()+1);
+  const end=dateObj(now);
+
+  while(cursor<end){
+    const ds=localDate(cursor);
+    if((s.daily[ds]||0)<=0){
+      s.petDead=true;
+      s.deathDate=ds;
+    }
+    cursor.setDate(cursor.getDate()+1);
+  }
+
+  // Se o app foi aberto ontem e hoje, ontem também precisa ser conferido.
+  const y=previousDay(now);
+  if(s.lastOpened===y && (s.daily[y]||0)<=0){
+    s.petDead=true;
+    s.deathDate=y;
+  }
+
+  s.lastOpened=now;
+  save();
+}
+
+function consecutiveStudyDays(){
+  let streak=0;
+  let d=new Date();
+  if((s.daily[today()]||0)<=0)d.setDate(d.getDate()-1);
+  while(true){
+    const ds=localDate(d);
+    if((s.daily[ds]||0)>0){streak++;d.setDate(d.getDate()-1)}
+    else break;
+  }
+  return streak;
+}
+
+function autoMarkAdventure(){
+  if(!s.campaignStart)s.campaignStart=today();
+  const start=dateObj(s.campaignStart);
+  for(let j=0;j<30;j++){
+    const d=new Date(start); d.setDate(start.getDate()+j);
+    const ds=localDate(d);
+    s.days[j]=(s.daily[ds]||0)>0;
+  }
+}
+
+function render(){
+  checkMissedDays();
+  autoMarkAdventure();
+
+  let n=s.days.filter(Boolean).length;
+  let streak=consecutiveStudyDays();
+  let a=stage(),i=stages.indexOf(a),next=stages[Math.min(i+1,stages.length-1)];
+  let pct=i===stages.length-1?100:(s.xp-a.xp)/(next.xp-a.xp)*100;
+  let t=s.daily[today()]||0;
+
+  $('#level').textContent='Nível '+(i+1)+' • '+a.title;
+  $('#pet').textContent=s.petDead?'💀':a.pet;
+  $('#bigpet').textContent=s.petDead?'💀':a.pet;
+  $('#bigpet').classList.toggle('dead',s.petDead);
+  $('#petname').textContent=s.petDead?a.name+' • caiu em batalha':a.name;
+  $('#unlock').innerHTML=s.petDead?'Estude hoje para fazer nascer um novo companheiro. 🌱':'<b>'+a.title+'</b><br>'+a.next;
+
+  $('#xp').textContent=s.xp;
+  $('#streak').textContent=streak;
+  $('#hoursTotal').textContent=(Math.round(s.hours*100)/100)+'h';
+  $('#xpfill').style.width=Math.max(0,Math.min(100,pct))+'%';
+  $('#xpText').textContent=i===stages.length-1?s.xp+' XP • evolução máxima':s.xp+' XP • '+(next.xp-s.xp)+' XP para '+next.name;
+
+  $('#todayHours').textContent=(Math.round(t*100)/100)+'h / 4h';
+  $('#goalfill').style.width=Math.min(100,t/4*100)+'%';
+
+  $('#mood').textContent=s.petDead?'💀 Seu companheiro precisa de um novo começo':t>=4?a.pet+' Radiante! Meta completa ✨':t>=2?a.pet+' Está animada! 🌸':t>0?a.pet+' Feliz por você ter começado 💗':a.pet+' Esperando o primeiro estudo';
+
+  const dn=$('#deathnote');
+  if(s.petDead){
+    dn.style.display='block';
+    dn.textContent='💀 Um dia terminou sem estudo'+(s.deathDate?' ('+s.deathDate+')':'')+'. Seu companheiro morreu, mas seu XP, tesouros e jornada continuam salvos.';
+  }else dn.style.display='none';
+
+  let box=$('#days');box.innerHTML='';
+  s.days.forEach((on,j)=>{
+    let b=document.createElement('button');
+    b.className='day'+(on?' done':'');
+    b.textContent=on?'🌟':j+1;
+    b.disabled=true;
+    b.title=on?'Dia estudado':'Ainda não conquistado';
+    box.appendChild(b)
+  });
+
+  [[3,'#b3'],[7,'#b7'],[14,'#b14'],[30,'#b30']].forEach(([x,id])=>$(id).classList.toggle('on',n>=x));
+  $('#start').textContent=s.starts[today()]?'💗 VOCÊ JÁ COMEÇOU HOJE':'✨ COMECEI A ESTUDAR +20 XP';
+  save();
+}
+
+$('#start').addEventListener('click',()=>{
+  let t=today();
+  if(s.starts[t]){
+    $('#message').textContent='Seu companheiro já comemorou seu começo de hoje! 🥰';
+    return
+  }
+  s.starts[t]=true;
+  s.xp+=20;
+  $('#message').textContent='AEEEE! Você começou! +20 XP ✨ Agora faça só o próximo bloco.';
+  save();render()
+});
+
+$('#addHours').addEventListener('click',()=>{
+  let h=Number($('#hours').value);
+  if(!Number.isFinite(h)||h<=0||h>12){
+    $('#message').textContent='Coloque entre 0,25 e 12 horas.';
+    return
+  }
+  let t=today();
+  const wasDead=s.petDead;
+
+  s.hours+=h;
+  s.daily[t]=(s.daily[t]||0)+h;
+  s.xp+=Math.round(h*20);
+
+  // Depois de uma morte, o próximo estudo faz nascer um novo companheiro.
+  if(wasDead){
+    s.petDead=false;
+    s.deathDate=null;
+    $('#message').textContent='🐣 Você voltou! Um novo companheiro nasceu para continuar a jornada com você. ✨';
+  }else{
+    $('#message').textContent=h>=4?'🏆 4 HORAS! Seu companheiro está radiante! ✨':'🌷 '+h+'h cultivadas. Seu mundo cresceu!';
+  }
+
+  save();render()
+});
+
+$('#reset').addEventListener('click',()=>{
+  if(confirm('Quer mesmo apagar o progresso desta campanha?')){
+    s={xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},campaignStart:today(),lastOpened:today(),petDead:false,deathDate:null};
+    save();render()
+  }
+});
+
+render();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script></main></body></html>
