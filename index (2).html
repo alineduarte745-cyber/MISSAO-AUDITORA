@@ -1,0 +1,805 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ff8db3"><link rel="manifest" href="manifest.webmanifest"><title>Missão Auditora</title>
+<style>
+:root{--pink:#ff8db3;--purple:#a98bff;--yellow:#ffd86b;--green:#8ee6a2;--sky:#9bdcff;--ink:#40394a;--paper:#fffafc}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:var(--ink);background:
+radial-gradient(circle at 12% 6%,#ffddeb 0 8%,transparent 22%),
+radial-gradient(circle at 88% 7%,#dff4ff 0 10%,transparent 24%),
+linear-gradient(#fff3f8,#f4f7ff)}
+main{max-width:760px;margin:auto;padding:16px}
+.card{background:#fff;border:2px solid #f3dce7;border-radius:24px;padding:18px;margin-bottom:14px;box-shadow:0 8px 24px #bd8da51c}
+.top{background:linear-gradient(135deg,#ffd4e4,#e1dcff 55%,#d6f5ff);position:relative;overflow:hidden}
+.top:after{content:"☁️  ✨  ☁️";position:absolute;right:15px;top:12px;opacity:.7}
+h1,h2,p{margin-top:0}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;color:#8c6380}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.level{font-size:26px;font-weight:900}
+.pet{font-size:90px;filter:drop-shadow(0 7px 5px #b88ca733);transition:.3s}
+.xpbar,.goalbar{height:15px;background:#f1e8ef;border-radius:99px;overflow:hidden}
+.xpfill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));transition:.3s}
+.goalfill{height:100%;background:linear-gradient(90deg,var(--green),var(--yellow));transition:.3s}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+.stat{background:#fff;border-radius:17px;padding:11px;text-align:center;border:2px solid #eee}
+.stat b{font-size:21px;display:block}.muted{color:#877d89;font-size:13px}
+button,input{font:inherit}button{min-height:48px;border:0;border-radius:14px;padding:10px 14px;font-weight:900;color:var(--ink);background:#f3edf3;cursor:pointer}
+button.primary{width:100%;background:linear-gradient(90deg,#ff9bc0,#ffc17f);font-size:16px;box-shadow:0 6px 16px #ff8db32d}
+.controls{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}
+input{min-width:0;border:2px solid #eadde5;border-radius:14px;padding:12px;font-size:16px}
+
+.garden{
+background:
+radial-gradient(circle at 82% 15%,#ffe98a 0 7%,transparent 8%),
+radial-gradient(ellipse at 25% 20%,#fff 0 8%,transparent 9%),
+linear-gradient(#ccefff 0 52%,#d9f2c4 52% 78%,#bce29d 78%);
+border-radius:22px;padding:20px 10px 14px;text-align:center;min-height:315px;
+position:relative;overflow:hidden;border:2px solid #e7f1e0
+}
+.garden:before{content:"☁️        ☁️";position:absolute;top:12px;left:16px;right:16px;font-size:25px;opacity:.9}
+.scene{font-size:52px;line-height:1.45;word-spacing:7px;min-height:180px;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+.bigpet{font-size:145px;display:inline-block;filter:drop-shadow(0 12px 8px #9f78963a);animation:floaty 3s ease-in-out infinite}
+.bigpet.dead{filter:grayscale(1) opacity(.7);animation:none;transform:rotate(-8deg)}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.petname{font-size:30px;font-weight:950;position:relative;z-index:2;letter-spacing:.02em}
+.petstatus{margin-top:7px;font-weight:800;color:#6d6070;position:relative;z-index:2}
+.forestFriends{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:flex-end;
+  gap:12px;
+  min-height:78px;
+  position:relative;
+  z-index:2
+}
+.friend{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  font-weight:900;
+  font-size:12px;
+  color:#65586a
+}
+.friend .friendPet{
+  font-size:44px;
+  filter:drop-shadow(0 5px 4px #7a687a2b)
+}
+.nest{
+  font-size:42px;
+  opacity:.95
+}
+.deathnote{margin-top:10px;background:#fff0f0;color:#a94b4b;border-radius:14px;padding:10px;font-size:13px;font-weight:800}
+
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.day{border:2px solid #eee;background:#faf7fa}
+.day.done{background:linear-gradient(135deg,#a9edb6,#fff19a,#ffcbe0)}
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.badge{padding:10px 5px;text-align:center;border-radius:15px;background:#f8f2f6;opacity:.3;transition:.25s}
+.badge.on{opacity:1;background:linear-gradient(135deg,#fff2c7,#ffe0ef);transform:translateY(-2px);box-shadow:0 6px 14px #c9a96f22}
+.badge span{font-size:28px}
+.msg{font-weight:800;margin:12px 0 0}.danger{font-size:12px;color:#988;background:transparent}
+.journeyTotal{text-align:center;color:#9b8f98;font-size:13px;margin-top:15px}
+@media(min-width:560px){.days{grid-template-columns:repeat(10,1fr)}}
+@media(max-width:410px){.badges{grid-template-columns:repeat(2,1fr)}.bigpet{font-size:122px}.scene{font-size:44px}}
+</style>
+<style id="vivid-theme">
+:root{
+  --pink:#ff3f8e;
+  --pink2:#ff79b7;
+  --purple:#8b5cf6;
+  --green:#39d98a;
+  --yellow:#ffd84d;
+  --blue:#63c7ff;
+}
+body{
+  background:
+    radial-gradient(circle at 15% 10%, #ffe46b 0, transparent 24%),
+    radial-gradient(circle at 90% 12%, #ff9acb 0, transparent 25%),
+    linear-gradient(145deg,#fff0f8 0%,#efe7ff 48%,#dcf8ff 100%) !important;
+}
+.wrap{filter:saturate(1.12)}
+.card{
+  background:rgba(255,255,255,.94) !important;
+  border:2px solid #ffffff !important;
+  box-shadow:0 14px 35px #7c4dff22,0 5px 15px #ff3f8e18 !important;
+}
+h1,h2{color:#5d35a8 !important}
+.muted{color:#74657d !important}
+.stat:nth-child(1){background:linear-gradient(135deg,#fff0a8,#ffd85b) !important}
+.stat:nth-child(2){background:linear-gradient(135deg,#ffd1e4,#ff83b9) !important}
+.stat:nth-child(3){background:linear-gradient(135deg,#dcd0ff,#9f83ff) !important}
+.stat b{color:#4c2d72 !important}
+button{
+  background:linear-gradient(135deg,#ff3f8e,#8b5cf6) !important;
+  box-shadow:0 7px 16px #8b5cf638 !important;
+  color:white !important;
+}
+button:hover{filter:brightness(1.08) saturate(1.15)}
+.progress,.bar{
+  background:#eadfff !important;
+}
+.progress>div,.bar>div{
+  background:linear-gradient(90deg,#ff4d9d,#ffcc45,#42d98c,#55bfff,#9b65ff) !important;
+}
+.garden{
+  background:
+    radial-gradient(circle at 82% 20%,#fff06a 0 34px,#ffd74a 35px 48px,transparent 49px),
+    radial-gradient(ellipse at 15% 78%,#42d96b 0 60px,transparent 61px),
+    radial-gradient(ellipse at 82% 82%,#2fcf72 0 75px,transparent 76px),
+    linear-gradient(#69d8ff 0 56%,#8bea7c 56% 72%,#43c967 72% 100%) !important;
+  border:3px solid #fff !important;
+  box-shadow:inset 0 -12px 30px #149c4930,0 12px 28px #6554c033 !important;
+}
+.garden:before{
+  content:"☁️   🌸      ☁️        🌼       🦋";
+  position:absolute;
+  left:4%;
+  right:4%;
+  top:13px;
+  font-size:27px;
+  letter-spacing:12px;
+  opacity:.98;
+  z-index:1;
+  pointer-events:none;
+}
+.garden:after{
+  content:"🌷  🌻  🍄  🌺  🌼  🍀  🌷  🍄  🌻";
+  position:absolute;
+  left:2%;
+  right:2%;
+  bottom:5px;
+  text-align:center;
+  font-size:25px;
+  letter-spacing:5px;
+  z-index:1;
+  pointer-events:none;
+}
+.bigpet{
+  filter:drop-shadow(0 10px 8px #4b276044) saturate(1.25) !important;
+}
+.friend .friendPet,.nest{
+  filter:drop-shadow(0 6px 4px #3b285438) saturate(1.25) !important;
+}
+.petname{color:#4f258d !important;text-shadow:0 2px #ffffffaa}
+.petstatus{color:#563d73 !important}
+.day{
+  border:2px solid #cbb9ff !important;
+  background:#f4efff !important;
+  color:#7251a8 !important;
+}
+.day.done{
+  background:linear-gradient(135deg,#ffe15d,#ff9ac5) !important;
+  border-color:#ffbf3f !important;
+}
+#shieldInfo{
+  background:linear-gradient(135deg,#e5ddff,#d7f6ff) !important;
+  color:#543c7c !important;
+  border:1px solid #bfa9ff !important;
+}
+.msg{
+  background:linear-gradient(135deg,#fff4a9,#ffd7eb) !important;
+  color:#68405e !important;
+}
+</style>
+
+
+<style id="forest-map-style">
+.mapBtn{
+  width:100%;
+  margin-top:14px;
+  background:linear-gradient(135deg,#49c879,#6c63ff) !important;
+}
+.mapPanel{
+  display:none;
+  margin-top:14px;
+  padding:14px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#fffdf6,#f4ecff);
+  border:2px solid #ffffff;
+  box-shadow:0 10px 24px #6247aa22;
+}
+.mapPanel.open{display:block}
+.mapGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.regionCard{
+  border:none;
+  border-radius:16px;
+  padding:13px 9px;
+  min-height:78px;
+  font-weight:950;
+  line-height:1.2;
+  cursor:pointer;
+  background:linear-gradient(135deg,#a8f0b8,#72d9ff) !important;
+  color:#45345c !important;
+  box-shadow:0 5px 12px #55417b22 !important;
+}
+.regionCard.locked{
+  cursor:not-allowed;
+  filter:grayscale(.8);
+  opacity:.55;
+  background:#e8e5ec !important;
+}
+.regionCard.current{
+  outline:3px solid #ff65aa;
+  box-shadow:0 0 0 5px #ffd9ea !important;
+}
+.regionSmall{
+  display:block;
+  margin-top:5px;
+  font-size:11px;
+  font-weight:800;
+}
+.regionVisit{
+  margin-top:10px;
+  font-size:12px;
+  font-weight:900;
+  color:#715c7d;
+  text-align:center;
+}
+@media(max-width:520px){
+  .mapGrid{grid-template-columns:1fr}
+}
+</style>
+
+</head><body><main>
+
+<section class="card top">
+<div class="eyebrow">🌈 MISSÃO AUDITORA • SUA COMPANHEIRA DE ESTUDOS</div>
+<div class="row">
+<div><div id="level" class="level">Nível 1 • Ovo da Aprovação</div><p id="xpText" class="muted">0 XP • seu bichinho está esperando você começar</p></div>
+<div style="text-align:center"><div id="pet" class="pet">🥚</div><div id="topPetName" style="font-weight:950;font-size:15px">Pingo</div></div>
+</div>
+<div class="xpbar"><div id="xpfill" class="xpfill" style="width:0"></div></div>
+</section>
+
+<div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+<div class="stat"><span class="muted">✨ XP</span><b id="xp">0</b></div>
+<div class="stat"><span class="muted">🔥 Sequência</span><b id="streak">0</b></div>
+<div class="stat"><span class="muted">🛡️ Escudos</span><b id="shields">1</b></div>
+</div>
+
+<section class="card">
+<h2>🌸 Missão de hoje</h2>
+<div class="row"><b id="todayHours" style="font-size:28px">0h / 4h</b><span id="mood">🥚 Esperando o primeiro estudo</span></div>
+<div class="goalbar" style="margin:10px 0 14px"><div id="goalfill" class="goalfill" style="width:0"></div></div>
+<button id="start" class="primary">✨ COMECEI A ESTUDAR +20 XP</button>
+<div class="controls"><input id="hours" type="number" min=".25" max="12" step=".25" value="1" aria-label="Horas estudadas"><button id="addHours">Registrar</button></div>
+<p id="message" class="msg">Seu único trabalho agora é começar. 💗</p>
+<div id="shieldInfo" style="margin-top:12px;padding:11px 13px;border-radius:14px;background:#f4f1ff;font-size:13px;font-weight:800;color:#665d78">
+🛡️ Escudo do Pingo protege sua ofensiva em um dia sem estudo.
+</div>
+</section>
+
+<section class="card">
+<h2>🐾 Seu companheiro</h2>
+<div class="garden">
+<div id="scene" class="scene"><span id="bigpet" class="bigpet">🥚</span></div>
+<div id="petname" class="petname">Ovo da Aprovação</div>
+<div id="unlock" class="petstatus">Estude para descobrir quem vai nascer!</div>
+<div id="regionInfo" class="petstatus" style="margin-top:8px"></div>
+<button id="mapToggle" class="mapBtn">🗺️ MAPA DA FLORESTA</button>
+<div id="mapPanel" class="mapPanel">
+  <div style="font-weight:950;font-size:18px;margin-bottom:10px">🗺️ Suas regiões</div>
+  <div id="mapGrid" class="mapGrid"></div>
+  <div id="regionVisit" class="regionVisit">Toque em uma região desbloqueada para visitar.</div>
+</div>
+<div style="font-size:12px;font-weight:800;color:#786b80;margin-top:5px">10 novos companheiros por temporada · 12 regiões ao longo da jornada</div>
+<div id="forestFriends" class="forestFriends"></div>
+<div id="deathnote" class="deathnote" style="display:none"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>🗺️ 30 dias de aventura</h2>
+<p class="muted">Cada dia marcado ajuda seu animal e o jardim a crescer.</p>
+<div id="days" class="days"></div>
+<div class="journeyTotal">📚 Total da jornada: <b id="hoursTotal">0h</b></div>
+</section>
+
+<section class="card">
+<h2>🏆 Tesouros desbloqueáveis</h2>
+<div class="badges">
+<div id="b3" class="badge"><span>🌷</span><br><b>3 dias</b><br><small>Flor do começo</small></div>
+<div id="b7" class="badge"><span>🦋</span><br><b>7 dias</b><br><small>Borboleta da constância</small></div>
+<div id="b14" class="badge"><span>🌳</span><br><b>14 dias</b><br><small>Árvore da disciplina</small></div>
+<div id="b30" class="badge"><span>👑</span><br><b>30 dias</b><br><small>Coroa da aventura</small></div>
+</div>
+</section>
+
+<section class="card" style="text-align:center">
+<b>“Eu não preciso de vontade. Eu só preciso começar.”</b><br>
+<button id="reset" class="danger">Reiniciar campanha</button>
+</section>
+
+<script>
+const KEY='missao-auditora-pets-v3', oldKeys=['missao-auditora-pets-v2','missao-auditora-v1'];
+
+function localDate(d=new Date()){
+  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function dateObj(ds){
+  const [y,m,d]=ds.split('-').map(Number);
+  return new Date(y,m-1,d,12,0,0);
+}
+function previousDay(ds){
+  const d=dateObj(ds); d.setDate(d.getDate()-1); return localDate(d);
+}
+
+let s={
+  xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},
+  campaignStart:localDate(),lastOpened:localDate(),petDead:false,deathDate:null,
+  shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null
+};
+
+try{
+  let x=JSON.parse(localStorage.getItem(KEY));
+  if(!x){
+    for(const k of oldKeys){
+      let o=JSON.parse(localStorage.getItem(k));
+      if(o){x={...s,...o,campaignStart:localDate(),lastOpened:localDate(),petDead:false,deathDate:null};break}
+    }
+  }
+  if(x)s={...s,...x};
+if(typeof s.shields!=='number')s.shields=1;
+if(typeof s.lastShieldAward!=='number')s.lastShieldAward=0;
+if(!s.protectedDays)s.protectedDays={};
+if(!('visitedRegion' in s))s.visitedRegion=null;
+}catch(e){}
+
+while(s.days.length<30)s.days.push(false);
+s.days=s.days.slice(0,30);
+
+const stages=[
+  {xp:0,pet:'🥚',name:'Pingo',title:'Ovo da Aprovação',region:'🌱 Berçário',season:0,next:'🐣 Pipoca está esperando para nascer...'},
+  {xp:300,pet:'🐣',name:'Pipoca',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Luna 🐰 espera por você.'},
+  {xp:600,pet:'🐰',name:'Luna',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Amora 🦊 espera por você.'},
+  {xp:900,pet:'🦊',name:'Amora',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Mochi 🐼 espera por você.'},
+  {xp:1200,pet:'🐼',name:'Mochi',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Atena 🦁 espera por você.'},
+  {xp:1500,pet:'🦁',name:'Atena',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Kiko 🐨 espera por você.'},
+  {xp:1800,pet:'🐨',name:'Kiko',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Nina 🦦 espera por você.'},
+  {xp:2100,pet:'🦦',name:'Nina',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Aurora 🦌 espera por você.'},
+  {xp:2400,pet:'🦌',name:'Aurora',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Nala 🐯 espera por você.'},
+  {xp:2700,pet:'🐯',name:'Nala',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Bento 🦝 espera por você.'},
+  {xp:3000,pet:'🦝',name:'Bento',title:'Companheiro da Temporada 1',region:'🌷 Jardim da Partida',season:1,next:'🔒 Mel 🐶 espera por você.'},
+  {xp:3300,pet:'🐶',name:'Mel',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Tico 🐱 espera por você.'},
+  {xp:3600,pet:'🐱',name:'Tico',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Cacau 🐹 espera por você.'},
+  {xp:3900,pet:'🐹',name:'Cacau',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Fubá 🐿️ espera por você.'},
+  {xp:4200,pet:'🐿️',name:'Fubá',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Jujuba 🦔 espera por você.'},
+  {xp:4500,pet:'🦔',name:'Jujuba',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Zeca 🦥 espera por você.'},
+  {xp:4800,pet:'🦥',name:'Zeca',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Milo 🐒 espera por você.'},
+  {xp:5100,pet:'🐒',name:'Milo',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Pérola 🦧 espera por você.'},
+  {xp:5400,pet:'🦧',name:'Pérola',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Tango 🦬 espera por você.'},
+  {xp:5700,pet:'🦬',name:'Tango',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Kiwi 🦘 espera por você.'},
+  {xp:6000,pet:'🦘',name:'Kiwi',title:'Companheiro da Temporada 2',region:'🌳 Bosque Verde',season:2,next:'🔒 Lilo 🐸 espera por você.'},
+  {xp:6300,pet:'🐸',name:'Lilo',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Dora 🦆 espera por você.'},
+  {xp:6600,pet:'🦆',name:'Dora',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Neve 🦢 espera por você.'},
+  {xp:6900,pet:'🦢',name:'Neve',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Flora 🦩 espera por você.'},
+  {xp:7200,pet:'🦩',name:'Flora',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Pingo Azul 🐧 espera por você.'},
+  {xp:7500,pet:'🐧',name:'Pingo Azul',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Maré 🦭 espera por você.'},
+  {xp:7800,pet:'🦭',name:'Maré',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Bolinhas 🐬 espera por você.'},
+  {xp:8100,pet:'🐬',name:'Bolinhas',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Coral 🐳 espera por você.'},
+  {xp:8400,pet:'🐳',name:'Coral',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Tutu 🐙 espera por você.'},
+  {xp:8700,pet:'🐙',name:'Tutu',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Cris 🦀 espera por você.'},
+  {xp:9000,pet:'🦀',name:'Cris',title:'Companheiro da Temporada 3',region:'🌊 Lago Cristalino',season:3,next:'🔒 Jojo 🐞 espera por você.'},
+  {xp:9300,pet:'🐞',name:'Jojo',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Bibi 🐝 espera por você.'},
+  {xp:9600,pet:'🐝',name:'Bibi',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Lumi 🦋 espera por você.'},
+  {xp:9900,pet:'🦋',name:'Lumi',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Nico 🐛 espera por você.'},
+  {xp:10200,pet:'🐛',name:'Nico',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Poti 🪲 espera por você.'},
+  {xp:10500,pet:'🪲',name:'Poti',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Mimi 🦗 espera por você.'},
+  {xp:10800,pet:'🦗',name:'Mimi',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Lelé 🐌 espera por você.'},
+  {xp:11100,pet:'🐌',name:'Lelé',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Zuzu 🕷️ espera por você.'},
+  {xp:11400,pet:'🕷️',name:'Zuzu',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Fifi 🦎 espera por você.'},
+  {xp:11700,pet:'🦎',name:'Fifi',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Gigi 🐍 espera por você.'},
+  {xp:12000,pet:'🐍',name:'Gigi',title:'Companheiro da Temporada 4',region:'🍄 Floresta dos Cogumelos',season:4,next:'🔒 Sol 🐐 espera por você.'},
+  {xp:12300,pet:'🐐',name:'Sol',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Theo 🐏 espera por você.'},
+  {xp:12600,pet:'🐏',name:'Theo',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Gaia 🦙 espera por você.'},
+  {xp:12900,pet:'🦙',name:'Gaia',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Ravi 🐎 espera por você.'},
+  {xp:13200,pet:'🐎',name:'Ravi',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Sky 🦅 espera por você.'},
+  {xp:13500,pet:'🦅',name:'Sky',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Luke 🦉 espera por você.'},
+  {xp:13800,pet:'🦉',name:'Luke',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Yuki 🐺 espera por você.'},
+  {xp:14100,pet:'🐺',name:'Yuki',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Teca 🐻 espera por você.'},
+  {xp:14400,pet:'🐻',name:'Teca',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Ozzy 🐗 espera por você.'},
+  {xp:14700,pet:'🐗',name:'Ozzy',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Paco 🦫 espera por você.'},
+  {xp:15000,pet:'🦫',name:'Paco',title:'Companheiro da Temporada 5',region:'⛰️ Montanha Dourada',season:5,next:'🔒 Lua 🦇 espera por você.'},
+  {xp:15300,pet:'🦇',name:'Lua',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Nyx 🦉 espera por você.'},
+  {xp:15600,pet:'🦉',name:'Nyx',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Noah 🐈‍⬛ espera por você.'},
+  {xp:15900,pet:'🐈‍⬛',name:'Noah',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Onyx 🐺 espera por você.'},
+  {xp:16200,pet:'🐺',name:'Onyx',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Sombra 🦝 espera por você.'},
+  {xp:16500,pet:'🦝',name:'Sombra',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Estrela 🦨 espera por você.'},
+  {xp:16800,pet:'🦨',name:'Estrela',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Cosmo 🐀 espera por você.'},
+  {xp:17100,pet:'🐀',name:'Cosmo',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Nox 🦡 espera por você.'},
+  {xp:17400,pet:'🦡',name:'Nox',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Zion 🦊 espera por você.'},
+  {xp:17700,pet:'🦊',name:'Zion',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Vega 🦌 espera por você.'},
+  {xp:18000,pet:'🦌',name:'Vega',title:'Companheiro da Temporada 6',region:'🌙 Floresta Noturna',season:6,next:'🔒 Floco 🐧 espera por você.'},
+  {xp:18300,pet:'🐧',name:'Floco',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Polar 🐻‍❄️ espera por você.'},
+  {xp:18600,pet:'🐻‍❄️',name:'Polar',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Nuvem 🦭 espera por você.'},
+  {xp:18900,pet:'🦭',name:'Nuvem',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Alasca 🐋 espera por você.'},
+  {xp:19200,pet:'🐋',name:'Alasca',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Brisa 🦊 espera por você.'},
+  {xp:19500,pet:'🦊',name:'Brisa',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Cristal 🦌 espera por você.'},
+  {xp:19800,pet:'🦌',name:'Cristal',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Geada 🐺 espera por você.'},
+  {xp:20100,pet:'🐺',name:'Geada',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Inverno 🦉 espera por você.'},
+  {xp:20400,pet:'🦉',name:'Inverno',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Pluma 🐇 espera por você.'},
+  {xp:20700,pet:'🐇',name:'Pluma',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Ice 🦣 espera por você.'},
+  {xp:21000,pet:'🦣',name:'Ice',title:'Companheiro da Temporada 7',region:'❄️ Vale Gelado',season:7,next:'🔒 Rosa 🐇 espera por você.'},
+  {xp:21300,pet:'🐇',name:'Rosa',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Lola 🦋 espera por você.'},
+  {xp:21600,pet:'🦋',name:'Lola',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Bela 🐦 espera por você.'},
+  {xp:21900,pet:'🐦',name:'Bela',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Maya 🦜 espera por você.'},
+  {xp:22200,pet:'🦜',name:'Maya',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Jade 🦚 espera por você.'},
+  {xp:22500,pet:'🦚',name:'Jade',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Ivy 🦩 espera por você.'},
+  {xp:22800,pet:'🦩',name:'Ivy',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Malu 🐈 espera por você.'},
+  {xp:23100,pet:'🐈',name:'Malu',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Liz 🐕 espera por você.'},
+  {xp:23400,pet:'🐕',name:'Liz',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Dália 🐑 espera por você.'},
+  {xp:23700,pet:'🐑',name:'Dália',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Íris 🦄 espera por você.'},
+  {xp:24000,pet:'🦄',name:'Íris',title:'Companheiro da Temporada 8',region:'🌸 Bosque Rosa',season:8,next:'🔒 Solzinho 🐢 espera por você.'},
+  {xp:24300,pet:'🐢',name:'Solzinho',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Coco 🦎 espera por você.'},
+  {xp:24600,pet:'🦎',name:'Coco',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Mango 🦜 espera por você.'},
+  {xp:24900,pet:'🦜',name:'Mango',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Tropi 🐠 espera por você.'},
+  {xp:25200,pet:'🐠',name:'Tropi',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Nemo 🐡 espera por você.'},
+  {xp:25500,pet:'🐡',name:'Nemo',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Duna 🦀 espera por você.'},
+  {xp:25800,pet:'🦀',name:'Duna',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Kai 🦞 espera por você.'},
+  {xp:26100,pet:'🦞',name:'Kai',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Onda 🐬 espera por você.'},
+  {xp:26400,pet:'🐬',name:'Onda',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Sunny 🦈 espera por você.'},
+  {xp:26700,pet:'🦈',name:'Sunny',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Azul 🐊 espera por você.'},
+  {xp:27000,pet:'🐊',name:'Azul',title:'Companheiro da Temporada 9',region:'🏝️ Ilha Solar',season:9,next:'🔒 Fada 🦄 espera por você.'},
+  {xp:27300,pet:'🦄',name:'Fada',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Lumen 🧚 espera por você.'},
+  {xp:27600,pet:'🧚',name:'Lumen',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Faísca 🐲 espera por você.'},
+  {xp:27900,pet:'🐲',name:'Faísca',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Sonho 🦋 espera por você.'},
+  {xp:28200,pet:'🦋',name:'Sonho',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Aura 🦉 espera por você.'},
+  {xp:28500,pet:'🦉',name:'Aura',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Magia 🦊 espera por você.'},
+  {xp:28800,pet:'🦊',name:'Magia',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Elfo 🐇 espera por você.'},
+  {xp:29100,pet:'🐇',name:'Elfo',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Cometa 🦌 espera por você.'},
+  {xp:29400,pet:'🦌',name:'Cometa',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Prisma 🐈‍⬛ espera por você.'},
+  {xp:29700,pet:'🐈‍⬛',name:'Prisma',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Wish 🦢 espera por você.'},
+  {xp:30000,pet:'🦢',name:'Wish',title:'Companheiro da Temporada 10',region:'✨ Floresta Encantada',season:10,next:'🔒 Draco 🐲 espera por você.'},
+  {xp:30300,pet:'🐲',name:'Draco',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Fênix 🐉 espera por você.'},
+  {xp:30600,pet:'🐉',name:'Fênix',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Orion 🦄 espera por você.'},
+  {xp:30900,pet:'🦄',name:'Orion',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Atlas 🦁 espera por você.'},
+  {xp:31200,pet:'🦁',name:'Atlas',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Apolo 🐯 espera por você.'},
+  {xp:31500,pet:'🐯',name:'Apolo',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Hera 🦅 espera por você.'},
+  {xp:31800,pet:'🦅',name:'Hera',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Zeus 🐺 espera por você.'},
+  {xp:32100,pet:'🐺',name:'Zeus',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Freya 🦊 espera por você.'},
+  {xp:32400,pet:'🦊',name:'Freya',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Odin 🦉 espera por você.'},
+  {xp:32700,pet:'🦉',name:'Odin',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Merlin 🦚 espera por você.'},
+  {xp:33000,pet:'🦚',name:'Merlin',title:'Companheiro da Temporada 11',region:'🐲 Reino Místico',season:11,next:'🔒 Meta 🐣 espera por você.'},
+  {xp:33300,pet:'🐣',name:'Meta',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Fisco 🐰 espera por você.'},
+  {xp:33600,pet:'🐰',name:'Fisco',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Cifra 🦊 espera por você.'},
+  {xp:33900,pet:'🦊',name:'Cifra',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Lacre 🐼 espera por você.'},
+  {xp:34200,pet:'🐼',name:'Lacre',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Edital 🦁 espera por você.'},
+  {xp:34500,pet:'🦁',name:'Edital',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Gabarito 🐯 espera por você.'},
+  {xp:34800,pet:'🐯',name:'Gabarito',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Pódio 🦄 espera por você.'},
+  {xp:35100,pet:'🦄',name:'Pódio',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Vitória 🐲 espera por você.'},
+  {xp:35400,pet:'🐲',name:'Vitória',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Elite 🐉 espera por você.'},
+  {xp:35700,pet:'🐉',name:'Elite',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🔒 Coroa 👑 espera por você.'},
+  {xp:36000,pet:'👑',name:'Coroa',title:'Companheiro da Temporada 12',region:'👑 Reino da Auditora',season:12,next:'🏆 Coleção anual completa! A floresta lendária está cheia!'}
+];
+
+const $=q=>document.querySelector(q);
+const today=()=>localDate();
+
+function save(){localStorage.setItem(KEY,JSON.stringify(s))}
+function stage(){let z=stages[0];for(const a of stages)if(s.xp>=a.xp)z=a;return z}
+
+
+const pingoPhrases=[
+  'Pingo está quentinho e curioso. 🥚💗',
+  'Um bloco de cada vez. 🌱',
+  'Seu mundo cresce quando você aparece. 🌷',
+  'Começar pequeno ainda é começar. ✨',
+  'Hoje só precisa existir o primeiro passo. 🐾',
+  'Pingo acredita em constância, não em perfeição. 🛡️'
+];
+
+const petPhrases=[
+  'Seu guardião está feliz por ver você aqui. 💗',
+  'A floresta cresce com cada retorno. 🌳',
+  'Mais um dia construindo sua aprovação. ✨',
+  'Seu companheiro está de olho na missão de hoje. 👀',
+  'Pequenos blocos também viram grandes jornadas. 🌱'
+];
+
+function dynamicPhrase(a,t){
+  if(t>=4)return a.pet+' Radiante! Missão completa ✨';
+  if(t>=2)return a.pet+' Está animada! 🌸';
+  if(t>0)return a.pet+' Feliz porque você começou 💗';
+  const arr=a.name==='Pingo'?pingoPhrases:petPhrases;
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function resetCampaignBecauseMissed(ds){
+  const lifetimeHours=s.hours; // histórico de horas fica preservado
+  s.xp=0;
+  s.days=Array(30).fill(false);
+  s.starts={};
+  s.daily={};
+  s.campaignStart=today();
+  s.petDead=false;
+  s.deathDate=ds;
+  s.lastShieldAward=0;
+  s.protectedDays={};
+  s.hours=lifetimeHours;
+}
+
+function maybeAwardShield(streak){
+  // 1 novo escudo a cada bloco completo de 7 dias de sequência; máximo 2 guardados.
+  const milestone=Math.floor(streak/7);
+  if(milestone>s.lastShieldAward && s.shields<2){
+    s.shields+=1;
+    s.lastShieldAward=milestone;
+  }else if(milestone>s.lastShieldAward){
+    s.lastShieldAward=milestone;
+  }
+}
+
+function checkMissedDays(){
+  const now=today();
+  if(!s.lastOpened){s.lastOpened=now;save();return}
+  if(s.lastOpened===now)return;
+
+  let cursor=dateObj(s.lastOpened);
+  cursor.setDate(cursor.getDate()+1);
+  const end=dateObj(now);
+  const completed=[];
+
+  while(cursor<end){
+    completed.push(localDate(cursor));
+    cursor.setDate(cursor.getDate()+1);
+  }
+
+  const y=previousDay(now);
+  if(s.lastOpened===y && !completed.includes(y))completed.push(y);
+
+  for(const ds of completed){
+    if((s.daily[ds]||0)<=0 && !s.protectedDays[ds]){
+      if(s.shields>0){
+        s.shields-=1;
+        s.protectedDays[ds]=true;
+      }else{
+        resetCampaignBecauseMissed(ds);
+        break;
+      }
+    }
+  }
+
+  s.lastOpened=now;
+  save();
+}
+
+function consecutiveStudyDays(){
+  let streak=0;
+  let d=new Date();
+  const td=today();
+  if((s.daily[td]||0)<=0 && !s.protectedDays[td])d.setDate(d.getDate()-1);
+  while(true){
+    const ds=localDate(d);
+    if((s.daily[ds]||0)>0 || s.protectedDays[ds]){
+      streak++;
+      d.setDate(d.getDate()-1);
+    } else break;
+  }
+  return streak;
+}
+
+function autoMarkAdventure(){
+  if(!s.campaignStart)s.campaignStart=today();
+  const start=dateObj(s.campaignStart);
+  for(let j=0;j<30;j++){
+    const d=new Date(start); d.setDate(start.getDate()+j);
+    const ds=localDate(d);
+    s.days[j]=(s.daily[ds]||0)>0 || !!s.protectedDays[ds];
+  }
+}
+
+
+const regionNames=[
+  '🌷 Jardim da Partida',
+  '🌳 Bosque Verde',
+  '🌊 Lago Cristalino',
+  '🍄 Floresta dos Cogumelos',
+  '⛰️ Montanha Dourada',
+  '🌙 Floresta Noturna',
+  '❄️ Vale Gelado',
+  '🌸 Bosque Rosa',
+  '🏝️ Ilha Solar',
+  '✨ Floresta Encantada',
+  '🐲 Reino Místico',
+  '👑 Reino da Auditora'
+];
+
+function unlockedRegionCount(stageIndex){
+  if(stageIndex<=0)return 1;
+  return Math.min(12, Math.floor((stageIndex-1)/10)+1);
+}
+
+function currentProgressRegion(stageIndex){
+  if(stageIndex<=0)return 1;
+  return Math.min(12, Math.floor((stageIndex-1)/10)+1);
+}
+
+function regionResidents(regionNumber, stageIndex){
+  const unlocked=[];
+  for(let k=1;k<=stageIndex;k++){
+    if(stages[k] && stages[k].season===regionNumber)unlocked.push(stages[k]);
+  }
+  return unlocked;
+}
+
+function renderForestMap(stageIndex){
+  const grid=$('#mapGrid');
+  if(!grid)return;
+  const unlockedCount=unlockedRegionCount(stageIndex);
+  const progressRegion=currentProgressRegion(stageIndex);
+  grid.innerHTML='';
+
+  regionNames.forEach((name,idx)=>{
+    const num=idx+1;
+    const unlocked=num<=unlockedCount;
+    const b=document.createElement('button');
+    b.className='regionCard'+(unlocked?'':' locked')+(num===progressRegion?' current':'');
+    const residents=regionResidents(num,stageIndex).length;
+    b.innerHTML=(unlocked?'':'🔒 ') + name +
+      '<span class="regionSmall">'+(unlocked ? residents+'/10 companheiros encontrados' : 'Região bloqueada')+'</span>';
+    b.disabled=!unlocked;
+    if(unlocked){
+      b.onclick=()=>{
+        s.visitedRegion=num;
+        save();
+        render();
+        const panel=$('#mapPanel');
+        if(panel)panel.classList.add('open');
+      };
+    }
+    grid.appendChild(b);
+  });
+}
+
+function render(){
+  checkMissedDays();
+  autoMarkAdventure();
+
+  let n=s.days.filter(Boolean).length;
+  let streak=consecutiveStudyDays();
+  let a=stage(),i=stages.indexOf(a),next=stages[Math.min(i+1,stages.length-1)];
+  let pct=i===stages.length-1?100:(s.xp-a.xp)/(next.xp-a.xp)*100;
+  let t=s.daily[today()]||0;
+
+  $('#level').textContent='Nível '+(i+1)+' • '+a.title;
+  $('#pet').textContent=s.petDead?'💀':a.pet;
+  $('#topPetName').textContent=a.name;
+  $('#bigpet').textContent=s.petDead?'💀':a.pet;
+  $('#bigpet').classList.toggle('dead',s.petDead);
+  $('#petname').textContent=a.name;
+  $('.garden').dataset.season=a.season||0;
+  $('#unlock').innerHTML=s.petDead?'<b>'+a.title+'</b><br>💀 Caiu em batalha. Estude hoje para fazer nascer um novo companheiro. 🌱':'<b>'+a.title+'</b><br>✨ Desbloqueada no Nível '+(i+1)+'<br>'+a.next;
+  $('#regionInfo').innerHTML='🗺️ <b>'+regionNames[(s.visitedRegion || currentProgressRegion(i))-1]+'</b>' + (s.visitedRegion && s.visitedRegion!==currentProgressRegion(i) ? '<br><span style="font-size:12px">Você está visitando uma região antiga. Seu companheiro atual continua com você.</span>' : '');
+
+  maybeAwardShield(streak);
+  $('#xp').textContent=s.xp;
+  $('#streak').textContent=streak;
+  $('#shields').textContent=s.shields;
+  $('#hoursTotal').textContent=(Math.round(s.hours*100)/100)+'h';
+  $('#xpfill').style.width=Math.max(0,Math.min(100,pct))+'%';
+  $('#xpText').textContent=i===stages.length-1?s.xp+' XP • evolução máxima':s.xp+' XP • '+(next.xp-s.xp)+' XP para '+next.name;
+
+  $('#todayHours').textContent=(Math.round(t*100)/100)+'h / 4h';
+  $('#goalfill').style.width=Math.min(100,t/4*100)+'%';
+
+  $('#mood').textContent=dynamicPhrase(a,t);
+  $('#shieldInfo').textContent=s.shields>0
+    ? '🛡️ Você tem '+s.shields+' Escudo'+(s.shields>1?'s':'')+' do Pingo. Um dia zerado consumirá 1 automaticamente e preservará sua floresta.'
+    : '⚠️ Você está sem Escudo do Pingo. Se um dia terminar com 0 estudo, sua campanha e floresta serão reiniciadas.';
+
+  const maxRegion=unlockedRegionCount(i);
+  if(s.visitedRegion && s.visitedRegion>maxRegion)s.visitedRegion=null;
+  renderForestMap(i);
+
+  const forest=$('#forestFriends');
+  forest.innerHTML='';
+
+  // Pingo's egg becomes a little nest after it hatches.
+  if(i>=1 && ((s.visitedRegion || currentProgressRegion(i))===1)){
+    const nest=document.createElement('div');
+    nest.className='friend';
+    nest.innerHTML='<div class="nest">🪺</div><div>Pingo</div>';
+    forest.appendChild(nest);
+  }
+
+  // Show the residents of the region being visited.
+  const activeRegionNumber=s.visitedRegion || currentProgressRegion(i);
+  const currentRegion=regionNames[activeRegionNumber-1];
+  for(let k=1;k<=i;k++){
+    const f=stages[k];
+    if(!f || f.season!==activeRegionNumber)continue;
+    const el=document.createElement('div');
+    el.className='friend';
+    el.innerHTML='<div class="friendPet">'+f.pet+'</div><div>'+f.name+'</div>';
+    forest.appendChild(el);
+  }
+
+  const dn=$('#deathnote');
+  if(s.deathDate && s.xp===0){
+    dn.style.display='block';
+    dn.textContent='🌧️ Sua ofensiva foi quebrada em '+s.deathDate+' sem Escudo do Pingo. A floresta recomeçou, mas suas horas totais continuam guardadas.';
+  }else{
+    dn.style.display='none';
+  }
+
+  let box=$('#days');box.innerHTML='';
+  const startDate=dateObj(s.campaignStart);
+  s.days.forEach((on,j)=>{
+    let b=document.createElement('button');
+    const d=new Date(startDate); d.setDate(startDate.getDate()+j);
+    const ds=localDate(d);
+    const protectedDay=!!s.protectedDays[ds];
+    b.className='day'+(on?' done':'');
+    b.textContent=protectedDay?'🛡️':(on?'🌟':j+1);
+    b.disabled=true;
+    b.title=protectedDay?'Dia protegido pelo Escudo do Pingo':(on?'Dia estudado':'Ainda não conquistado');
+    box.appendChild(b)
+  });
+
+  [[3,'#b3'],[7,'#b7'],[14,'#b14'],[30,'#b30']].forEach(([x,id])=>$(id).classList.toggle('on',n>=x));
+  $('#start').textContent=s.starts[today()]?'💗 VOCÊ JÁ COMEÇOU HOJE':'✨ COMECEI A ESTUDAR +20 XP';
+  save();
+}
+
+$('#start').addEventListener('click',()=>{
+  let t=today();
+  if(s.starts[t]){
+    $('#message').textContent='Seu companheiro já comemorou seu começo de hoje! 🥰';
+    return
+  }
+  s.starts[t]=true;
+  s.xp+=20;
+  $('#message').textContent='AEEEE! Você começou! +20 XP ✨ Agora faça só o próximo bloco.';
+  save();render()
+});
+
+$('#addHours').addEventListener('click',()=>{
+  let h=Number($('#hours').value);
+  if(!Number.isFinite(h)||h<=0||h>12){
+    $('#message').textContent='Coloque entre 0,25 e 12 horas.';
+    return
+  }
+  let t=today();
+  const wasDead=s.petDead;
+
+  s.hours+=h;
+  s.daily[t]=(s.daily[t]||0)+h;
+  s.xp+=Math.round(h*20);
+
+  // Depois de uma morte, o próximo estudo faz nascer um novo companheiro.
+  if(wasDead){
+    s.petDead=false;
+    s.deathDate=null;
+    $('#message').textContent='🐣 Você voltou! Um novo companheiro nasceu para continuar a jornada com você. ✨';
+  }else{
+    $('#message').textContent=h>=4?'🏆 4 HORAS! Seu companheiro está radiante! ✨':'🌷 '+h+'h cultivadas. Seu mundo cresceu!';
+  }
+
+  save();render()
+});
+
+$('#reset').addEventListener('click',()=>{
+  if(confirm('Quer mesmo apagar o progresso desta campanha?')){
+    s={xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},campaignStart:today(),lastOpened:today(),petDead:false,deathDate:null,shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null};
+    save();render()
+  }
+});
+
+render();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+const mapToggle=$('#mapToggle');
+if(mapToggle){
+  mapToggle.onclick=()=>{
+    const panel=$('#mapPanel');
+    panel.classList.toggle('open');
+    mapToggle.textContent=panel.classList.contains('open')?'✖️ FECHAR MAPA':'🗺️ MAPA DA FLORESTA';
+  };
+}
+
+</script></main></body></html>
