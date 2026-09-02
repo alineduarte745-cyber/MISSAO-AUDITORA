@@ -414,6 +414,32 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 }
 </style>
 
+
+<style id="cloud-sync-style">
+.cloudSyncBox{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:-4px 0 14px;
+  padding:9px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.88);
+  border:2px solid #fff;
+  box-shadow:0 6px 16px #7050a018;
+  font-size:12px;
+  font-weight:850;
+}
+.cloudSyncBox button{
+  min-height:34px !important;
+  padding:6px 10px !important;
+  border-radius:11px !important;
+  font-size:12px !important;
+}
+.cloudSyncStatus{display:flex;align-items:center;gap:6px}
+</style>
+
 </head><body><main>
 
 <section class="card top">
@@ -424,6 +450,14 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 </div>
 <div class="xpbar"><div id="xpfill" class="xpfill" style="width:0"></div></div>
 </section>
+
+<div id="cloudSyncBox" class="cloudSyncBox">
+  <span id="cloudStatus" class="cloudSyncStatus">☁️ Progresso salvo neste aparelho</span>
+  <span>
+    <button id="cloudLogin" type="button">Entrar com Google</button>
+    <button id="cloudLogout" type="button" style="display:none">Sair</button>
+  </span>
+</div>
 
 <div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr))">
 <div class="stat"><span class="muted">✨ XP</span><b id="xp">0</b></div>
@@ -520,8 +554,14 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 <button id="reset" class="danger">Reiniciar campanha</button>
 </section>
 
+
+<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore-compat.js"></script>
+
 <script>
 const KEY='missao-auditora-pets-v3', oldKeys=['missao-auditora-pets-v2','missao-auditora-v1'];
+const SYNC_META_KEY='missao-auditora-sync-meta-v1';
 
 function localDate(d=new Date()){
   const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
@@ -559,6 +599,181 @@ if(!Array.isArray(s.unlockedAchievements))s.unlockedAchievements=[];
 
 while(s.days.length<30)s.days.push(false);
 s.days=s.days.slice(0,30);
+
+
+// ☁️ Sincronização em nuvem — mantém o localStorage como cópia local.
+const firebaseConfig = {
+  apiKey: "AIzaSyAVtp007TZ7-wNj_qfWDLHMHh1dN8-yTG8",
+  authDomain: "missao-auditora.firebaseapp.com",
+  projectId: "missao-auditora",
+  storageBucket: "missao-auditora.firebasestorage.app",
+  messagingSenderId: "438619651992",
+  appId: "1:438619651992:web:43875e106722ef827fb5ed",
+  measurementId: "G-DHXM8L0P57"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+const googleProvider=new firebase.auth.GoogleAuthProvider();
+
+let cloudUser=null;
+let cloudSyncReady=false;
+let cloudApplying=false;
+let cloudTimer=null;
+let cloudUnsubscribe=null;
+let localSyncUpdatedAt=0;
+
+try{
+  const meta=JSON.parse(localStorage.getItem(SYNC_META_KEY)||'{}');
+  localSyncUpdatedAt=Number(meta.updatedAtMs)||0;
+}catch(e){}
+
+function setCloudStatus(text){
+  const el=document.getElementById('cloudStatus');
+  if(el)el.textContent=text;
+}
+
+function normalizeState(x){
+  const base={
+    xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},
+    campaignStart:localDate(),lastOpened:localDate(),petDead:false,deathDate:null,
+    shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[]
+  };
+  const out={...base,...(x||{})};
+  if(typeof out.shields!=='number')out.shields=1;
+  if(typeof out.lastShieldAward!=='number')out.lastShieldAward=0;
+  if(!out.protectedDays)out.protectedDays={};
+  if(!('visitedRegion' in out))out.visitedRegion=null;
+  if(!Array.isArray(out.unlockedAchievements))out.unlockedAchievements=[];
+  if(!Array.isArray(out.days))out.days=[];
+  while(out.days.length<30)out.days.push(false);
+  out.days=out.days.slice(0,30);
+  return out;
+}
+
+function cloudDocRef(){
+  return cloudUser ? db.collection('users').doc(cloudUser.uid).collection('progress').doc('main') : null;
+}
+
+async function writeCloudNow(){
+  if(!cloudSyncReady || !cloudUser || cloudApplying || !navigator.onLine)return;
+  const ref=cloudDocRef();
+  if(!ref)return;
+  const stamp=localSyncUpdatedAt || Date.now();
+  try{
+    setCloudStatus('☁️ Salvando na nuvem...');
+    await ref.set({
+      state:s,
+      updatedAtMs:stamp,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
+    setCloudStatus('☁️ Progresso salvo na nuvem ✓');
+  }catch(err){
+    console.error('Falha ao salvar na nuvem:',err);
+    setCloudStatus('☁️ Sem conexão — progresso salvo no aparelho');
+  }
+}
+
+function scheduleCloudSave(){
+  if(!cloudSyncReady || !cloudUser || cloudApplying)return;
+  clearTimeout(cloudTimer);
+  cloudTimer=setTimeout(writeCloudNow,700);
+}
+
+async function reconcileCloud(){
+  if(!cloudUser)return;
+  cloudSyncReady=false;
+  setCloudStatus('☁️ Sincronizando progresso...');
+  const ref=cloudDocRef();
+
+  try{
+    const snap=await ref.get();
+    if(!snap.exists){
+      if(!localSyncUpdatedAt)localSyncUpdatedAt=Date.now();
+      localStorage.setItem(SYNC_META_KEY,JSON.stringify({updatedAtMs:localSyncUpdatedAt}));
+      cloudSyncReady=true;
+      await writeCloudNow();
+    }else{
+      const remote=snap.data()||{};
+      const remoteState=normalizeState(remote.state);
+      const remoteStamp=Number(remote.updatedAtMs)||0;
+      const localHours=Number(s.hours)||0;
+      const remoteHours=Number(remoteState.hours)||0;
+
+      // Horas totais nunca diminuem no app: são um bom critério para proteger
+      // progresso antigo ainda não sincronizado na primeira migração.
+      const preferLocal =
+        localHours>remoteHours ||
+        (localHours===remoteHours && localSyncUpdatedAt>remoteStamp);
+
+      if(preferLocal){
+        if(!localSyncUpdatedAt)localSyncUpdatedAt=Date.now();
+        cloudSyncReady=true;
+        await writeCloudNow();
+      }else{
+        cloudApplying=true;
+        s=remoteState;
+        localSyncUpdatedAt=remoteStamp || Date.now();
+        localStorage.setItem(KEY,JSON.stringify(s));
+        localStorage.setItem(SYNC_META_KEY,JSON.stringify({updatedAtMs:localSyncUpdatedAt}));
+        cloudApplying=false;
+        cloudSyncReady=true;
+        render();
+        setCloudStatus('☁️ Progresso carregado da nuvem ✓');
+      }
+    }
+
+    if(cloudUnsubscribe)cloudUnsubscribe();
+    cloudUnsubscribe=ref.onSnapshot(doc=>{
+      if(!doc.exists || cloudApplying)return;
+      const data=doc.data()||{};
+      const remoteStamp=Number(data.updatedAtMs)||0;
+      if(remoteStamp<=localSyncUpdatedAt)return;
+      cloudApplying=true;
+      s=normalizeState(data.state);
+      localSyncUpdatedAt=remoteStamp;
+      localStorage.setItem(KEY,JSON.stringify(s));
+      localStorage.setItem(SYNC_META_KEY,JSON.stringify({updatedAtMs:localSyncUpdatedAt}));
+      cloudApplying=false;
+      render();
+      setCloudStatus('☁️ Progresso atualizado de outro dispositivo ✓');
+    },err=>console.error('Falha ao acompanhar nuvem:',err));
+  }catch(err){
+    console.error('Falha na sincronização inicial:',err);
+    cloudSyncReady=true;
+    setCloudStatus('☁️ Offline — progresso protegido neste aparelho');
+  }
+}
+
+auth.onAuthStateChanged(async user=>{
+  cloudUser=user||null;
+  const login=document.getElementById('cloudLogin');
+  const logout=document.getElementById('cloudLogout');
+
+  if(user){
+    if(login)login.style.display='none';
+    if(logout)logout.style.display='';
+    await reconcileCloud();
+  }else{
+    cloudSyncReady=false;
+    if(cloudUnsubscribe){cloudUnsubscribe();cloudUnsubscribe=null;}
+    if(login)login.style.display='';
+    if(logout)logout.style.display='none';
+    setCloudStatus('☁️ Entre com Google para sincronizar entre dispositivos');
+  }
+});
+
+window.addEventListener('online',()=>{
+  if(cloudUser){
+    setCloudStatus('☁️ Conexão voltou — sincronizando...');
+    scheduleCloudSave();
+  }
+});
+window.addEventListener('offline',()=>{
+  setCloudStatus('☁️ Sem internet — progresso salvo neste aparelho');
+});
+
 
 const stages=[
   {xp:0,pet:'🥚',name:'Pingo',title:'Ovo da Aprovação',region:'🌱 Berçário',season:0,next:'🐣 Pipoca está esperando para nascer...'},
@@ -687,7 +902,14 @@ const stages=[
 const $=q=>document.querySelector(q);
 const today=()=>localDate();
 
-function save(){localStorage.setItem(KEY,JSON.stringify(s))}
+function save(touch=true){
+  if(touch && !cloudApplying){
+    localSyncUpdatedAt=Date.now();
+    localStorage.setItem(SYNC_META_KEY,JSON.stringify({updatedAtMs:localSyncUpdatedAt}));
+  }
+  localStorage.setItem(KEY,JSON.stringify(s));
+  scheduleCloudSave();
+}
 function stage(){let z=stages[0];for(const a of stages)if(s.xp>=a.xp)z=a;return z}
 
 
@@ -1011,7 +1233,7 @@ function render(){
 
   [[3,'#b3'],[7,'#b7'],[14,'#b14'],[30,'#b30']].forEach(([x,id])=>$(id).classList.toggle('on',n>=x));
   $('#start').textContent=s.starts[today()]?'💗 VOCÊ JÁ COMEÇOU HOJE':'✨ COMECEI A ESTUDAR +20 XP';
-  save();
+  save(false);
 }
 
 $('#start').addEventListener('click',()=>{
@@ -1057,6 +1279,27 @@ $('#reset').addEventListener('click',()=>{
     save();render()
   }
 });
+
+
+const cloudLogin=document.getElementById('cloudLogin');
+if(cloudLogin)cloudLogin.onclick=async()=>{
+  try{
+    await auth.signInWithPopup(googleProvider);
+  }catch(err){
+    console.error('Falha no login por popup:',err);
+    if(err && (err.code==='auth/popup-blocked' || err.code==='auth/operation-not-supported-in-this-environment')){
+      await auth.signInWithRedirect(googleProvider);
+    }else{
+      setCloudStatus('☁️ Não foi possível entrar. Tente novamente.');
+    }
+  }
+};
+
+const cloudLogout=document.getElementById('cloudLogout');
+if(cloudLogout)cloudLogout.onclick=async()=>{
+  await writeCloudNow();
+  await auth.signOut();
+};
 
 render();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
