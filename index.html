@@ -625,6 +625,52 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
   100%{opacity:0;transform:scale(1.35)}
 }
 
+/* Artes dos companheiros: SVG gerado pelo próprio app */
+.petArt{
+  display:block;
+  margin:auto;
+  overflow:visible;
+  user-select:none;
+  pointer-events:none;
+  filter:drop-shadow(0 10px 8px #4b276044) saturate(1.12);
+}
+.petArt.big{width:178px;height:178px;max-width:44vw}
+.petArt.small{width:90px;height:90px;max-width:23vw}
+.friendPetArt{
+  width:56px;
+  height:56px;
+  display:block;
+  margin:auto;
+  overflow:visible;
+  filter:drop-shadow(0 6px 4px #3b285438) saturate(1.08);
+}
+.petArt .pet-tail,.friendPetArt .pet-tail{
+  transform-box:fill-box;
+  transform-origin:15% 65%;
+  animation:petTailSway 2.2s ease-in-out infinite;
+}
+.petArt .pet-ear,.friendPetArt .pet-ear{
+  transform-box:fill-box;
+  transform-origin:center bottom;
+  animation:petEarTwitch 4.8s ease-in-out infinite;
+}
+.petArt .pet-wing,.friendPetArt .pet-wing{
+  transform-box:fill-box;
+  transform-origin:center center;
+  animation:petWingFloat 2.6s ease-in-out infinite;
+}
+.petArt .pet-eye-open{
+  transform-box:fill-box;
+  transform-origin:center center;
+  animation:petBlink 5.4s ease-in-out infinite;
+}
+.petArt .pet-sparkle{animation:petSparkle 1.6s ease-in-out infinite alternate}
+@keyframes petTailSway{50%{transform:rotate(9deg)}}
+@keyframes petEarTwitch{0%,87%,100%{transform:rotate(0)}90%{transform:rotate(-7deg)}94%{transform:rotate(5deg)}}
+@keyframes petWingFloat{50%{transform:rotate(5deg) translateY(-2px)}}
+@keyframes petBlink{0%,43%,47%,100%{transform:scaleY(1)}45%,46%{transform:scaleY(.08)}}
+@keyframes petSparkle{to{opacity:.35;transform:scale(.8)}}
+
 /* O próprio jardim também respira um pouquinho */
 .garden:before{animation:gardenSkyFloat 8s ease-in-out infinite}
 .garden:after{animation:gardenFlowersSway 5.5s ease-in-out infinite}
@@ -1116,6 +1162,221 @@ function save(touch=true){
 function stage(){let z=stages[0];for(const a of stages)if(s.xp>=a.xp)z=a;return z}
 
 
+// ===== 120 COMPANHEIROS • ARTE GERADA POR CÓDIGO =====
+// Não existem 120 imagens escondidas. O próprio app desenha um mascote SVG
+// determinístico para cada estágio. O mesmo companheiro sempre nasce igual,
+// mas sua aparência só é renderizada quando aquele estágio foi desbloqueado.
+
+const PET_PALETTES=[
+  ['#ff8fbd','#ffe0ee','#7b3f98'],['#8fd9ff','#dff5ff','#315c92'],
+  ['#ffd66b','#fff0b2','#9b5c20'],['#91e6aa','#ddf8d8','#347553'],
+  ['#bca5ff','#eee7ff','#6444a8'],['#ffab83','#ffe2cf','#9a4f35'],
+  ['#7ce0d2','#d9fbf5','#347b76'],['#f4a5d4','#ffe4f5','#8e4677'],
+  ['#a6d76f','#e6f6c8','#557b2b'],['#9bb7ff','#e6edff','#4c5c9d'],
+  ['#f5b55f','#fff0cf','#8e5a23'],['#cb9bf0','#f1ddff','#68408c']
+];
+
+function petHash(str){
+  let h=2166136261;
+  for(let i=0;i<str.length;i++){
+    h^=str.charCodeAt(i);
+    h=Math.imul(h,16777619);
+  }
+  return h>>>0;
+}
+
+function petRng(seed){
+  let a=seed>>>0;
+  return function(){
+    a|=0;a=a+0x6D2B79F5|0;
+    let t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return ((t^t>>>14)>>>0)/4294967296;
+  };
+}
+
+function petPick(rng,arr){return arr[Math.floor(rng()*arr.length)]}
+
+function petProfile(emoji){
+  if(emoji==='🥚')return 'egg';
+  if(['🐣','🐦','🦜','🦚','🦩','🦆','🦢','🐧','🦅','🦉'].includes(emoji))return 'bird';
+  if(['🐬','🐳','🐋','🦭','🐠','🐡','🦈','🦞'].includes(emoji))return 'aquatic';
+  if(emoji==='🐙')return 'octopus';
+  if(emoji==='🦀')return 'crab';
+  if(['🐞','🐝','🦋','🐛','🪲','🦗','🕷️'].includes(emoji))return 'bug';
+  if(emoji==='🐌')return 'snail';
+  if(emoji==='🐸')return 'frog';
+  if(['🐍','🦎','🐊'].includes(emoji))return 'reptile';
+  if(emoji==='🐢')return 'turtle';
+  if(['🐲','🐉'].includes(emoji))return 'dragon';
+  if(emoji==='🧚')return 'fairy';
+  if(emoji==='🦄')return 'unicorn';
+  if(emoji==='👑')return 'crown';
+  if(emoji==='🦇')return 'bat';
+  if(['🐰','🐇','🦘'].includes(emoji))return 'longEar';
+  if(['🐱','🐈','🐈‍⬛','🐯','🦁'].includes(emoji))return 'cat';
+  if(['🦊','🐺','🐶','🐕'].includes(emoji))return 'canine';
+  if(['🐼','🐻','🐻‍❄️','🐨'].includes(emoji))return 'bear';
+  if(['🦌','🐐','🐏','🦙','🐎','🦬'].includes(emoji))return 'hoof';
+  if(['🐹','🐿️','🦔','🐀','🦫'].includes(emoji))return 'rodent';
+  if(['🐒','🦧'].includes(emoji))return 'primate';
+  return 'round';
+}
+
+function petMoodForToday(){
+  const h=Number((s.daily&&s.daily[today()])||0);
+  if(h>=4)return 'radiant';
+  if(h>0)return 'happy';
+  return 'normal';
+}
+
+function petFace(mood,ink='#4b315d',cx=110,cy=96){
+  const lx=cx-26,rx=cx+26;
+  const eyeY=cy;
+  const blushY=cy+15;
+  const mouthY=cy+20;
+  const blush=`<ellipse cx="${lx-6}" cy="${blushY}" rx="12" ry="6" fill="#ff91b8" opacity=".55"/><ellipse cx="${rx+6}" cy="${blushY}" rx="12" ry="6" fill="#ff91b8" opacity=".55"/>`;
+  if(mood==='sleep')return `
+    <path d="M${lx-10} ${eyeY} Q${lx} ${eyeY+8} ${lx+10} ${eyeY}" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/>
+    <path d="M${rx-10} ${eyeY} Q${rx} ${eyeY+8} ${rx+10} ${eyeY}" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/>
+    <path d="M${cx-9} ${mouthY} Q${cx} ${mouthY+5} ${cx+9} ${mouthY}" fill="none" stroke="${ink}" stroke-width="4" stroke-linecap="round"/>
+    <text x="${cx+41}" y="${cy-19}" font-size="18" font-weight="900" fill="${ink}" opacity=".65">z</text>
+    <text x="${cx+55}" y="${cy-34}" font-size="14" font-weight="900" fill="${ink}" opacity=".45">z</text>`;
+  if(mood==='happy')return `
+    <path d="M${lx-10} ${eyeY+1} Q${lx} ${eyeY-9} ${lx+10} ${eyeY+1}" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/>
+    <path d="M${rx-10} ${eyeY+1} Q${rx} ${eyeY-9} ${rx+10} ${eyeY+1}" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/>
+    ${blush}
+    <path d="M${cx-14} ${mouthY} Q${cx} ${mouthY+16} ${cx+14} ${mouthY} Q${cx} ${mouthY+25} ${cx-14} ${mouthY}Z" fill="#8b4368"/>
+    <ellipse cx="${cx}" cy="${mouthY+11}" rx="7" ry="3" fill="#ff8aaa"/>`;
+  if(mood==='radiant')return `
+    <g class="pet-eye-open"><path d="M${lx} ${eyeY-10} l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z" fill="${ink}"/><path d="M${rx} ${eyeY-10} l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z" fill="${ink}"/></g>
+    ${blush}
+    <path d="M${cx-16} ${mouthY} Q${cx} ${mouthY+22} ${cx+16} ${mouthY} Q${cx} ${mouthY+32} ${cx-16} ${mouthY}Z" fill="#7f3d65"/>
+    <ellipse cx="${cx}" cy="${mouthY+15}" rx="8" ry="3.5" fill="#ff8aaa"/>
+    <g class="pet-sparkle" fill="#fff6a6"><circle cx="${cx-49}" cy="${cy-22}" r="5"/><circle cx="${cx+48}" cy="${cy-24}" r="4"/></g>`;
+  return `
+    <g class="pet-eye-open" fill="${ink}"><ellipse cx="${lx}" cy="${eyeY}" rx="7" ry="9"/><ellipse cx="${rx}" cy="${eyeY}" rx="7" ry="9"/></g>
+    <circle cx="${lx-3}" cy="${eyeY-4}" r="2.3" fill="#fff"/><circle cx="${rx-3}" cy="${eyeY-4}" r="2.3" fill="#fff"/>
+    ${blush}
+    <path d="M${cx-8} ${mouthY} Q${cx} ${mouthY+6} ${cx+8} ${mouthY}" fill="none" stroke="${ink}" stroke-width="4" stroke-linecap="round"/>`;
+}
+
+function petAccessory(rng,accent){
+  const kind=Math.floor(rng()*6);
+  if(kind===0)return `<path d="M87 146 Q110 158 133 146 L128 164 Q110 172 92 164Z" fill="${accent}" opacity=".9"/><circle cx="110" cy="157" r="5" fill="#fff4a8"/>`;
+  if(kind===1)return `<path d="M90 64 Q110 45 130 64 Q110 60 90 64Z" fill="${accent}"/><circle cx="110" cy="56" r="6" fill="#fff5a3"/>`;
+  if(kind===2)return `<path d="M79 133 Q95 122 110 136 Q95 149 79 133Z" fill="${accent}"/><path d="M141 133 Q125 122 110 136 Q125 149 141 133Z" fill="${accent}"/><circle cx="110" cy="136" r="6" fill="#fff"/>`;
+  if(kind===3)return `<path d="M151 115 q18 -12 28 2 q-15 16-28-2z" fill="${accent}" opacity=".9"/><path d="M157 114 q7-13 13-19" stroke="#47754e" stroke-width="4" stroke-linecap="round"/>`;
+  if(kind===4)return `<circle cx="67" cy="74" r="8" fill="${accent}"/><circle cx="67" cy="74" r="3" fill="#fff4a8"/>`;
+  return '';
+}
+
+function petPattern(rng,secondary,accent){
+  const kind=Math.floor(rng()*5);
+  if(kind===0)return `<circle cx="85" cy="152" r="9" fill="${secondary}" opacity=".75"/><circle cx="128" cy="161" r="6" fill="${secondary}" opacity=".7"/>`;
+  if(kind===1)return `<path d="M110 145 c-11-14-29 2-12 16 l12 10 12-10 c17-14-1-30-12-16z" fill="${accent}" opacity=".7"/>`;
+  if(kind===2)return `<path d="M74 149 Q110 126 146 149" fill="none" stroke="${secondary}" stroke-width="8" stroke-linecap="round" opacity=".65"/>`;
+  if(kind===3)return `<circle cx="110" cy="154" r="12" fill="${secondary}" opacity=".62"/>`;
+  return '';
+}
+
+function petEars(profile,primary,secondary,accent){
+  if(profile==='longEar')return `<g class="pet-ear"><ellipse cx="78" cy="49" rx="17" ry="42" fill="${primary}" transform="rotate(-10 78 49)"/><ellipse cx="79" cy="50" rx="8" ry="28" fill="${secondary}" transform="rotate(-10 79 50)"/></g><g class="pet-ear"><ellipse cx="142" cy="49" rx="17" ry="42" fill="${primary}" transform="rotate(10 142 49)"/><ellipse cx="141" cy="50" rx="8" ry="28" fill="${secondary}" transform="rotate(10 141 50)"/></g>`;
+  if(profile==='cat'||profile==='canine')return `<g class="pet-ear"><path d="M62 74 L76 29 L99 67Z" fill="${primary}"/><path d="M71 62 L78 42 L89 64Z" fill="${secondary}"/></g><g class="pet-ear"><path d="M121 67 L145 29 L158 76Z" fill="${primary}"/><path d="M132 64 L144 42 L150 63Z" fill="${secondary}"/></g>`;
+  if(profile==='bear'||profile==='rodent'||profile==='primate'||profile==='round')return `<g class="pet-ear"><circle cx="73" cy="59" r="20" fill="${primary}"/><circle cx="73" cy="59" r="10" fill="${secondary}"/></g><g class="pet-ear"><circle cx="147" cy="59" r="20" fill="${primary}"/><circle cx="147" cy="59" r="10" fill="${secondary}"/></g>`;
+  if(profile==='hoof')return `<g class="pet-ear"><path d="M68 68 Q49 45 60 35 Q82 42 88 66Z" fill="${primary}"/></g><g class="pet-ear"><path d="M132 66 Q138 42 160 35 Q171 45 152 68Z" fill="${primary}"/></g><path d="M83 48 Q72 31 82 20" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/><path d="M137 48 Q148 31 138 20" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>`;
+  if(profile==='unicorn')return `<g class="pet-ear"><path d="M62 70 L76 36 L96 68Z" fill="${primary}"/></g><g class="pet-ear"><path d="M124 68 L144 36 L158 70Z" fill="${primary}"/></g><path d="M110 52 L119 13 L128 55Z" fill="#fff1a8" stroke="${accent}" stroke-width="3"/>`;
+  return '';
+}
+
+function petTail(profile,primary,secondary){
+  if(['cat','canine','rodent','longEar','hoof','round','bear'].includes(profile))return `<path class="pet-tail" d="M154 145 Q199 124 183 90 Q172 120 144 123" fill="none" stroke="${primary}" stroke-width="18" stroke-linecap="round"/>`;
+  if(profile==='reptile'||profile==='dragon')return `<path class="pet-tail" d="M153 148 Q201 151 191 112 Q176 137 147 126" fill="none" stroke="${primary}" stroke-width="18" stroke-linecap="round"/>`;
+  return '';
+}
+
+function buildPetMarkup(stageIndex,companion,mood){
+  const seed=petHash(stageIndex+'|'+companion.name+'|'+companion.pet);
+  const rng=petRng(seed);
+  const [primary,secondary,accent]=PET_PALETTES[seed%PET_PALETTES.length];
+  const profile=stageIndex===0?'egg':petProfile(companion.pet);
+  const ink='#4b315d';
+  const shadow='<ellipse cx="110" cy="194" rx="57" ry="11" fill="#5b4868" opacity=".15"/>';
+
+  if(profile==='egg')return `${shadow}<path d="M110 26 C75 26 56 85 62 132 C67 174 86 190 110 190 C134 190 153 174 158 132 C164 85 145 26 110 26Z" fill="${primary}" stroke="#fff" stroke-width="5"/><path d="M76 113 Q110 95 145 112" fill="none" stroke="${secondary}" stroke-width="12" stroke-linecap="round" opacity=".7"/>${petFace(mood,ink)}${petAccessory(rng,accent)}`;
+
+  if(profile==='bird')return `${shadow}<ellipse cx="110" cy="144" rx="54" ry="48" fill="${primary}"/><g class="pet-wing"><ellipse cx="69" cy="145" rx="24" ry="38" fill="${secondary}" transform="rotate(18 69 145)"/></g><g class="pet-wing"><ellipse cx="151" cy="145" rx="24" ry="38" fill="${secondary}" transform="rotate(-18 151 145)"/></g><circle cx="110" cy="86" r="48" fill="${primary}"/><path d="M102 106 L110 119 L119 106Z" fill="#f2a53a"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}${petAccessory(rng,accent)}`;
+
+  if(profile==='aquatic')return `${shadow}<path d="M43 130 Q54 89 114 83 Q164 78 176 112 L205 91 L198 132 L207 155 L176 143 Q153 174 103 171 Q54 168 43 130Z" fill="${primary}"/><ellipse class="pet-wing" cx="112" cy="151" rx="28" ry="12" fill="${secondary}" transform="rotate(-10 112 151)"/><circle cx="88" cy="116" r="45" fill="${primary}"/>${petFace(mood,ink,88,116)}${petAccessory(rng,accent)}`;
+
+  if(profile==='octopus')return `${shadow}<path d="M63 154 Q48 174 62 184 Q77 188 83 168 Q85 191 102 190 Q114 188 110 169 Q120 192 137 188 Q151 183 139 165 Q154 182 169 174 Q179 161 158 151Z" fill="${primary}"/><ellipse cx="110" cy="111" rx="61" ry="67" fill="${primary}"/><ellipse cx="110" cy="137" rx="39" ry="26" fill="${secondary}" opacity=".5"/>${petFace(mood,ink)}${petAccessory(rng,accent)}`;
+
+  if(profile==='crab')return `${shadow}<ellipse cx="110" cy="132" rx="55" ry="45" fill="${primary}"/><path d="M58 126 Q28 101 25 125 Q26 148 54 141" fill="${primary}"/><path d="M162 126 Q192 101 195 125 Q194 148 166 141" fill="${primary}"/><path d="M70 163 L50 184 M87 168 L76 191 M150 163 L170 184 M133 168 L144 191" stroke="${accent}" stroke-width="8" stroke-linecap="round"/>${petFace(mood,ink)}${petAccessory(rng,accent)}`;
+
+  if(profile==='bug')return `${shadow}<ellipse cx="110" cy="136" rx="48" ry="56" fill="${primary}"/><ellipse class="pet-wing" cx="75" cy="128" rx="30" ry="43" fill="${secondary}" opacity=".72" transform="rotate(18 75 128)"/><ellipse class="pet-wing" cx="145" cy="128" rx="30" ry="43" fill="${secondary}" opacity=".72" transform="rotate(-18 145 128)"/><circle cx="110" cy="82" r="40" fill="${primary}"/><path d="M93 50 Q80 28 68 31 M127 50 Q140 28 152 31" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}`;
+
+  if(profile==='snail')return `${shadow}<ellipse cx="112" cy="155" rx="65" ry="28" fill="${primary}"/><circle cx="87" cy="125" r="43" fill="${secondary}" stroke="${accent}" stroke-width="5"/><path d="M88 110 q20 15 0 30 q-17 11-25-4 q-8-16 11-26" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round"/><circle cx="151" cy="118" r="34" fill="${primary}"/><path d="M138 89 Q129 69 121 69 M163 88 Q173 69 181 70" fill="none" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>${petFace(mood,ink,151,118)}`;
+
+  if(profile==='frog')return `${shadow}<ellipse cx="110" cy="146" rx="59" ry="44" fill="${primary}"/><circle cx="80" cy="72" r="25" fill="${primary}"/><circle cx="140" cy="72" r="25" fill="${primary}"/><ellipse cx="110" cy="111" rx="58" ry="52" fill="${primary}"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}`;
+
+  if(profile==='turtle')return `${shadow}<ellipse cx="110" cy="145" rx="70" ry="47" fill="${accent}"/><ellipse cx="110" cy="145" rx="57" ry="38" fill="${secondary}"/><circle cx="110" cy="91" r="42" fill="${primary}"/><ellipse cx="56" cy="154" rx="20" ry="12" fill="${primary}"/><ellipse cx="164" cy="154" rx="20" ry="12" fill="${primary}"/>${petFace(mood,ink)}`;
+
+  if(profile==='bat')return `${shadow}<path class="pet-wing" d="M92 112 Q45 73 30 111 L54 106 L45 139 L78 126Z" fill="${accent}" opacity=".9"/><path class="pet-wing" d="M128 112 Q175 73 190 111 L166 106 L175 139 L142 126Z" fill="${accent}" opacity=".9"/><ellipse cx="110" cy="140" rx="47" ry="50" fill="${primary}"/>${petEars('cat',primary,secondary,accent)}<circle cx="110" cy="91" r="46" fill="${primary}"/>${petFace(mood,ink)}${petAccessory(rng,accent)}`;
+
+  if(profile==='dragon')return `${shadow}${petTail(profile,primary,secondary)}<path class="pet-wing" d="M81 117 Q41 74 42 127 L68 117 L55 151 L91 137Z" fill="${secondary}"/><path class="pet-wing" d="M139 117 Q179 74 178 127 L152 117 L165 151 L129 137Z" fill="${secondary}"/><ellipse cx="110" cy="148" rx="50" ry="45" fill="${primary}"/><circle cx="110" cy="91" r="50" fill="${primary}"/><path d="M82 52 L91 26 L101 58 M119 58 L130 26 L139 54" fill="${accent}"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}`;
+
+  if(profile==='fairy')return `${shadow}<path class="pet-wing" d="M87 121 Q42 77 48 130 Q62 150 91 139Z" fill="${secondary}" opacity=".75"/><path class="pet-wing" d="M133 121 Q178 77 172 130 Q158 150 129 139Z" fill="${secondary}" opacity=".75"/><ellipse cx="110" cy="145" rx="44" ry="43" fill="${primary}"/><circle cx="110" cy="91" r="47" fill="${primary}"/>${petFace(mood,ink)}<circle class="pet-sparkle" cx="54" cy="78" r="5" fill="#fff5a3"/><circle class="pet-sparkle" cx="168" cy="65" r="4" fill="#fff5a3"/>${petAccessory(rng,accent)}`;
+
+  if(profile==='crown')return `${shadow}<path d="M49 143 L63 60 L98 94 L111 43 L128 94 L161 61 L171 143Z" fill="#ffd74a" stroke="#fff1a1" stroke-width="6"/><rect x="53" y="136" width="114" height="38" rx="17" fill="#f4b52f"/><circle cx="68" cy="74" r="8" fill="#ff71b5"/><circle cx="111" cy="57" r="8" fill="#8b5cf6"/><circle cx="154" cy="75" r="8" fill="#45d48c"/>${petFace(mood,ink)}`;
+
+  const ears=petEars(profile,primary,secondary,accent);
+  const tail=petTail(profile,primary,secondary);
+  return `${shadow}${tail}${ears}<ellipse cx="110" cy="149" rx="53" ry="45" fill="${primary}"/><ellipse cx="110" cy="155" rx="29" ry="27" fill="${secondary}" opacity=".65"/><ellipse cx="78" cy="181" rx="22" ry="11" fill="${accent}" opacity=".65"/><ellipse cx="142" cy="181" rx="22" ry="11" fill="${accent}" opacity=".65"/><circle cx="110" cy="91" r="52" fill="${primary}"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}${petAccessory(rng,accent)}`;
+}
+
+function createPetSvg(stageIndex,companion,size='big',forcedMood=null){
+  const mood=forcedMood||petMoodForToday();
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 220 220');
+  svg.setAttribute('role','img');
+  svg.setAttribute('aria-label',companion.name+' • '+mood);
+  svg.classList.add('petArt',size);
+  svg.innerHTML=buildPetMarkup(stageIndex,companion,mood);
+  return svg;
+}
+
+function renderPetArt(element,stageIndex,companion,size='big',forcedMood=null){
+  if(!element || !companion)return;
+  element.replaceChildren();
+  if(s.petDead){
+    element.textContent='💀';
+    return;
+  }
+  element.appendChild(createPetSvg(stageIndex,companion,size,forcedMood));
+}
+
+function renderFriendArt(element,stageIndex,companion){
+  if(!element || !companion)return;
+  element.replaceChildren();
+  const svg=createPetSvg(stageIndex,companion,'friend','normal');
+  svg.classList.remove('petArt');
+  svg.classList.add('friendPetArt');
+  element.appendChild(svg);
+}
+
+function showTemporaryPetMood(mood,duration=1600){
+  const idx=stageIndexForXP(s.xp);
+  const a=stages[idx];
+  const big=document.getElementById('bigpet');
+  if(!big || !a || s.petDead)return;
+  renderPetArt(big,idx,a,'big',mood);
+  setTimeout(()=>{
+    const nowIdx=stageIndexForXP(s.xp);
+    const now=stages[nowIdx];
+    if(big && now && !s.petDead && !companionAnimationBusy)renderPetArt(big,nowIdx,now,'big');
+  },duration);
+}
+
 // ===== TAMAGOSHI DA APROVAÇÃO • MOTOR DE ANIMAÇÕES =====
 const companionActionClasses=[
   'companion-study','companion-goal','companion-hatch','companion-reveal',
@@ -1220,7 +1481,7 @@ function celebrateNewCompanion(oldIndex,newIndex){
   clearTimeout(companionActionTimer);
   clearCompanionActions();
   bigpet.classList.remove('near-hatch');
-  bigpet.textContent=previous.pet;
+  renderPetArt(bigpet,oldIndex,previous,'big');
   companionSay(newIndex===1?'🥚 O ovo está se mexendo...':'✨ Algo novo se aproxima da floresta...',1700);
   bigpet.classList.add('companion-hatch');
   companionBurst(['✨','⭐','💫'],9,.7);
@@ -1232,9 +1493,9 @@ function celebrateNewCompanion(oldIndex,newIndex){
       void flash.offsetWidth;
       flash.classList.add('show');
     }
-    bigpet.textContent=newborn.pet;
+    renderPetArt(bigpet,newIndex,newborn,'big');
     const mini=document.getElementById('pet');
-    if(mini)mini.textContent=newborn.pet;
+    if(mini)renderPetArt(mini,newIndex,newborn,'small');
     void bigpet.offsetWidth;
     bigpet.classList.add('companion-reveal');
     companionBurst(['✨','🌟','🌸','💖','🎉'],28,1.35);
@@ -1258,7 +1519,12 @@ function scheduleCompanionLife(){
       const actions=['companion-wiggle','companion-hop','companion-peek','rest'];
       const action=actions[Math.floor(Math.random()*actions.length)];
       if(action==='rest'){
-        companionSay(Math.random()>.5?'💤 descansando um pouquinho...':'👀 de olho na sua missão!',1500);
+        if(Math.random()>.45){
+          showTemporaryPetMood('sleep',1650);
+          companionSay('💤 descansando um pouquinho...',1500);
+        }else{
+          companionSay('👀 de olho na sua missão!',1500);
+        }
       }else{
         playCompanionAction(action,1300);
       }
@@ -1513,9 +1779,9 @@ function render(){
   let t=s.daily[today()]||0;
 
   $('#level').textContent='Nível '+(i+1)+' • '+a.title;
-  $('#pet').textContent=s.petDead?'💀':a.pet;
+  renderPetArt($('#pet'),i,a,'small');
   $('#topPetName').textContent=a.name;
-  $('#bigpet').textContent=s.petDead?'💀':a.pet;
+  renderPetArt($('#bigpet'),i,a,'big');
   $('#bigpet').classList.toggle('dead',s.petDead);
   // Pingo fica mais inquieto quando Pipoca está perto de nascer.
   $('#bigpet').classList.toggle('near-hatch',!s.petDead && i===0 && pct>=72);
@@ -1563,7 +1829,12 @@ function render(){
     if(!f || f.season!==activeRegionNumber)continue;
     const el=document.createElement('div');
     el.className='friend';
-    el.innerHTML='<div class="friendPet">'+f.pet+'</div><div>'+f.name+'</div>';
+    const friendVisual=document.createElement('div');
+    friendVisual.className='friendPet';
+    renderFriendArt(friendVisual,k,f);
+    const friendName=document.createElement('div');
+    friendName.textContent=f.name;
+    el.append(friendVisual,friendName);
     forest.appendChild(el);
   }
 
