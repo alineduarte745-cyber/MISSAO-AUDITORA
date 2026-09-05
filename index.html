@@ -440,6 +440,204 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 .cloudSyncStatus{display:flex;align-items:center;gap:6px}
 </style>
 
+
+
+<style id="companion-animation-style">
+/* ===== TAMAGOSHI DA APROVAÇÃO • ANIMAÇÕES DO COMPANHEIRO ===== */
+.scene{isolation:isolate}
+.bigpet{
+  position:relative;
+  z-index:4;
+  transform-origin:center bottom;
+  will-change:transform,filter;
+  user-select:none;
+}
+.bigpet:not(.dead){
+  animation:companionIdle 3.4s ease-in-out infinite;
+}
+.pet:not(.dead){
+  animation:miniPetIdle 3.8s ease-in-out infinite;
+  transform-origin:center bottom;
+}
+
+/* 1) Vida contínua: respirar + balançar */
+@keyframes companionIdle{
+  0%,100%{transform:translateY(0) rotate(-1deg) scale(1)}
+  25%{transform:translateY(-4px) rotate(1deg) scale(1.015)}
+  50%{transform:translateY(-9px) rotate(0) scale(1.025)}
+  75%{transform:translateY(-4px) rotate(-1deg) scale(1.01)}
+}
+@keyframes miniPetIdle{
+  0%,100%{transform:translateY(0) rotate(0)}
+  50%{transform:translateY(-5px) rotate(2deg)}
+}
+
+/* 2) Reação ao registrar estudo */
+.bigpet.companion-study{
+  animation:companionStudy .95s cubic-bezier(.2,.8,.25,1.18) !important;
+}
+@keyframes companionStudy{
+  0%{transform:translateY(0) scale(1) rotate(0)}
+  28%{transform:translateY(-34px) scale(1.10) rotate(-6deg)}
+  52%{transform:translateY(-9px) scale(1.04) rotate(6deg)}
+  72%{transform:translateY(-20px) scale(1.07) rotate(-3deg)}
+  100%{transform:translateY(0) scale(1) rotate(0)}
+}
+
+/* 3) Festa de missão cumprida */
+.bigpet.companion-goal{
+  animation:companionGoal 1.55s cubic-bezier(.18,.9,.22,1.15) !important;
+}
+@keyframes companionGoal{
+  0%{transform:translateY(0) scale(1) rotate(0)}
+  14%{transform:translateY(4px) scale(.92) rotate(-7deg)}
+  34%{transform:translateY(-48px) scale(1.22) rotate(8deg)}
+  52%{transform:translateY(-12px) scale(1.09) rotate(-5deg)}
+  68%{transform:translateY(-34px) scale(1.15) rotate(5deg)}
+  84%{transform:translateY(-8px) scale(1.06) rotate(-2deg)}
+  100%{transform:translateY(0) scale(1) rotate(0)}
+}
+
+/* 4) Pingo perto de nascer + revelação de novo companheiro */
+.bigpet.near-hatch:not(.dead){
+  animation:nearHatch 4.6s ease-in-out infinite;
+}
+.bigpet.companion-hatch{
+  animation:companionHatch 1.15s ease-in-out !important;
+}
+.bigpet.companion-reveal{
+  animation:companionReveal .9s cubic-bezier(.18,.9,.25,1.25) !important;
+}
+@keyframes nearHatch{
+  0%,72%,100%{transform:translateY(0) rotate(0)}
+  76%{transform:translateY(-2px) rotate(-4deg)}
+  80%{transform:translateY(0) rotate(4deg)}
+  84%{transform:translateY(-2px) rotate(-3deg)}
+  88%{transform:translateY(0) rotate(3deg)}
+  92%{transform:translateY(-5px) rotate(0)}
+}
+@keyframes companionHatch{
+  0%{transform:scale(1) rotate(0)}
+  12%{transform:scale(1.03) rotate(-9deg)}
+  24%{transform:scale(1.05) rotate(9deg)}
+  36%{transform:scale(1.07) rotate(-11deg)}
+  48%{transform:scale(1.09) rotate(11deg)}
+  62%{transform:scale(1.12) rotate(-7deg)}
+  76%{transform:scale(1.16) rotate(7deg)}
+  100%{transform:scale(.88) rotate(0)}
+}
+@keyframes companionReveal{
+  0%{transform:scale(.25) translateY(25px);filter:brightness(2) drop-shadow(0 0 22px #fff)}
+  55%{transform:scale(1.28) translateY(-18px);filter:brightness(1.35) drop-shadow(0 0 28px #fff06a)}
+  100%{transform:scale(1) translateY(0);filter:brightness(1) drop-shadow(0 10px 8px #4b276044)}
+}
+
+/* 5) Vida própria: pequenas ações aleatórias */
+.bigpet.companion-wiggle{animation:companionWiggle 1.05s ease-in-out !important}
+.bigpet.companion-hop{animation:companionHop 1.05s ease-out !important}
+.bigpet.companion-peek{animation:companionPeek 1.25s ease-in-out !important}
+@keyframes companionWiggle{
+  0%,100%{transform:rotate(0) translateY(0)}
+  20%{transform:rotate(-7deg) translateY(-3px)}
+  40%{transform:rotate(7deg) translateY(-5px)}
+  60%{transform:rotate(-5deg) translateY(-3px)}
+  80%{transform:rotate(4deg) translateY(-2px)}
+}
+@keyframes companionHop{
+  0%,100%{transform:translate(0,0) scale(1)}
+  30%{transform:translate(-18px,-24px) scale(1.05)}
+  55%{transform:translate(18px,-12px) scale(1.03)}
+  75%{transform:translate(5px,-27px) scale(1.06)}
+}
+@keyframes companionPeek{
+  0%,100%{transform:translateX(0) rotate(0)}
+  30%{transform:translateX(-24px) rotate(-8deg)}
+  60%{transform:translateX(24px) rotate(8deg)}
+  82%{transform:translateX(0) rotate(-3deg)}
+}
+
+/* Balão de fala do companheiro */
+.companion-bubble{
+  position:absolute;
+  left:50%;
+  top:8px;
+  z-index:8;
+  max-width:min(82%,340px);
+  padding:8px 14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.95);
+  border:2px solid #fff;
+  box-shadow:0 8px 22px #5532672b;
+  color:#5d3582;
+  font-size:14px;
+  font-weight:950;
+  line-height:1.2;
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%,10px) scale(.94);
+  transition:opacity .22s ease,transform .22s ease;
+}
+.companion-bubble.show{
+  opacity:1;
+  transform:translate(-50%,0) scale(1);
+}
+
+/* Flores, estrelas e brilhos que saem do companheiro */
+.companion-fx{
+  position:absolute;
+  inset:0;
+  z-index:7;
+  pointer-events:none;
+  overflow:visible;
+}
+.companion-particle{
+  position:absolute;
+  left:50%;
+  top:52%;
+  font-size:var(--size,22px);
+  opacity:0;
+  animation:companionParticle var(--duration,1.35s) ease-out forwards;
+  animation-delay:var(--delay,0s);
+}
+@keyframes companionParticle{
+  0%{opacity:0;transform:translate(-50%,0) scale(.45) rotate(0)}
+  12%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x)),var(--y)) scale(1.25) rotate(var(--rot))}
+}
+
+/* Tela curtinha para a chegada de um novo companheiro */
+.companion-unlock-flash{
+  position:absolute;
+  inset:0;
+  z-index:6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.96) 0 12%,rgba(255,238,105,.72) 27%,rgba(255,117,185,.20) 52%,transparent 72%);
+}
+.companion-unlock-flash.show{animation:unlockFlash 1.7s ease both}
+@keyframes unlockFlash{
+  0%{opacity:0;transform:scale(.7)}
+  28%{opacity:1;transform:scale(1.05)}
+  58%{opacity:.82;transform:scale(1.15)}
+  100%{opacity:0;transform:scale(1.35)}
+}
+
+/* O próprio jardim também respira um pouquinho */
+.garden:before{animation:gardenSkyFloat 8s ease-in-out infinite}
+.garden:after{animation:gardenFlowersSway 5.5s ease-in-out infinite}
+@keyframes gardenSkyFloat{50%{transform:translateX(5px) translateY(-2px)}}
+@keyframes gardenFlowersSway{50%{transform:translateY(-2px) scale(1.01)}}
+
+@media(prefers-reduced-motion:reduce){
+  .bigpet,.pet,.garden:before,.garden:after,.achievement.unlocked,.approval-crown,.approval-rays{animation:none !important}
+  .companion-particle{display:none}
+  .companion-bubble{transition:none}
+}
+</style>
+
 </head><body><main>
 
 <section class="card top">
@@ -480,7 +678,12 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 <section class="card">
 <h2>🐾 Seu companheiro</h2>
 <div class="garden">
-<div id="scene" class="scene"><span id="bigpet" class="bigpet">🥚</span></div>
+<div id="scene" class="scene">
+  <div id="companionFx" class="companion-fx" aria-hidden="true"></div>
+  <div id="companionBubble" class="companion-bubble" role="status" aria-live="polite"></div>
+  <div id="companionUnlockFlash" class="companion-unlock-flash" aria-hidden="true"></div>
+  <span id="bigpet" class="bigpet">🥚</span>
+</div>
 <div id="petname" class="petname">Ovo da Aprovação</div>
 <div id="unlock" class="petstatus">Estude para descobrir quem vai nascer!</div>
 <div id="regionInfo" class="petstatus" style="margin-top:8px"></div>
@@ -913,6 +1116,159 @@ function save(touch=true){
 function stage(){let z=stages[0];for(const a of stages)if(s.xp>=a.xp)z=a;return z}
 
 
+// ===== TAMAGOSHI DA APROVAÇÃO • MOTOR DE ANIMAÇÕES =====
+const companionActionClasses=[
+  'companion-study','companion-goal','companion-hatch','companion-reveal',
+  'companion-wiggle','companion-hop','companion-peek'
+];
+let companionActionTimer=null;
+let companionBubbleTimer=null;
+let companionLifeTimer=null;
+let companionAnimationBusy=false;
+
+function stageIndexForXP(xp){
+  let idx=0;
+  for(let i=0;i<stages.length;i++)if(xp>=stages[i].xp)idx=i;
+  return idx;
+}
+
+function formatStudyHours(value){
+  const n=Math.round(Number(value)*100)/100;
+  return String(n).replace('.',',')+'h';
+}
+
+function clearCompanionActions(){
+  const pet=document.getElementById('bigpet');
+  if(!pet)return;
+  pet.classList.remove(...companionActionClasses);
+}
+
+function playCompanionAction(className,duration=1100){
+  const pet=document.getElementById('bigpet');
+  if(!pet || s.petDead)return;
+  clearTimeout(companionActionTimer);
+  clearCompanionActions();
+  // Reinicia a animação mesmo se a mesma classe acabou de tocar.
+  void pet.offsetWidth;
+  pet.classList.add(className);
+  companionActionTimer=setTimeout(()=>pet.classList.remove(className),duration);
+}
+
+function companionSay(text,duration=2200){
+  const bubble=document.getElementById('companionBubble');
+  if(!bubble)return;
+  bubble.textContent=text;
+  bubble.classList.add('show');
+  clearTimeout(companionBubbleTimer);
+  companionBubbleTimer=setTimeout(()=>bubble.classList.remove('show'),duration);
+}
+
+function companionBurst(symbols=['✨','🌸','⭐'],count=12,power=1){
+  const layer=document.getElementById('companionFx');
+  if(!layer || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  for(let i=0;i<count;i++){
+    const p=document.createElement('span');
+    p.className='companion-particle';
+    p.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    const angle=Math.random()*Math.PI*2;
+    const distance=(55+Math.random()*95)*power;
+    const x=Math.cos(angle)*distance;
+    const y=Math.sin(angle)*distance-35*power;
+    p.style.setProperty('--x',x.toFixed(1)+'px');
+    p.style.setProperty('--y',y.toFixed(1)+'px');
+    p.style.setProperty('--rot',(Math.random()*520-260).toFixed(0)+'deg');
+    p.style.setProperty('--size',(18+Math.random()*14)+'px');
+    p.style.setProperty('--delay',(Math.random()*.18)+'s');
+    p.style.setProperty('--duration',(1.05+Math.random()*.55)+'s');
+    layer.appendChild(p);
+    setTimeout(()=>p.remove(),2100);
+  }
+}
+
+function animateCompanionStudy(hours){
+  if(companionAnimationBusy)return;
+  playCompanionAction('companion-study',1000);
+  companionBurst(['🌷','✨','🌸','⭐'],10,.9);
+  companionSay('🌷 +'+formatStudyHours(hours)+' cultivada'+(Number(hours)===1?'!':'s!'),1800);
+}
+
+function animateCompanionStart(){
+  if(companionAnimationBusy)return;
+  playCompanionAction('companion-study',1000);
+  companionBurst(['✨','🌱','💗','⭐'],9,.85);
+  companionSay('✨ Bora! A missão começou.',1800);
+}
+
+function animateCompanionGoal(extraHours=0){
+  if(companionAnimationBusy)return;
+  playCompanionAction('companion-goal',1650);
+  companionBurst(['✨','⭐','🌸','🌈','🏆','💖'],22,1.22);
+  const extra=Number(extraHours)||0;
+  companionSay(extra>0
+    ? '🔥 META SUPERADA! +'+formatStudyHours(extra)+' além da missão!'
+    : '🏆 MISSÃO CUMPRIDA! 4h completas! ✨',2800);
+}
+
+function celebrateNewCompanion(oldIndex,newIndex){
+  if(newIndex<=oldIndex || !stages[newIndex])return;
+  const bigpet=document.getElementById('bigpet');
+  const flash=document.getElementById('companionUnlockFlash');
+  if(!bigpet)return;
+  const previous=stages[oldIndex]||stages[0];
+  const newborn=stages[newIndex];
+  companionAnimationBusy=true;
+  clearTimeout(companionActionTimer);
+  clearCompanionActions();
+  bigpet.classList.remove('near-hatch');
+  bigpet.textContent=previous.pet;
+  companionSay(newIndex===1?'🥚 O ovo está se mexendo...':'✨ Algo novo se aproxima da floresta...',1700);
+  bigpet.classList.add('companion-hatch');
+  companionBurst(['✨','⭐','💫'],9,.7);
+
+  setTimeout(()=>{
+    clearCompanionActions();
+    if(flash){
+      flash.classList.remove('show');
+      void flash.offsetWidth;
+      flash.classList.add('show');
+    }
+    bigpet.textContent=newborn.pet;
+    const mini=document.getElementById('pet');
+    if(mini)mini.textContent=newborn.pet;
+    void bigpet.offsetWidth;
+    bigpet.classList.add('companion-reveal');
+    companionBurst(['✨','🌟','🌸','💖','🎉'],28,1.35);
+    companionSay(newIndex===1
+      ? '🐣 PIPOCA NASCEU! Novo companheiro encontrado!'
+      : '🐾 '+newborn.name+' chegou! Novo companheiro encontrado!',3300);
+  },1150);
+
+  setTimeout(()=>{
+    clearCompanionActions();
+    if(flash)flash.classList.remove('show');
+    companionAnimationBusy=false;
+  },2350);
+}
+
+function scheduleCompanionLife(){
+  clearTimeout(companionLifeTimer);
+  const delay=12000+Math.random()*12000;
+  companionLifeTimer=setTimeout(()=>{
+    if(!document.hidden && !companionAnimationBusy && !s.petDead){
+      const actions=['companion-wiggle','companion-hop','companion-peek','rest'];
+      const action=actions[Math.floor(Math.random()*actions.length)];
+      if(action==='rest'){
+        companionSay(Math.random()>.5?'💤 descansando um pouquinho...':'👀 de olho na sua missão!',1500);
+      }else{
+        playCompanionAction(action,1300);
+      }
+    }
+    scheduleCompanionLife();
+  },delay);
+}
+
+
+
 const pingoPhrases=[
   'Pingo está quentinho e curioso. 🥚💗',
   'Um bloco de cada vez. 🌱',
@@ -1161,6 +1517,8 @@ function render(){
   $('#topPetName').textContent=a.name;
   $('#bigpet').textContent=s.petDead?'💀':a.pet;
   $('#bigpet').classList.toggle('dead',s.petDead);
+  // Pingo fica mais inquieto quando Pipoca está perto de nascer.
+  $('#bigpet').classList.toggle('near-hatch',!s.petDead && i===0 && pct>=72);
   $('#petname').textContent=a.name;
   $('.garden').dataset.season=a.season||0;
   $('#unlock').innerHTML=s.petDead?'<b>'+a.title+'</b><br>💀 Caiu em batalha. Estude hoje para fazer nascer um novo companheiro. 🌱':'<b>'+a.title+'</b><br>✨ Desbloqueada no Nível '+(i+1)+'<br>'+a.next;
@@ -1240,12 +1598,18 @@ $('#start').addEventListener('click',()=>{
   let t=today();
   if(s.starts[t]){
     $('#message').textContent='Seu companheiro já comemorou seu começo de hoje! 🥰';
+    companionSay('🥰 Eu vi! Você já começou hoje.',1600);
     return
   }
+  const beforeStageIndex=stageIndexForXP(s.xp);
   s.starts[t]=true;
   s.xp+=20;
+  const afterStageIndex=stageIndexForXP(s.xp);
   $('#message').textContent='AEEEE! Você começou! +20 XP ✨ Agora faça só o próximo bloco.';
-  save();render()
+  save();
+  render();
+  if(afterStageIndex>beforeStageIndex)celebrateNewCompanion(beforeStageIndex,afterStageIndex);
+  else animateCompanionStart();
 });
 
 $('#addHours').addEventListener('click',()=>{
@@ -1256,21 +1620,45 @@ $('#addHours').addEventListener('click',()=>{
   }
   let t=today();
   const wasDead=s.petDead;
+  const beforeToday=Number(s.daily[t]||0);
+  const beforeStageIndex=stageIndexForXP(s.xp);
 
   s.hours+=h;
-  s.daily[t]=(s.daily[t]||0)+h;
+  s.daily[t]=beforeToday+h;
   s.xp+=Math.round(h*20);
+
+  const afterToday=Number(s.daily[t]||0);
+  const afterStageIndex=stageIndexForXP(s.xp);
+  const crossedGoal=beforeToday<4 && afterToday>=4;
+  const extraHours=Math.max(0,afterToday-4);
 
   // Depois de uma morte, o próximo estudo faz nascer um novo companheiro.
   if(wasDead){
     s.petDead=false;
     s.deathDate=null;
     $('#message').textContent='🐣 Você voltou! Um novo companheiro nasceu para continuar a jornada com você. ✨';
+  }else if(crossedGoal){
+    $('#message').textContent=extraHours>0
+      ? '🔥 META SUPERADA! +'+formatStudyHours(extraHours)+' além das 4h de hoje!'
+      : '🏆 4 HORAS! Seu companheiro está radiante! ✨';
+  }else if(afterToday>4){
+    $('#message').textContent='🔥 '+formatStudyHours(h)+' cultivada'+(h===1?'':'s')+'. Você já está '+formatStudyHours(extraHours)+' além da missão!';
   }else{
-    $('#message').textContent=h>=4?'🏆 4 HORAS! Seu companheiro está radiante! ✨':'🌷 '+h+'h cultivadas. Seu mundo cresceu!';
+    $('#message').textContent='🌷 '+formatStudyHours(h)+' cultivada'+(h===1?'':'s')+'. Seu mundo cresceu!';
   }
 
-  save();render()
+  save();
+  render();
+
+  // Prioridade visual: novo companheiro > missão de 4h > registro normal.
+  if(afterStageIndex>beforeStageIndex){
+    celebrateNewCompanion(beforeStageIndex,afterStageIndex);
+    if(crossedGoal)setTimeout(()=>animateCompanionGoal(extraHours),2550);
+  }else if(crossedGoal){
+    animateCompanionGoal(extraHours);
+  }else{
+    animateCompanionStudy(h);
+  }
 });
 
 $('#reset').addEventListener('click',()=>{
@@ -1302,6 +1690,7 @@ if(cloudLogout)cloudLogout.onclick=async()=>{
 };
 
 render();
+scheduleCompanionLife();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 
 const mapToggle=$('#mapToggle');
