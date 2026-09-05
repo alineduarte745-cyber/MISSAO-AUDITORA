@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'missao-auditora-v12';
+const CACHE_VERSION = 'missao-auditora-v14';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
