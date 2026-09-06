@@ -1047,6 +1047,48 @@ main{position:relative;z-index:1}
   .journeyStat b{font-size:18px}
   .journeyStat small{font-size:9px}
 }
+
+/* ===== MISSÃO DE HOJE • MINI METAS COM O COMPANHEIRO ===== */
+.dailyMissionCard{position:relative;overflow:hidden}
+.dailyMissionCard:after{content:'✨';position:absolute;right:14px;top:12px;font-size:17px;opacity:.34;animation:dailyTwinkle 2.8s ease-in-out infinite}
+.dailyMissionTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:3px}
+.todayHours{display:block;font-size:30px;line-height:1;color:#5a347d}
+.dailyMood{margin-top:7px;font-size:13px;font-weight:850;color:#7c6c83;max-width:250px;line-height:1.25}
+.dailyPetBadge{flex:0 0 104px;min-height:108px;padding:5px 4px 4px;border-radius:24px;text-align:center;background:linear-gradient(145deg,#fff8fd,#fff4cd);border:2px solid #fff;box-shadow:0 8px 20px #7d4c901a,inset 0 0 18px #fff}
+.dailyPet{height:80px;display:flex;align-items:center;justify-content:center;animation:miniPetIdle 3.2s ease-in-out infinite}
+.dailyPet .petArt.small{width:78px;height:78px;max-width:none}
+.dailyPetName{margin-top:-3px;font-size:11px;font-weight:950;color:#694287;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dailyGoalbar{margin:10px 0 12px}
+.miniGoalWorld{position:relative;margin:8px 0 8px;padding:34px 8px 8px;border-radius:20px;background:linear-gradient(180deg,#fffaff,#fffdf0);border:1px solid #f6e7f2;overflow:hidden;box-shadow:inset 0 0 28px #fff,0 8px 24px #ff9ecb1c}
+.miniGoalWorld:before{content:'💗';position:absolute;left:9px;top:8px;font-size:15px;opacity:.62;animation:missionHeart 2.4s ease-in-out infinite;filter:drop-shadow(0 0 7px #ff8fc7)}
+.miniGoalWorld:after{content:'🌸';position:absolute;right:10px;bottom:8px;font-size:16px;opacity:.62;animation:missionFlower 3.1s ease-in-out infinite;filter:drop-shadow(0 0 7px #ffd66c)}
+.missionMagic{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.missionMagic span{position:absolute;left:var(--x);top:var(--y);font-size:var(--s);opacity:.38;filter:drop-shadow(0 0 5px #fff);animation:missionFloat var(--d) ease-in-out infinite;animation-delay:var(--delay)}
+.miniGoalPath{position:absolute;left:12%;right:12%;top:55px;height:5px;border-radius:99px;background:#eee4ef;box-shadow:inset 0 1px 3px #6f55751a}
+.miniGoalSteps{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.miniGoal{text-align:center;min-width:0;transition:transform .22s ease,filter .22s ease}
+.miniGoal span{width:34px;height:34px;margin:auto;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#f0e8f1;border:3px solid #fff;box-shadow:0 3px 8px #65486f1c;filter:grayscale(.45);font-size:17px;transition:.25s ease}
+.miniGoal b{display:block;margin-top:6px;font-size:13px;color:#695c72}
+.miniGoal small{display:block;margin-top:1px;font-size:8px;line-height:1.1;font-weight:900;color:#9a8d9d}
+.miniGoal.done span{background:linear-gradient(145deg,#dff9dc,#fff4b8);filter:none;transform:scale(1.08);box-shadow:0 0 0 3px #fff,0 4px 14px #82c98455,0 0 18px #ffe06b77;animation:doneGlow 2.2s ease-in-out infinite}
+.miniGoal.done b{color:#4f8a5d}
+.miniGoal.current{transform:translateY(-2px)}
+.miniGoal.current span{animation:miniGoalPulse 1.7s ease-in-out infinite}
+.dailyPetRunner{position:absolute;z-index:4;top:3px;left:8%;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #fff5bd;box-shadow:0 5px 14px #7a477336,0 0 15px #ffe98baa,0 0 28px #ffb5d777;font-size:16px;transform:translateX(-50%);transition:left .55s cubic-bezier(.2,.85,.25,1.2);animation:runnerBob 2.2s ease-in-out infinite;overflow:visible}
+.dailyPetRunner:before,.dailyPetRunner:after{position:absolute;pointer-events:none;animation:runnerSpark 1.8s ease-in-out infinite}
+.dailyPetRunner:before{content:'✨';left:-12px;top:3px;font-size:13px}
+.dailyPetRunner:after{content:'💖';right:-11px;bottom:1px;font-size:11px;animation-delay:-.8s}
+.dailyPetRunner .petArt.small{width:43px;height:43px;max-width:none;filter:drop-shadow(0 3px 3px #5c3f6a26)}
+.nextMiniGoal{text-align:center;margin:4px 0 13px;font-size:12px;font-weight:950;color:#735486}
+@keyframes runnerBob{0%,100%{margin-top:0;filter:brightness(1)}50%{margin-top:-4px;filter:brightness(1.12)}}
+@keyframes miniGoalPulse{0%,100%{box-shadow:0 0 0 3px #fff,0 4px 14px #82c98444}50%{box-shadow:0 0 0 5px #fff7c7,0 4px 18px #ffcf6f77}}
+@keyframes dailyTwinkle{0%,100%{transform:rotate(-8deg) scale(.9);opacity:.28}50%{transform:rotate(8deg) scale(1.18);opacity:.7}}
+@keyframes missionFloat{0%,100%{transform:translateY(0) rotate(-8deg) scale(.82);opacity:.22}50%{transform:translateY(-10px) rotate(10deg) scale(1.15);opacity:.58}}
+@keyframes missionHeart{0%,100%{transform:translateY(0) scale(.9) rotate(-8deg)}50%{transform:translateY(-5px) scale(1.18) rotate(7deg)}}
+@keyframes missionFlower{0%,100%{transform:rotate(-5deg) scale(.9)}50%{transform:rotate(8deg) scale(1.12)}}
+@keyframes doneGlow{0%,100%{filter:brightness(1);transform:scale(1.06)}50%{filter:brightness(1.12) saturate(1.12);transform:scale(1.13)}}
+@keyframes runnerSpark{0%,100%{opacity:.35;transform:translateY(2px) scale(.85) rotate(-8deg)}50%{opacity:1;transform:translateY(-5px) scale(1.18) rotate(12deg)}}
+@media(max-width:430px){.dailyPetBadge{flex-basis:92px;min-height:101px}.dailyPet{height:73px}.dailyPet .petArt.small{width:72px;height:72px}.todayHours{font-size:27px}.dailyMood{font-size:12px}.miniGoal small{font-size:7.5px}.miniGoal b{font-size:12px}}
 @media(prefers-reduced-motion:reduce){
   .journeySummary:before,.journeySummary:after,.journeyTwinkle,.journeyIcon,.top,.calendarMonth{animation:none !important}
   .ambientMagic{display:none}
@@ -1057,9 +1099,9 @@ main{position:relative;z-index:1}
 
 <section class="card top">
 <div class="eyebrow">🌈 MISSÃO AUDITORA • SUA COMPANHEIRA DE ESTUDOS</div>
-<div class="row">
-<div><div id="level" class="level">Nível 1 • Ovo da Aprovação</div><p id="xpText" class="muted">0 XP • seu bichinho está esperando você começar</p></div>
-<div style="text-align:center"><div id="pet" class="pet">🥚</div><div id="topPetName" style="font-weight:950;font-size:15px">Pingo</div></div>
+<div>
+<div id="level" class="level">Nível 1 • Ovo da Aprovação</div>
+<p id="xpText" class="muted">0 XP • seu bichinho está esperando você começar</p>
 </div>
 <div class="xpbar"><div id="xpfill" class="xpfill" style="width:0"></div></div>
 </section>
@@ -1078,34 +1120,26 @@ main{position:relative;z-index:1}
 <div class="stat"><span class="muted">🛡️ Escudos</span><b id="shields">1</b></div>
 </div>
 
-<section class="card journeySummary" id="journeySummary">
-  <div class="journeyTitleLine">
-    <h2>🌷 Minha Jornada ✨</h2>
-    <span class="journeyTwinkle" aria-hidden="true">💫</span>
-  </div>
-  <div class="journeyGrid">
-    <div class="journeyStat">
-      <span class="journeyIcon" aria-hidden="true">📚</span>
-      <b id="hoursTotal">0h</b>
-      <small>Horas totais</small>
-    </div>
-    <div class="journeyStat">
-      <span class="journeyIcon" aria-hidden="true">🗺️</span>
-      <b id="journeyRegions">1/12</b>
-      <small>Regiões desbloqueadas</small>
-    </div>
-    <div class="journeyStat">
-      <span class="journeyIcon" aria-hidden="true">🐾</span>
-      <b id="journeyAnimals">0</b>
-      <small>Animais desbloqueados</small>
-    </div>
-  </div>
-</section>
-
-<section class="card">
+<section class="card dailyMissionCard" id="dailyMissionCard">
 <h2>🌸 Missão de hoje</h2>
-<div class="row"><b id="todayHours" style="font-size:28px">0h / 4h</b><span id="mood">🥚 Esperando o primeiro estudo</span></div>
-<div class="goalbar" style="margin:10px 0 14px"><div id="goalfill" class="goalfill" style="width:0"></div></div>
+<div class="dailyMissionTop">
+  <div>
+    <b id="todayHours" class="todayHours">0h / 4h</b>
+    <div id="mood" class="dailyMood">🥚 Esperando o primeiro estudo</div>
+  </div>
+</div>
+<div class="miniGoalWorld" aria-label="Mini metas do dia">
+  <div id="missionMagic" class="missionMagic" aria-hidden="true"></div>
+  <div class="miniGoalPath"></div>
+  <div id="dailyPetRunner" class="dailyPetRunner" aria-hidden="true">✨</div>
+  <div class="miniGoalSteps">
+    <div class="miniGoal" data-hours="1"><span>🌱</span><b>1h</b><small>Comecei</small></div>
+    <div class="miniGoal" data-hours="2"><span>🌸</span><b>2h</b><small>Florescendo</small></div>
+    <div class="miniGoal" data-hours="3"><span>⭐</span><b>3h</b><small>Quase lá</small></div>
+    <div class="miniGoal" data-hours="4"><span>🏆</span><b>4h</b><small>Missão feita</small></div>
+  </div>
+</div>
+<div id="nextMiniGoal" class="nextMiniGoal">🌱 Próxima mini meta: 1h</div>
 <button id="start" class="primary">✨ COMECEI A ESTUDAR +20 XP</button>
 <div class="controls"><input id="hours" type="number" min=".25" max="12" step=".25" value="1" aria-label="Horas estudadas"><button id="addHours">Registrar</button></div>
 <p id="message" class="msg">Seu único trabalho agora é começar. 💗</p>
@@ -1154,6 +1188,30 @@ main{position:relative;z-index:1}
 <div id="studyCalendar" class="calendarGrid"></div>
 <div id="calendarDetail" class="calendarDetail">✨ Toque em um dia da aventura para ver suas horas. 🌸</div>
 <div class="monthTotal">🌙 Total do mês: <b id="monthHours">0h</b></div>
+</section>
+
+<section class="card journeySummary" id="journeySummary">
+  <div class="journeyTitleLine">
+    <h2>🌷 Minha Jornada ✨</h2>
+    <span class="journeyTwinkle" aria-hidden="true">💫</span>
+  </div>
+  <div class="journeyGrid">
+    <div class="journeyStat">
+      <span class="journeyIcon" aria-hidden="true">📚</span>
+      <b id="hoursTotal">0h</b>
+      <small>Horas totais</small>
+    </div>
+    <div class="journeyStat">
+      <span class="journeyIcon" aria-hidden="true">🗺️</span>
+      <b id="journeyRegions">1/12</b>
+      <small>Regiões desbloqueadas</small>
+    </div>
+    <div class="journeyStat">
+      <span class="journeyIcon" aria-hidden="true">🐾</span>
+      <b id="journeyAnimals">0</b>
+      <small>Animais desbloqueados</small>
+    </div>
+  </div>
 </section>
 
 <section class="card">
@@ -1950,18 +2008,27 @@ function playAppSound(kind){
     if(kind==='study'){
       playTone(ctx,523.25,t,.13,.026,'sine');
       playTone(ctx,659.25,t+.10,.16,.026,'sine');
+      playTone(ctx,783.99,t+.20,.13,.018,'sine');
     }else if(kind==='start'){
       playTone(ctx,440,t,.12,.024,'sine');
       playTone(ctx,554.37,t+.09,.14,.024,'sine');
+      playTone(ctx,659.25,t+.18,.16,.018,'triangle');
+    }else if(kind==='mini'){
+      playTone(ctx,587.33,t,.10,.026,'sine');
+      playTone(ctx,739.99,t+.07,.11,.026,'sine');
+      playTone(ctx,880,t+.15,.17,.029,'triangle');
+      playTone(ctx,1174.66,t+.25,.20,.022,'sine');
     }else if(kind==='goal'){
       playTone(ctx,523.25,t,.15,.03,'triangle');
       playTone(ctx,659.25,t+.10,.17,.03,'triangle');
       playTone(ctx,783.99,t+.21,.28,.034,'triangle');
+      playTone(ctx,1046.5,t+.34,.34,.026,'sine');
     }else if(kind==='unlock'){
       playTone(ctx,392,t,.14,.028,'triangle');
       playTone(ctx,523.25,t+.10,.16,.03,'triangle');
       playTone(ctx,659.25,t+.22,.18,.032,'triangle');
       playTone(ctx,987.77,t+.36,.32,.035,'sine');
+      playTone(ctx,1318.51,t+.52,.38,.026,'sine');
     }
   }catch(e){}
 }
@@ -2084,6 +2151,16 @@ function animateCompanionStart(){
   playCompanionAction('companion-study',1000);
   companionBurst(['✨','🌱','💗','⭐'],9,.85);
   companionSay('✨ Bora! A missão começou.',1800);
+}
+
+function animateMiniMilestone(hour){
+  if(companionAnimationBusy)return;
+  const labels={1:'🌱 PRIMEIRA HORA!',2:'🌸 FLORESCENDO!',3:'⭐ QUASE LÁ!'};
+  playAppSound('mini');
+  globalSparkleBurst(30,['✨','🌸','🌷','💗','💖','⭐']);
+  playCompanionAction('companion-study',1150);
+  companionBurst(['✨','🌸','🌷','💗','💖','⭐'],18,1.05);
+  companionSay((labels[hour]||'✨ MINI META!')+' '+hour+'h completas!',2200);
 }
 
 function animateCompanionGoal(extraHours=0){
@@ -2410,8 +2487,10 @@ function render(){
   let t=s.daily[today()]||0;
 
   $('#level').textContent='Nível '+(i+1)+' • '+a.title;
-  renderPetArt($('#pet'),i,a,'small');
-  $('#topPetName').textContent=a.name;
+  const topPet=$('#pet');
+  if(topPet)renderPetArt(topPet,i,a,'small');
+  const topPetName=$('#topPetName');
+  if(topPetName)topPetName.textContent=a.name;
   renderPetArt($('#bigpet'),i,a,'big');
   $('#bigpet').classList.toggle('dead',s.petDead);
   // Pingo fica mais inquieto quando Pipoca está perto de nascer.
@@ -2430,7 +2509,37 @@ function render(){
   $('#xpText').textContent=i===stages.length-1?s.xp+' XP • evolução máxima':s.xp+' XP • '+(next.xp-s.xp)+' XP para '+next.name;
 
   $('#todayHours').textContent=(Math.round(t*100)/100)+'h / 4h';
-  $('#goalfill').style.width=Math.min(100,t/4*100)+'%';
+
+  // O companheiro pequeno acompanha as mini metas; o companheiro grande continua como protagonista abaixo.
+  const miniGoals=[...document.querySelectorAll('.miniGoal')];
+  miniGoals.forEach((goal,idx)=>{
+    const h=Number(goal.dataset.hours||idx+1);
+    goal.classList.toggle('done',t>=h);
+    goal.classList.remove('current');
+  });
+  const nextHour=t>=4?null:Math.max(1,Math.floor(t)+1);
+  if(nextHour){
+    const currentGoal=document.querySelector('.miniGoal[data-hours="'+nextHour+'"]');
+    if(currentGoal)currentGoal.classList.add('current');
+  }
+  const runner=document.getElementById('dailyPetRunner');
+  if(runner){
+    let runnerLeft=8;
+    if(t>0 && t<=1)runnerLeft=8+(12*t);
+    else if(t>1)runnerLeft=20+(Math.min(4,t)-1)*20;
+    runner.style.left=Math.min(80,runnerLeft)+'%';
+    renderPetArt(runner,i,a,'small');
+    runner.setAttribute('aria-label',a.name+' acompanhando suas mini metas');
+  }
+  const nextMiniGoal=document.getElementById('nextMiniGoal');
+  if(nextMiniGoal){
+    if(t>=4)nextMiniGoal.textContent='🏆 Missão do dia cumprida! Seu companheiro está comemorando com você. ✨';
+    else{
+      const labels={1:'🌱 1h • Comecei',2:'🌸 2h • Florescendo',3:'⭐ 3h • Quase lá',4:'🏆 4h • Missão feita'};
+      const remaining=Math.max(0,nextHour-t);
+      nextMiniGoal.textContent='Próxima mini meta: '+labels[nextHour]+' • faltam '+formatStudyHours(remaining);
+    }
+  }
 
   $('#mood').textContent=dynamicPhrase(a,t);
   $('#shieldInfo').textContent=s.shields>0
@@ -2524,6 +2633,8 @@ $('#addHours').addEventListener('click',()=>{
   const afterToday=Number(s.daily[t]||0);
   const afterStageIndex=stageIndexForXP(s.xp);
   const crossedGoal=beforeToday<4 && afterToday>=4;
+  const crossedMini=[1,2,3].filter(m=>beforeToday<m && afterToday>=m);
+  const highestMini=crossedMini.length?crossedMini[crossedMini.length-1]:null;
   const extraHours=Math.max(0,afterToday-4);
 
   // Depois de uma morte, o próximo estudo faz nascer um novo companheiro.
@@ -2544,12 +2655,14 @@ $('#addHours').addEventListener('click',()=>{
   save();
   render();
 
-  // Prioridade visual: novo companheiro > missão de 4h > registro normal.
+  // Prioridade visual: novo companheiro > missão de 4h > mini meta > registro normal.
   if(afterStageIndex>beforeStageIndex){
     celebrateNewCompanion(beforeStageIndex,afterStageIndex);
     if(crossedGoal)setTimeout(()=>animateCompanionGoal(extraHours),2550);
   }else if(crossedGoal){
     animateCompanionGoal(extraHours);
+  }else if(highestMini){
+    animateMiniMilestone(highestMini);
   }else{
     animateCompanionStudy(h);
   }
@@ -2611,12 +2724,12 @@ if(calendarNext)calendarNext.onclick=()=>{
 function createAmbientMagic(){
   const layer=document.getElementById('ambientMagic');
   if(!layer || layer.childElementCount)return;
-  const symbols=['✨','✦','💫','🌸','⋆'];
-  for(let n=0;n<18;n++){
+  const symbols=['✨','✦','💫','🌸','🌷','💗','💖','⭐','⋆'];
+  for(let n=0;n<32;n++){
     const sp=document.createElement('span');
     sp.textContent=symbols[n%symbols.length];
     sp.style.setProperty('--left',(3+Math.random()*94)+'%');
-    sp.style.setProperty('--size',(9+Math.random()*10)+'px');
+    sp.style.setProperty('--size',(9+Math.random()*13)+'px');
     sp.style.setProperty('--dur',(11+Math.random()*10)+'s');
     sp.style.setProperty('--delay',(-Math.random()*20)+'s');
     sp.style.setProperty('--drift',(-28+Math.random()*56)+'px');
@@ -2625,6 +2738,23 @@ function createAmbientMagic(){
   }
 }
 createAmbientMagic();
+
+function createMissionMagic(){
+  const layer=document.getElementById('missionMagic');
+  if(!layer || layer.childElementCount || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const symbols=['✨','💗','🌸','✦','💫','🌷','💖'];
+  for(let n=0;n<14;n++){
+    const sp=document.createElement('span');
+    sp.textContent=symbols[n%symbols.length];
+    sp.style.setProperty('--x',(4+Math.random()*92)+'%');
+    sp.style.setProperty('--y',(5+Math.random()*80)+'%');
+    sp.style.setProperty('--s',(8+Math.random()*8)+'px');
+    sp.style.setProperty('--d',(2.4+Math.random()*3.3)+'s');
+    sp.style.setProperty('--delay',(-Math.random()*5)+'s');
+    layer.appendChild(sp);
+  }
+}
+createMissionMagic();
 
 const companionDiscovery=document.getElementById('companionDiscovery');
 if(companionDiscovery)companionDiscovery.addEventListener('click',()=>{
