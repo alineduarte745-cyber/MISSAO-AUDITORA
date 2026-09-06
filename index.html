@@ -935,7 +935,125 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 }
 </style>
 
-</head><body><main>
+
+<style id="journey-life-style">
+/* ===== MINHA JORNADA ===== */
+.journeySummary{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 12% 16%,#fff3a8 0 5%,transparent 15%),
+    radial-gradient(circle at 90% 18%,#ffd8ee 0 7%,transparent 18%),
+    linear-gradient(145deg,#fffef8 0%,#fff0f7 48%,#eeeaff 100%) !important;
+  box-shadow:0 14px 34px #8b5cf624,0 0 25px #ff91c52b !important;
+}
+.journeySummary:before{
+  content:"✨  🌸  💫";
+  position:absolute;
+  right:13px;
+  top:9px;
+  z-index:-1;
+  font-size:14px;
+  letter-spacing:5px;
+  opacity:.55;
+  animation:journeyTwinkle 2.6s ease-in-out infinite alternate;
+}
+.journeySummary:after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:42%;
+  height:180%;
+  top:-45%;
+  left:-55%;
+  background:linear-gradient(100deg,transparent 15%,rgba(255,255,255,.12) 35%,rgba(255,255,255,.82) 50%,rgba(255,255,255,.12) 65%,transparent 85%);
+  transform:rotate(18deg);
+  animation:journeyShimmer 7s ease-in-out infinite;
+  pointer-events:none;
+}
+.journeyTitleLine{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.journeyTitleLine h2{margin:0 0 12px;text-shadow:0 2px #fff,0 0 16px #ffb8da}
+.journeyTwinkle{font-size:24px;animation:journeyStar 2s ease-in-out infinite}
+.journeyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.journeyStat{
+  position:relative;
+  min-height:104px;
+  padding:12px 7px 10px;
+  border-radius:18px;
+  border:2px solid rgba(255,255,255,.94);
+  background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,247,252,.84));
+  box-shadow:0 7px 18px #73529d18, inset 0 0 18px #ffffffa8;
+  text-align:center;
+}
+.journeyStat:nth-child(1){background:linear-gradient(145deg,#fff8c9,#fff0e4)}
+.journeyStat:nth-child(2){background:linear-gradient(145deg,#e5f8ff,#eee8ff)}
+.journeyStat:nth-child(3){background:linear-gradient(145deg,#ffe8f3,#f3e8ff)}
+.journeyIcon{display:block;font-size:28px;line-height:1;margin-bottom:5px;animation:journeyIconFloat 3.2s ease-in-out infinite}
+.journeyStat:nth-child(2) .journeyIcon{animation-delay:-1.05s}
+.journeyStat:nth-child(3) .journeyIcon{animation-delay:-2.1s}
+.journeyStat b{display:block;font-size:21px;line-height:1.05;color:#56347d}
+.journeyStat small{display:block;margin-top:5px;font-size:10px;font-weight:900;line-height:1.15;color:#7c6c83}
+.monthTotal{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:14px;
+  text-align:center;
+  font-size:13px;
+  font-weight:900;
+  color:#6a4b76;
+  background:linear-gradient(135deg,#fff8bc,#ffe1ef,#e8e1ff);
+  border:1px solid #fff;
+  box-shadow:0 6px 16px #8b5cf61d,0 0 12px #ffd96b38;
+}
+.monthTotal b{font-size:16px;color:#5b318c}
+@keyframes journeyTwinkle{from{opacity:.3;transform:translateY(1px) scale(.96)}to{opacity:.78;transform:translateY(-2px) scale(1.06)}}
+@keyframes journeyShimmer{0%,58%{left:-58%;opacity:0}68%{opacity:.65}84%,100%{left:118%;opacity:0}}
+@keyframes journeyStar{0%,100%{transform:rotate(-8deg) scale(.9);filter:drop-shadow(0 0 2px #fff)}50%{transform:rotate(9deg) scale(1.16);filter:drop-shadow(0 0 8px #ffd95d)}}
+@keyframes journeyIconFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(3deg)}}
+
+/* ===== BRILHO AMBIENTE: mais vida, sem atrapalhar os toques ===== */
+body{position:relative;overflow-x:hidden}
+main{position:relative;z-index:1}
+.ambientMagic{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ambientMagic span{
+  position:absolute;
+  bottom:-12vh;
+  left:var(--left,50%);
+  font-size:var(--size,15px);
+  opacity:0;
+  filter:drop-shadow(0 0 6px rgba(255,255,255,.9));
+  animation:ambientRise var(--dur,13s) linear infinite;
+  animation-delay:var(--delay,0s);
+}
+@keyframes ambientRise{
+  0%{opacity:0;transform:translate3d(0,0,0) rotate(0deg) scale(.72)}
+  12%{opacity:.34}
+  48%{opacity:.48;transform:translate3d(var(--drift,12px),-55vh,0) rotate(165deg) scale(1.05)}
+  84%{opacity:.24}
+  100%{opacity:0;transform:translate3d(var(--drift2,-10px),-120vh,0) rotate(360deg) scale(.78)}
+}
+
+/* Um pouquinho mais de pulso nos elementos vivos */
+.top{animation:softTopGlow 5.8s ease-in-out infinite}
+.calendarMonth{animation:monthBreath 3.6s ease-in-out infinite}
+@keyframes softTopGlow{50%{filter:saturate(1.06) brightness(1.015)}}
+@keyframes monthBreath{50%{transform:scale(1.025);text-shadow:0 0 12px #ff9fca88}}
+
+@media(max-width:430px){
+  .journeyGrid{gap:6px}
+  .journeyStat{min-height:98px;padding:10px 5px}
+  .journeyIcon{font-size:25px}
+  .journeyStat b{font-size:18px}
+  .journeyStat small{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  .journeySummary:before,.journeySummary:after,.journeyTwinkle,.journeyIcon,.top,.calendarMonth{animation:none !important}
+  .ambientMagic{display:none}
+}
+</style>
+
+</head><body><div id="ambientMagic" class="ambientMagic" aria-hidden="true"></div><main>
 
 <section class="card top">
 <div class="eyebrow">🌈 MISSÃO AUDITORA • SUA COMPANHEIRA DE ESTUDOS</div>
@@ -959,6 +1077,30 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 <div class="stat"><span class="muted">🔥 Sequência</span><b id="streak">0</b></div>
 <div class="stat"><span class="muted">🛡️ Escudos</span><b id="shields">1</b></div>
 </div>
+
+<section class="card journeySummary" id="journeySummary">
+  <div class="journeyTitleLine">
+    <h2>🌷 Minha Jornada ✨</h2>
+    <span class="journeyTwinkle" aria-hidden="true">💫</span>
+  </div>
+  <div class="journeyGrid">
+    <div class="journeyStat">
+      <span class="journeyIcon" aria-hidden="true">📚</span>
+      <b id="hoursTotal">0h</b>
+      <small>Horas totais</small>
+    </div>
+    <div class="journeyStat">
+      <span class="journeyIcon" aria-hidden="true">🗺️</span>
+      <b id="journeyRegions">1/12</b>
+      <small>Regiões desbloqueadas</small>
+    </div>
+    <div class="journeyStat">
+      <span class="journeyIcon" aria-hidden="true">🐾</span>
+      <b id="journeyAnimals">0</b>
+      <small>Animais desbloqueados</small>
+    </div>
+  </div>
+</section>
 
 <section class="card">
 <h2>🌸 Missão de hoje</h2>
@@ -1011,7 +1153,7 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 </div>
 <div id="studyCalendar" class="calendarGrid"></div>
 <div id="calendarDetail" class="calendarDetail">✨ Toque em um dia da aventura para ver suas horas. 🌸</div>
-<div class="journeyTotal">📚 Total da jornada: <b id="hoursTotal">0h</b></div>
+<div class="monthTotal">🌙 Total do mês: <b id="monthHours">0h</b></div>
 </section>
 
 <section class="card">
@@ -1695,6 +1837,7 @@ function renderStudyCalendar(){
   const mondayOffset=(first.getDay()+6)%7;
   const nowDate=dateObj(today());
   const campaignDate=s.campaignStart?dateObj(s.campaignStart):null;
+  let monthlyHours=0;
 
   const monthText=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(first);
   label.textContent=monthText.charAt(0).toUpperCase()+monthText.slice(1);
@@ -1710,6 +1853,7 @@ function renderStudyCalendar(){
     const d=new Date(year,month,day,12,0,0);
     const ds=localDate(d);
     const hours=Number(s.daily[ds]||0);
+    monthlyHours+=hours;
     const protectedDay=!!s.protectedDays[ds];
     const isToday=ds===today();
     const isFuture=d>nowDate;
@@ -1747,6 +1891,9 @@ function renderStudyCalendar(){
     b.addEventListener('click',()=>showCalendarDay(d,hours,protectedDay,isFuture,beforeCampaign));
     grid.appendChild(b);
   }
+
+  const monthHours=document.getElementById('monthHours');
+  if(monthHours)monthHours.textContent=formatStudyHours(monthlyHours);
 }
 
 function showCalendarDay(date,hours,protectedDay,isFuture,beforeCampaign){
@@ -2291,6 +2438,10 @@ function render(){
     : '⚠️ Você está sem Escudo do Pingo. Se um dia terminar com 0 estudo, sua campanha e floresta serão reiniciadas.';
 
   const maxRegion=unlockedRegionCount(i);
+  const journeyRegions=document.getElementById('journeyRegions');
+  const journeyAnimals=document.getElementById('journeyAnimals');
+  if(journeyRegions)journeyRegions.textContent=maxRegion+'/12';
+  if(journeyAnimals)journeyAnimals.textContent=Math.max(0,i);
   if(s.visitedRegion && s.visitedRegion>maxRegion)s.visitedRegion=null;
   renderForestMap(i);
 
@@ -2456,6 +2607,24 @@ if(calendarNext)calendarNext.onclick=()=>{
   calendarViewDate=new Date(calendarViewDate.getFullYear(),calendarViewDate.getMonth()+1,1,12,0,0);
   renderStudyCalendar();
 };
+
+function createAmbientMagic(){
+  const layer=document.getElementById('ambientMagic');
+  if(!layer || layer.childElementCount)return;
+  const symbols=['✨','✦','💫','🌸','⋆'];
+  for(let n=0;n<18;n++){
+    const sp=document.createElement('span');
+    sp.textContent=symbols[n%symbols.length];
+    sp.style.setProperty('--left',(3+Math.random()*94)+'%');
+    sp.style.setProperty('--size',(9+Math.random()*10)+'px');
+    sp.style.setProperty('--dur',(11+Math.random()*10)+'s');
+    sp.style.setProperty('--delay',(-Math.random()*20)+'s');
+    sp.style.setProperty('--drift',(-28+Math.random()*56)+'px');
+    sp.style.setProperty('--drift2',(-38+Math.random()*76)+'px');
+    layer.appendChild(sp);
+  }
+}
+createAmbientMagic();
 
 const companionDiscovery=document.getElementById('companionDiscovery');
 if(companionDiscovery)companionDiscovery.addEventListener('click',()=>{
