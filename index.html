@@ -2614,14 +2614,140 @@ function buildPetMarkupV20(stageIndex,companion,mood,regionNumber=1,size='big'){
 
   // AVES: cabeça, tronco, asas, cauda e pés sempre legíveis. Nada de nariz/boca de mamífero em cima do bico.
   if(['bird','owl','penguin','duck','swan','parrot','peacock','flamingo','eagle'].includes(profile)){
-    if(profile==='flamingo')return `${defs}${shadow}${regionBack}<path d="M103 69 Q69 74 78 111 Q84 133 112 135 Q142 137 148 116 Q154 93 133 85 Q119 80 115 64 Q111 48 126 41" fill="none" stroke="${primary}" stroke-width="17" stroke-linecap="round"/><ellipse cx="128" cy="42" rx="25" ry="22" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M145 43 q18 1 24 10 q-11 8-26 3z" fill="#f1a94c" stroke="${outline}" stroke-width="2"/><ellipse cx="111" cy="144" rx="48" ry="39" fill="${body}" stroke="${outline}" stroke-width="3"/><path class="pet-wing" d="M86 130 Q110 111 137 137 Q118 162 89 157Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><path d="M96 174 L91 198 M126 174 L132 198" stroke="#e58e9f" stroke-width="5" stroke-linecap="round"/><path d="M83 198 h18 M123 198 h18" stroke="#e58e9f" stroke-width="4" stroke-linecap="round"/>${petBirdFace(mood,ink,128,40,'#f1a94c')}${regionAccent}`;
-    if(profile==='peacock')return `${defs}${shadow}${regionBack}<g opacity=".8">${[0,1,2,3,4].map(k=>`<ellipse cx="${72+k*19}" cy="128" rx="26" ry="58" fill="${k%2?petMix(accent,'#69d9bf',.2):petMix(primary,'#5dcfa7',.25)}" transform="rotate(${(k-2)*18} ${72+k*19} 128)"/><circle cx="${72+k*19}" cy="94" r="8" fill="#4a64bd" stroke="#ffd45d" stroke-width="4"/>`).join('')}</g><ellipse cx="110" cy="156" rx="46" ry="42" fill="${body}" stroke="${outline}" stroke-width="3"/><path class="pet-wing" d="M81 143 Q110 126 139 143 Q126 166 110 170 Q94 166 81 143Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><circle cx="110" cy="84" r="39" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M98 48 q-7-20-13-26 M110 46 V20 M122 48 q7-20 13-26" stroke="${accent}" stroke-width="3"/><circle cx="85" cy="22" r="4" fill="#ffd85f"/><circle cx="110" cy="19" r="4" fill="#ffd85f"/><circle cx="135" cy="22" r="4" fill="#ffd85f"/>${petBirdFace(mood,ink)}<path d="M88 188 q7-11 14 0 M118 188 q7-11 14 0" fill="none" stroke="#e59b38" stroke-width="5"/>${regionAccent}`;
-    if(profile==='swan')return `${defs}${shadow}${regionBack}<ellipse cx="116" cy="154" rx="65" ry="39" fill="${body}" stroke="${outline}" stroke-width="3"/><path class="pet-wing" d="M88 150 Q118 119 158 147 Q143 176 105 175Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><path d="M86 147 Q72 116 86 90 Q101 63 112 81 Q94 96 102 122" fill="none" stroke="${primary}" stroke-width="19" stroke-linecap="round"/><circle cx="110" cy="75" r="27" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M128 77 l30 9-29 10z" fill="#f39a3c" stroke="${outline}" stroke-width="2"/>${petBirdFace(mood,ink,110,72,'#f39a3c')}${regionAccent}`;
-    if(profile==='penguin')return `${defs}${shadow}${regionBack}<ellipse cx="110" cy="146" rx="57" ry="61" fill="${petMix(primary,'#263346',.72)}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="149" rx="35" ry="45" fill="#f7fbff"/><path class="pet-wing" d="M67 126 Q42 144 57 174 Q72 165 82 139Z" fill="${petMix(primary,'#263346',.75)}"/><path class="pet-wing" d="M153 126 Q178 144 163 174 Q148 165 138 139Z" fill="${petMix(primary,'#263346',.75)}"/><circle cx="110" cy="78" r="44" fill="${petMix(primary,'#263346',.72)}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="90" rx="32" ry="27" fill="#f7fbff"/>${petBirdFace(mood,ink,110,78,'#f3a43a')}<ellipse cx="87" cy="196" rx="18" ry="7" fill="#f3a43a"/><ellipse cx="133" cy="196" rx="18" ry="7" fill="#f3a43a"/>${regionAccent}`;
+    if(profile==='flamingo'){
+      const flamingoPink='#FA7298';
+      const flamingoDark='#222222';
+      const flamingoLeg='#F5C06A';
+      const flamingoFoot='#5BB4D8';
+      const flamingoBeak='#FCE5CD';
+      return `${defs}${shadow}<g transform="translate(8 2) scale(.88)">
+        <path d="M125 155 L140 185 L90 200" fill="none" stroke="${flamingoDark}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M125 155 L140 185 L90 200" fill="none" stroke="${flamingoLeg}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M90 200 L70 210 C80 205 85 200 90 195 Z" fill="${flamingoFoot}" stroke="${flamingoDark}" stroke-width="3" stroke-linejoin="round"/><path d="M80 206 L85 200 M75 208 L80 203" stroke="${flamingoDark}" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M105 160 L105 220" fill="none" stroke="${flamingoDark}" stroke-width="7" stroke-linecap="round"/><path d="M105 160 L105 220" fill="none" stroke="${flamingoLeg}" stroke-width="3" stroke-linecap="round"/>
+        <path d="M105 220 L80 230 C90 225 95 220 100 215 Z" fill="${flamingoFoot}" stroke="${flamingoDark}" stroke-width="3" stroke-linejoin="round"/><path d="M90 226 L95 220 M85 228 L90 223" stroke="${flamingoDark}" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M80 15 C100 15 105 45 80 65 C65 80 85 100 125 105 C165 105 195 115 205 130 Q190 130 185 135 Q200 145 200 150 Q185 145 175 150 Q185 165 180 165 C150 170 90 170 70 120 C55 100 45 70 50 40 C50 20 60 15 80 15 Z" fill="${flamingoPink}" stroke="${flamingoDark}" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M52 35 C30 35 15 55 25 85 C40 70 55 50 55 45 Z" fill="${flamingoBeak}" stroke="${flamingoDark}" stroke-width="3" stroke-linejoin="round"/><path d="M27 65 C22 75 25 85 25 85 C40 70 48 60 48 55 C40 58 32 60 27 65 Z" fill="${flamingoDark}" stroke="${flamingoDark}" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="68" cy="30" r="10" fill="#FFF" stroke="${flamingoDark}" stroke-width="3"/><circle cx="68" cy="30" r="4" fill="${flamingoDark}"/><circle cx="66.5" cy="28" r="1.5" fill="#FFF"/>
+        <path class="pet-wing" d="M90 110 C130 110 170 125 180 155 C150 145 110 145 80 130 C75 125 80 110 90 110 Z" fill="${flamingoPink}" stroke="${flamingoDark}" stroke-width="3" stroke-linejoin="round"/><path d="M140 135 Q155 140 165 150 M120 125 Q145 135 155 145 M100 115 Q125 125 135 135" fill="none" stroke="${flamingoDark}" stroke-width="3" stroke-linecap="round"/>
+      </g>`;
+    }
+    if(profile==='peacock'){
+      const peacockGreen=petMix(primary,'#2ecc71',.52);
+      const peacockGreenAlt=petMix(accent,'#2ecc71',.45);
+      const peacockBlue=petMix(primary,'#00b4d8',.38);
+      const peacockWing=petMix(accent,'#0096c7',.32);
+      const peacockEye=petMix(accent,'#3498db',.18);
+      const peacockGold='#ffd45d';
+      const feather=(angle,fill)=>`<g transform="rotate(${angle} 110 151)"><ellipse cx="110" cy="74" rx="16" ry="64" fill="${fill}" stroke="${petMix(fill,'#1e8449',.45)}" stroke-width="2.5"/><ellipse cx="110" cy="31" rx="8.5" ry="13" fill="${peacockGold}"/><circle cx="110" cy="31" r="4.8" fill="${peacockEye}"/></g>`;
+      const fan=`<g opacity=".96">${[-75,-50,-25,0,25,50,75].map((a,i)=>feather(a,i%2?peacockGreenAlt:peacockGreen)).join('')}</g>`;
+      const feet=`<g fill="none" stroke="#d68b25" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M94 170 L88 191 L77 194 M88 191 L99 194"/><path d="M126 170 L132 191 L143 194 M132 191 L121 194"/></g>`;
+      const bodyMain=`<path d="M110 55 C146 55 156 111 142 160 C132 179 88 179 78 160 C64 111 74 55 110 55 Z" fill="${peacockBlue}" stroke="${outline}" stroke-width="3.6"/>`;
+      const bellyMain=`<path d="M110 101 C134 101 140 137 131 160 C122 174 98 174 89 160 C80 137 86 101 110 101 Z" fill="${petMix(secondary,'#90e0ef',.48)}" opacity=".96"/>`;
+      const wings=`<path class="pet-wing" d="M72 119 C51 124 56 158 86 154 Z" fill="${peacockWing}" stroke="${outline}" stroke-width="3" stroke-linejoin="round"/><path class="pet-wing" d="M148 119 C169 124 164 158 134 154 Z" fill="${peacockWing}" stroke="${outline}" stroke-width="3" stroke-linejoin="round"/>`;
+      const crown=`<g stroke="${outline}" stroke-width="3" stroke-linecap="round"><path d="M110 55 Q115 40 110 27" fill="none"/><path d="M99 58 Q94 44 88 34" fill="none"/><path d="M121 58 Q126 44 132 34" fill="none"/></g><circle cx="110" cy="27" r="4.5" fill="${peacockGold}"/><circle cx="88" cy="34" r="4.5" fill="${peacockGold}"/><circle cx="132" cy="34" r="4.5" fill="${peacockGold}"/>`;
+      const face=`${petV21Eyes(mood,ink,110,89,22,.96)}<ellipse cx="78" cy="102" rx="8" ry="4.5" fill="#ff91b8" opacity=".6"/><ellipse cx="142" cy="102" rx="8" ry="4.5" fill="#ff91b8" opacity=".6"/><path d="M102 99 Q110 96 118 99 L110 112 Z" fill="#ffc43a" stroke="#d68b25" stroke-width="2.7" stroke-linejoin="round"/>`;
+      return `${defs}${shadow}${regionBack}${fan}${feet}${wings}${bodyMain}${bellyMain}${crown}${face}${regionAccent}`;
+    }
+    if(profile==='swan'){
+      const swanDark='#1A252F';
+      const swanWater='#67B1D9';
+      const swanWater2='#489BC7';
+      const swanBody='#FFFFFF';
+      const swanBeak='#FCAE3D';
+      return `${defs}${shadow}<g transform="translate(-2 0) scale(.88)">
+        <ellipse cx="125" cy="205" rx="100" ry="15" fill="${swanWater}" stroke="${swanDark}" stroke-width="5"/>
+        <ellipse cx="125" cy="205" rx="80" ry="8" fill="none" stroke="${swanWater2}" stroke-width="3"/>
+        <path d="M85 45 C45 55 25 70 25 90 C35 102 55 92 85 78 Z" fill="${swanBeak}" stroke="${swanDark}" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M25 90 C40 90 60 80 80 70" fill="none" stroke="${swanDark}" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="50" cy="68" rx="1.5" ry="3" fill="${swanDark}" transform="rotate(-30 50 68)"/>
+        <path d="M95 15 C130 15 135 65 115 100 C105 125 115 140 145 145 C175 150 205 140 235 110 C225 155 185 205 125 205 C65 205 35 170 55 130 C70 100 95 80 80 55 C65 30 75 15 95 15 Z" fill="${swanBody}" stroke="${swanDark}" stroke-width="6" stroke-linejoin="round"/>
+        <path class="pet-wing" d="M95 150 C105 105 150 90 185 105 C210 115 210 135 195 145 C210 155 205 175 185 180 C190 195 170 205 150 195 C120 185 90 170 95 150 Z" fill="${swanBody}" stroke="${swanDark}" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M125 115 C160 125 180 145 190 155" fill="none" stroke="${swanDark}" stroke-width="4" stroke-linecap="round"/>
+        <path d="M120 135 C150 145 170 165 180 175" fill="none" stroke="${swanDark}" stroke-width="4" stroke-linecap="round"/>
+        <path d="M115 155 C140 165 160 185 165 195" fill="none" stroke="${swanDark}" stroke-width="4" stroke-linecap="round"/>
+        <path d="M90 18 C108 22 108 45 95 55 L80 78 C68 60 72 25 90 18 Z" fill="${swanDark}"/>
+        <circle cx="92" cy="38" r="5" fill="#FFFFFF"/>
+        <circle cx="93" cy="38" r="2.5" fill="${swanDark}"/>
+        <circle cx="93.5" cy="37" r="1" fill="#FFFFFF"/>
+        <path d="M40 205 C80 225 170 225 210 205" fill="none" stroke="${swanDark}" stroke-width="5" stroke-linecap="round"/>
+        <path d="M60 215 C90 230 160 230 190 215" fill="none" stroke="${swanDark}" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+      </g>`;
+    }
+    if(profile==='penguin'){
+      const penguinDark=petMix(primary,'#263346',.78);
+      const penguinOutline=petMix(outline,'#1a252f',.55);
+      const penguinFeet=`<path d="M85 180 L85 197 M75 197 L95 197" fill="none" stroke="#ffc43a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M135 180 L135 197 M125 197 L145 197" fill="none" stroke="#ffc43a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`;
+      const penguinFlippers=`<path class="pet-wing" d="M70 95 C40 135 55 175 65 175 C70 175 75 135 75 110 Z" fill="${penguinDark}" stroke="${penguinOutline}" stroke-width="4" stroke-linejoin="round"/><path class="pet-wing" d="M150 95 C180 135 165 175 155 175 C150 175 145 135 145 110 Z" fill="${penguinDark}" stroke="${penguinOutline}" stroke-width="4" stroke-linejoin="round"/>`;
+      const penguinBody=`<path d="M110 40 C145 40 150 75 150 125 C150 175 135 185 110 185 C85 185 70 175 70 125 C70 75 75 40 110 40 Z" fill="${penguinDark}" stroke="${penguinOutline}" stroke-width="4"/>`;
+      const penguinWhite=`<path d="M110 65 C140 45 145 90 140 135 C135 175 125 180 110 180 C95 180 85 175 80 135 C75 90 80 45 110 65 Z" fill="#f8fbff"/>`;
+      const penguinFace=`${petV21Eyes(mood,ink,110,90,18,.95)}<ellipse cx="78" cy="105" rx="7" ry="4" fill="#ff91b8" opacity=".6"/><ellipse cx="142" cy="105" rx="7" ry="4" fill="#ff91b8" opacity=".6"/><path d="M102 100 Q110 95 118 100 L110 112 Z" fill="#ffc43a" stroke="#e5b400" stroke-width="3" stroke-linejoin="round"/>`;
+      return `${defs}<ellipse cx="110" cy="202" rx="40" ry="7" fill="#5b4868" opacity=".13"/>${regionBack}${penguinFeet}${penguinFlippers}${penguinBody}${penguinWhite}${penguinFace}${regionAccent}`;
+    }
     const birdHeadExtra=profile==='owl'?`<circle cx="84" cy="82" r="27" fill="${petMix(secondary,'#ffffff',.8)}" opacity=".96"/><circle cx="136" cy="82" r="27" fill="${petMix(secondary,'#ffffff',.8)}" opacity=".96"/><path d="M72 53 L83 35 L94 57 M126 57 L137 35 L148 53" fill="${primary}"/>`:profile==='eagle'?`<path d="M66 71 Q110 41 154 71 Q137 62 122 68 Q110 51 98 68 Q82 61 66 71Z" fill="#f8f5e8" opacity=".95"/>`:profile==='parrot'?`<path d="M132 102 q27 3 29 18 q-18 7-31-2z" fill="#f6b143" stroke="${outline}" stroke-width="2"/><path d="M76 124 q34 22 68 0" fill="none" stroke="${accent}" stroke-width="8" opacity=".8"/>`:profile==='duck'?`<path d="M90 102 Q110 94 132 103 Q130 116 110 117 Q91 116 90 102Z" fill="#f1ad43" stroke="${outline}" stroke-width="2"/>`:'';
     const birdFace=profile==='owl'?`${petBirdFace(mood,ink,110,81,'#efa63f')}`:profile==='duck'?`${petBirdFace(mood,ink,110,81,'#f1ad43')}`:`${petBirdFace(mood,ink,110,82,profile==='eagle'?'#dca13f':'#f2a53a')}`;
     const tail=profile==='parrot'?`<path d="M96 181 L105 210 L114 181 L124 210 L132 180" fill="${accent}" stroke="${outline}" stroke-width="2"/>`:`<path d="M91 182 L103 205 L110 183 L119 205 L131 182" fill="${secondary}" opacity=".9"/>`;
     return `${defs}${shadow}${regionBack}${tail}<ellipse cx="110" cy="151" rx="55" ry="49" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="142" rx="29" ry="29" fill="${belly}" opacity=".9"/><g class="pet-wing"><path d="M73 126 Q45 147 65 177 Q86 166 91 138Z" fill="${belly}" stroke="${outline}" stroke-width="2"/></g><g class="pet-wing"><path d="M147 126 Q175 147 155 177 Q134 166 129 138Z" fill="${belly}" stroke="${outline}" stroke-width="2"/></g><circle cx="110" cy="82" r="43" fill="${body}" stroke="${outline}" stroke-width="3"/>${birdHeadExtra}${birdFace}<path d="M92 190 q8-12 16 0 M112 190 q8-12 16 0" fill="none" stroke="#e89d3d" stroke-width="5" stroke-linecap="round"/>${regionAccent}`;
+  }
+
+  if(profile==='dolphin'){
+    const dolphinBlue='#3183C8';
+    const dolphinLight='#E1F0FA';
+    const dolphinBg='#BBE2FA';
+    const dolphinInk='#111111';
+    return `${defs}${regionBack}<g transform="translate(0 -2) scale(.84)">
+      <ellipse cx="130" cy="245" rx="80" ry="12" fill="${dolphinBg}" opacity=".65"/>
+      <path d="M135 125 C150 145 160 165 150 175 C140 160 130 145 125 135 Z" fill="${dolphinBlue}" stroke="${dolphinInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M35 75 L125 105 L50 120 Z" fill="#641E16"/>
+      <path d="M75 103 C85 98 95 98 105 100 C95 102 85 104 75 103 Z" fill="#F48FB1" stroke="${dolphinInk}" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M45 90 C35 80 55 80 80 80 C100 50 130 40 160 55 C175 40 185 30 190 30 C190 45 190 60 185 70 C230 110 210 160 180 190 C195 210 210 220 205 230 C195 225 185 215 180 210 C170 225 155 235 150 230 C160 215 165 200 165 190 C150 170 120 140 100 120 C85 110 75 115 65 115 C55 115 55 105 65 105 C80 105 95 105 110 100 C90 95 70 92 45 90 Z" fill="${dolphinBlue}" stroke="${dolphinInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M110 100 C120 115 140 145 165 190 C150 170 120 140 100 120 C85 110 75 115 65 115 C55 115 55 105 65 105 C80 105 95 105 110 100 Z" fill="${dolphinLight}" stroke="${dolphinInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M115 125 C90 155 85 180 100 185 C115 170 125 145 130 130 Z" fill="${dolphinBlue}" stroke="${dolphinInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M110 100 Q115 103 115 95" fill="none" stroke="${dolphinInk}" stroke-width="4" stroke-linecap="round"/>
+      <g transform="rotate(-10 120 70)">
+        <ellipse cx="120" cy="70" rx="10" ry="15" fill="#FFFFFF" stroke="${dolphinInk}" stroke-width="5"/>
+        <ellipse cx="123" cy="72" rx="6" ry="11" fill="${dolphinInk}"/>
+        <ellipse cx="124" cy="65" rx="3" ry="5" fill="#FFFFFF"/>
+      </g>
+      <path d="M110 45 Q120 40 130 47" fill="none" stroke="${dolphinInk}" stroke-width="4" stroke-linecap="round"/>
+    </g>${regionAccent}`;
+  }
+
+  if(profile==='shark'){
+    const sharkBlue='#4292C6';
+    const sharkLight='#FFFFFF';
+    const sharkPale='#A9CCE3';
+    const sharkWater='#B2EBF2';
+    const sharkInk='#1C2833';
+    return `${defs}${regionBack}<g transform="translate(-4 6) scale(.68)">
+      <ellipse cx="160" cy="205" rx="110" ry="12" fill="${sharkWater}" opacity=".85"/>
+      <path d="M100 130 C90 170 95 190 110 200 C120 180 125 150 115 130 Z" fill="${sharkPale}" stroke="${sharkInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M230 145 C235 165 245 175 255 170 C245 155 240 145 230 145 Z" fill="${sharkBlue}" stroke="${sharkInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M140 60 C160 15 190 10 205 10 C190 40 195 65 200 75 Z" fill="${sharkBlue}" stroke="${sharkInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path id="shark-hull" d="M25 95 C30 70 80 40 140 40 C200 40 235 65 255 90 C275 75 295 45 305 30 C295 70 300 100 315 120 C290 125 270 115 255 110 C220 160 140 180 75 145 C40 125 20 110 25 95 Z" fill="${sharkLight}"/>
+      <path d="M25 95 C30 70 80 40 140 40 C200 40 235 65 255 90 C275 75 295 45 305 30 C295 70 300 100 315 120 C290 125 270 115 255 110 C190 145 130 160 125 130 C120 105 105 90 90 105 C70 125 40 115 25 95 Z" fill="${sharkBlue}"/>
+      <use href="#shark-hull" fill="none" stroke="${sharkInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M135 140 C140 180 160 210 175 220 C185 210 180 160 165 130 Z" fill="${sharkBlue}" stroke="${sharkInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M45 70 C90 45 150 45 200 65" fill="none" stroke="#85C1E9" stroke-width="4" stroke-linecap="round"/>
+      <path d="M125 95 Q120 115 125 130" fill="none" stroke="${sharkInk}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M133 97 Q128 115 133 128" fill="none" stroke="${sharkInk}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M141 100 Q136 115 141 125" fill="none" stroke="${sharkInk}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M40 120 C60 145 95 140 105 110 C85 125 60 120 40 120 Z" fill="#5A1A1A"/>
+      <path d="M50 135 C60 125 80 125 95 130 C85 150 60 145 50 135 Z" fill="#F48FB1" stroke="${sharkInk}" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="45,120 48,128 52,121" fill="#FFFFFF" stroke="${sharkInk}" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="52,121 57,129 62,122" fill="#FFFFFF" stroke="${sharkInk}" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="62,122 68,131 74,124" fill="#FFFFFF" stroke="${sharkInk}" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="74,124 81,131 86,123" fill="#FFFFFF" stroke="${sharkInk}" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="86,123 92,129 96,119" fill="#FFFFFF" stroke="${sharkInk}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M40 120 C60 145 95 140 105 110 C85 125 60 120 40 120 Z" fill="none" stroke="${sharkInk}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M105 110 Q110 105 115 110" fill="none" stroke="${sharkInk}" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="85" cy="90" r="14" fill="#FFFFFF" stroke="${sharkInk}" stroke-width="4"/>
+      <circle cx="88" cy="90" r="9" fill="#3498DB"/>
+      <circle cx="88" cy="90" r="6" fill="${sharkInk}"/>
+      <circle cx="86" cy="87" r="2.5" fill="#FFFFFF"/>
+      <circle cx="91" cy="93" r="1" fill="#FFFFFF"/>
+      <path d="M75 70 Q85 65 95 72" fill="none" stroke="${sharkInk}" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="45" cy="85" rx="2" ry="3.5" fill="${sharkInk}" transform="rotate(20 45 85)"/>
+    </g>${regionAccent}`;
   }
 
   // Animais aquáticos têm silhueta própria; não recebem rosto de mamífero genérico.
@@ -2634,15 +2760,197 @@ function buildPetMarkupV20(stageIndex,companion,mood,regionNumber=1,size='big'){
     return `${defs}${shadow}${regionBack}${fin}${snout}<path d="M42 130 Q54 88 116 84 Q165 82 177 113 L205 92 L198 131 L207 155 L176 143 Q151 174 102 172 Q53 169 42 130Z" fill="${body}" stroke="${outline}" stroke-width="3"/>${blow}<ellipse cx="${headX}" cy="120" rx="42" ry="39" fill="${body}" opacity=".35"/><ellipse cx="75" cy="110" rx="7" ry="9" fill="${ink}"/><circle cx="72" cy="106" r="2.5" fill="#fff"/><path d="M65 136 Q78 143 91 135" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>${profile==='shark'?`<path d="M68 137 l8 8 8-8 8 8" fill="none" stroke="#fff" stroke-width="3"/>`:''}${regionAccent}`;
   }
   if(profile==='seal')return `${defs}${shadow}${regionBack}<ellipse cx="110" cy="151" rx="67" ry="42" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M64 157 Q38 169 47 187 Q68 181 81 166Z" fill="${secondary}"/><path d="M156 157 Q182 169 173 187 Q152 181 139 166Z" fill="${secondary}"/><circle cx="110" cy="91" r="48" fill="${body}" stroke="${outline}" stroke-width="3"/>${petFace(mood,ink)}${petAnimalFeatures('otter',mood,ink,primary,secondary,accent)}${regionAccent}`;
-  if(profile==='lobster')return `${defs}${shadow}${regionBack}<ellipse cx="110" cy="139" rx="36" ry="53" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M87 104 Q55 82 39 105 Q54 126 83 119 M133 104 Q165 82 181 105 Q166 126 137 119" fill="${body}" stroke="${outline}" stroke-width="4"/><path d="M86 151 L57 172 M134 151 L163 172 M88 167 L67 190 M132 167 L153 190" stroke="${accent}" stroke-width="6" stroke-linecap="round"/><path d="M101 87 Q89 61 72 53 M119 87 Q131 61 148 53" fill="none" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>${petFace(mood,ink,110,121)}${regionAccent}`;
+  if(profile==='lobster'){
+    const lobsterRed='#FF5252';
+    const lobsterDark='#3E2723';
+    const lobsterSpot='#B71C1C';
+    const lobsterEye='#2C3E50';
+    const lobsterTongue='#FF8A80';
+    return `${defs}${shadow}${regionBack}<g transform="translate(6 4) scale(.65)">
+      <ellipse cx="160" cy="300" rx="100" ry="12" fill="#FFE0B2"/>
+      <path d="M125 115 Q50 120 30 180" fill="none" stroke="${lobsterDark}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M155 110 Q220 90 260 120" fill="none" stroke="${lobsterDark}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M185 150 Q235 140 245 125" fill="none" stroke="${lobsterDark}" stroke-width="16" stroke-linecap="round"/>
+      <path d="M185 150 Q235 140 245 125" fill="none" stroke="${lobsterRed}" stroke-width="8" stroke-linecap="round"/>
+      <path d="M235 130 C275 160 310 70 265 40 C235 15 185 65 210 105 C220 90 240 75 260 85 C250 100 240 115 235 130 Z" fill="${lobsterRed}" stroke="${lobsterDark}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M235 130 C225 155 185 145 185 120 C195 110 215 120 225 125 C229 127 232 129 235 130 Z" fill="${lobsterRed}" stroke="${lobsterDark}" stroke-width="5" stroke-linejoin="round"/>
+      <g stroke-linecap="round" fill="none">
+        <path d="M130 170 Q70 180 65 210" stroke="${lobsterDark}" stroke-width="12"/>
+        <path d="M145 195 Q85 210 90 245" stroke="${lobsterDark}" stroke-width="12"/>
+        <path d="M160 220 Q110 245 130 280" stroke="${lobsterDark}" stroke-width="12"/>
+        <path d="M130 170 Q70 180 65 210" stroke="${lobsterRed}" stroke-width="6"/>
+        <path d="M145 195 Q85 210 90 245" stroke="${lobsterRed}" stroke-width="6"/>
+        <path d="M160 220 Q110 245 130 280" stroke="${lobsterRed}" stroke-width="6"/>
+      </g>
+      <path d="M195 245 C175 295 225 320 240 270 Z" fill="${lobsterRed}" stroke="${lobsterDark}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M210 235 C245 285 290 275 260 235 Z" fill="${lobsterRed}" stroke="${lobsterDark}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M180 235 C140 270 175 310 210 255 Z" fill="${lobsterRed}" stroke="${lobsterDark}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M120 100 C160 85 210 130 220 190 C235 240 195 265 175 240 C135 195 95 140 120 100 Z" fill="${lobsterRed}" stroke="${lobsterDark}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M140 185 Q170 210 212 175" fill="none" stroke="${lobsterDark}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M152 210 Q182 235 220 195" fill="none" stroke="${lobsterDark}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M165 235 Q195 255 220 220" fill="none" stroke="${lobsterDark}" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="125" cy="135" r="3" fill="${lobsterSpot}"/>
+      <circle cx="145" cy="145" r="4" fill="${lobsterSpot}"/>
+      <circle cx="135" cy="160" r="2.5" fill="${lobsterSpot}"/>
+      <circle cx="160" cy="165" r="3.5" fill="${lobsterSpot}"/>
+      <circle cx="115" cy="150" r="2" fill="${lobsterSpot}"/>
+      <path d="M105 145 Q60 135 80 110" fill="none" stroke="${lobsterDark}" stroke-width="16" stroke-linecap="round"/>
+      <path d="M105 145 Q60 135 80 110" fill="none" stroke="${lobsterRed}" stroke-width="8" stroke-linecap="round"/>
+      <path d="M80 115 C40 150 -10 60 45 30 C75 5 125 55 100 95 C90 80 70 65 50 75 C60 90 70 105 80 115 Z" fill="${lobsterRed}" stroke="${lobsterDark}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M80 115 C90 140 130 130 130 105 C120 95 100 105 90 110 C86 112 83 114 80 115 Z" fill="${lobsterRed}" stroke="${lobsterDark}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M125 105 L115 60 M150 100 L165 60" fill="none" stroke="${lobsterDark}" stroke-width="12" stroke-linecap="round"/>
+      <path d="M125 105 L115 60 M150 100 L165 60" fill="none" stroke="${lobsterRed}" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="110" cy="55" r="20" fill="#FFFFFF" stroke="${lobsterDark}" stroke-width="4"/>
+      <circle cx="170" cy="55" r="20" fill="#FFFFFF" stroke="${lobsterDark}" stroke-width="4"/>
+      <circle cx="115" cy="55" r="10" fill="${lobsterEye}"/>
+      <circle cx="165" cy="55" r="10" fill="${lobsterEye}"/>
+      <circle cx="112" cy="50" r="3" fill="#FFFFFF"/>
+      <circle cx="162" cy="50" r="3" fill="#FFFFFF"/>
+      <path d="M90 30 Q105 15 120 25" fill="none" stroke="${lobsterDark}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M160 25 Q175 15 190 30" fill="none" stroke="${lobsterDark}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M115 115 C120 150 155 145 155 110 C140 125 125 125 115 115 Z" fill="#641E16" stroke="${lobsterDark}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M122 125 C132 120 142 120 148 125 C142 138 132 138 122 125 Z" fill="${lobsterTongue}"/>
+    </g>`;
+  }
 
-  if(profile==='octopus')return `${defs}${shadow}${regionBack}<path d="M63 154 Q48 174 62 184 Q77 188 83 168 Q85 191 102 190 Q114 188 110 169 Q120 192 137 188 Q151 183 139 165 Q154 182 169 174 Q179 161 158 151Z" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="111" rx="61" ry="67" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(92,86,24,14,.18)}<ellipse cx="110" cy="137" rx="39" ry="26" fill="${belly}" opacity=".62"/>${petFace(mood,ink)}${regionAccent}`;
-  if(profile==='crab')return `${defs}${shadow}${regionBack}<ellipse cx="110" cy="132" rx="55" ry="45" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M58 126 Q28 101 25 125 Q26 148 54 141" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M162 126 Q192 101 195 125 Q194 148 166 141" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M70 163 L50 184 M87 168 L76 191 M150 163 L170 184 M133 168 L144 191" stroke="${accent}" stroke-width="8" stroke-linecap="round"/>${petFace(mood,ink)}${regionAccent}`;
+  if(profile==='octopus'){
+    const octoPink='#FF4081';
+    const octoPinkDark='#D81B60';
+    const octoPinkLight='#FF80AB';
+    const octoInk='#1A000B';
+    const octoSucker='#FFD54F';
+    const octoBlue='#00E5FF';
+    return `${defs}${shadow}${regionBack}<g transform="translate(1 -2) scale(.84)">
+      <ellipse cx="130" cy="245" rx="100" ry="10" fill="#090F16" opacity=".55"/>
+      <g fill="${octoPinkDark}" stroke="${octoInk}" stroke-width="5" stroke-linejoin="round">
+        <path d="M75 140 C-5 100 -10 180 25 190 C45 195 60 160 85 160 Z"/>
+        <path d="M185 140 C265 100 270 180 235 190 C215 195 200 160 175 160 Z"/>
+      </g>
+      <g fill="${octoSucker}" stroke="${octoInk}" stroke-width="3">
+        <circle cx="15" cy="155" r="4"/><circle cx="28" cy="175" r="4.5"/>
+        <circle cx="245" cy="155" r="4"/><circle cx="232" cy="175" r="4.5"/>
+      </g>
+      <g fill="${octoPink}" stroke="${octoInk}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M80 150 C10 140 5 210 35 230 C65 250 85 210 95 180 Z"/>
+        <path d="M100 170 C70 230 80 270 110 255 C130 245 125 200 125 180 Z"/>
+        <path d="M160 170 C190 230 180 270 150 255 C130 245 135 200 135 180 Z"/>
+        <path d="M180 150 C250 140 255 210 225 230 C195 250 175 210 165 180 Z"/>
+      </g>
+      <g fill="${octoSucker}" stroke="${octoInk}" stroke-width="3">
+        <circle cx="28" cy="205" r="4.5"/><circle cx="42" cy="222" r="5.5"/><circle cx="62" cy="225" r="6"/><circle cx="82" cy="205" r="5"/>
+        <circle cx="85" cy="235" r="5"/><circle cx="102" cy="250" r="6"/><circle cx="118" cy="235" r="5"/>
+        <circle cx="175" cy="235" r="5"/><circle cx="158" cy="250" r="6"/><circle cx="142" cy="235" r="5"/>
+        <circle cx="232" cy="205" r="4.5"/><circle cx="218" cy="222" r="5.5"/><circle cx="198" cy="225" r="6"/><circle cx="178" cy="205" r="5"/>
+      </g>
+      <path d="M75 160 C45 150 45 40 130 25 C215 40 215 150 185 160 C160 175 100 175 75 160 Z" fill="${octoPink}" stroke="${octoInk}" stroke-width="5" stroke-linejoin="round"/>
+      <g fill="${octoPinkLight}">
+        <circle cx="110" cy="45" r="10"/><circle cx="140" cy="40" r="6"/><circle cx="85" cy="65" r="5"/>
+        <circle cx="165" cy="60" r="7"/><circle cx="130" cy="60" r="4"/><circle cx="95" cy="55" r="3"/>
+      </g>
+      <path d="M155 35 C185 45 195 80 195 100" fill="none" stroke="${octoPinkLight}" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="100" cy="110" r="22" fill="#FFFFFF" stroke="${octoInk}" stroke-width="5"/>
+      <circle cx="103" cy="113" r="13" fill="${octoInk}"/>
+      <path d="M92 118 C92 126 114 126 114 118 C111 110 95 110 92 118 Z" fill="${octoBlue}"/>
+      <circle cx="98" cy="106" r="5" fill="#FFFFFF"/><circle cx="110" cy="120" r="2" fill="#FFFFFF"/>
+      <circle cx="160" cy="110" r="22" fill="#FFFFFF" stroke="${octoInk}" stroke-width="5"/>
+      <circle cx="157" cy="113" r="13" fill="${octoInk}"/>
+      <path d="M146 118 C146 126 168 126 168 118 C165 110 149 110 146 118 Z" fill="${octoBlue}"/>
+      <circle cx="152" cy="106" r="5" fill="#FFFFFF"/><circle cx="164" cy="120" r="2" fill="#FFFFFF"/>
+      <path d="M80 80 Q95 65 110 75" fill="none" stroke="${octoInk}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M180 80 Q165 65 150 75" fill="none" stroke="${octoInk}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M115 140 C115 165 145 165 145 140 Z" fill="#4A0024" stroke="${octoInk}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M120 150 C125 145 135 145 140 150 C145 165 115 165 120 150 Z" fill="#FF5252" stroke="${octoInk}" stroke-width="2"/>
+    </g>`;
+  }
+  if(profile==='crab'){
+    const crabRed='#E53935';
+    const crabDark='#111111';
+    const crabGold='#FBC02D';
+    const tongue='#FF5252';
+    return `${defs}${shadow}${regionBack}<g transform="translate(1 -2) scale(.84)">
+      <ellipse cx="130" cy="240" rx="95" ry="12" fill="#F0F0F0"/>
+      <g fill="${crabRed}" stroke="${crabDark}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M45 145 Q15 140 10 160 Q30 155 42 165 Z" />
+        <path d="M42 165 Q10 170 15 195 Q35 180 47 180 Z" />
+        <path d="M50 180 Q25 200 35 225 Q50 200 65 195 Z" />
+        <path d="M68 195 Q55 230 70 250 Q80 220 88 205 Z" />
+        <path d="M215 145 Q245 140 250 160 Q230 155 218 165 Z" />
+        <path d="M218 165 Q250 170 245 195 Q225 180 213 180 Z" />
+        <path d="M210 180 Q235 200 225 225 Q210 200 195 195 Z" />
+        <path d="M192 195 Q205 230 190 250 Q180 220 172 205 Z" />
+        <path d="M25 145 C10 120 20 100 40 105 C55 110 50 135 25 145 Z" />
+        <path d="M30 110 C15 90 25 70 45 75 C60 80 50 105 30 110 Z" />
+        <path d="M235 145 C250 120 240 100 220 105 C205 110 210 135 235 145 Z" />
+        <path d="M230 110 C245 90 235 70 215 75 C200 80 210 105 230 110 Z" />
+        <path d="M45 75 C15 40 40 0 80 15 C65 25 60 40 60 55 L53 52 L50 60 Z" />
+        <path d="M45 75 C45 95 75 95 80 75 C70 82 55 82 45 75 Z" />
+        <path d="M215 75 C245 40 220 0 180 15 C195 25 200 40 200 55 L207 52 L210 60 Z" />
+        <path d="M215 75 C215 95 185 95 180 75 C190 82 205 82 215 75 Z" />
+      </g>
+      <ellipse cx="130" cy="165" rx="105" ry="55" fill="${crabRed}" stroke="${crabDark}" stroke-width="5"/>
+      <circle cx="105" cy="100" r="26" fill="#FFFFFF" stroke="${crabDark}" stroke-width="5"/>
+      <circle cx="155" cy="100" r="26" fill="#FFFFFF" stroke="${crabDark}" stroke-width="5"/>
+      <circle cx="110" cy="105" r="13" fill="${crabGold}"/>
+      <circle cx="110" cy="105" r="10" fill="${crabDark}"/>
+      <circle cx="106" cy="101" r="3.5" fill="#FFFFFF"/>
+      <circle cx="150" cy="105" r="13" fill="${crabGold}"/>
+      <circle cx="150" cy="105" r="10" fill="${crabDark}"/>
+      <circle cx="146" cy="101" r="3.5" fill="#FFFFFF"/>
+      <path d="M80 170 C100 215 160 215 180 170 C150 185 110 185 80 170 Z" fill="#8B0000" stroke="${crabDark}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M105 188 C120 175 140 175 155 188 C150 205 110 205 105 188 Z" fill="${tongue}" stroke="${crabDark}" stroke-width="3"/>
+    </g>`;
+  }
 
   // INSETOS: nada de aranha com asa ou lagarta com corpo de joaninha.
   if(profile==='butterfly')return `${defs}${shadow}${regionBack}<ellipse cx="110" cy="132" rx="17" ry="52" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse class="pet-wing" cx="70" cy="118" rx="38" ry="50" fill="${belly}" stroke="${outline}" stroke-width="3" transform="rotate(18 70 118)"/><ellipse class="pet-wing" cx="150" cy="118" rx="38" ry="50" fill="${belly}" stroke="${outline}" stroke-width="3" transform="rotate(-18 150 118)"/><circle cx="110" cy="76" r="31" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M99 51 Q89 31 77 30 M121 51 Q131 31 143 30" fill="none" stroke="${accent}" stroke-width="4"/>${petFace(mood,ink,110,78)}${regionAccent}`;
   if(profile==='caterpillar')return `${defs}${shadow}${regionBack}<g>${[0,1,2,3,4].map(i=>`<circle cx="${70+i*25}" cy="145" r="27" fill="${i%2?belly:body}" stroke="${outline}" stroke-width="3"/>`).join('')}</g><circle cx="62" cy="102" r="38" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M50 72 Q39 52 31 54 M74 72 Q84 52 93 54" fill="none" stroke="${accent}" stroke-width="4"/>${petFace(mood,ink,62,104)}<path d="M73 170 q-5 15-15 17 M103 170 q-5 15-15 17 M133 170 q-5 15-15 17 M163 168 q5 15 15 17" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>${regionAccent}`;
-  if(profile==='spider')return `${defs}${shadow}${regionBack}<ellipse cx="110" cy="143" rx="44" ry="48" fill="${body}" stroke="${outline}" stroke-width="3"/><circle cx="110" cy="91" r="36" fill="${body}" stroke="${outline}" stroke-width="3"/>${[-1,1].map(side=>[0,1,2,3].map(i=>{const y=111+i*17,x1=side<0?76:144,x2=side<0?39-i*3:181+i*3,x3=side<0?24-i*2:196+i*2;return `<path d="M${x1} ${y} Q${x2} ${y-8} ${x3} ${y+9}" fill="none" stroke="${primary}" stroke-width="7" stroke-linecap="round"/>`}).join('')).join('')}<g fill="${ink}"><circle cx="94" cy="83" r="5"/><circle cx="107" cy="79" r="5"/><circle cx="120" cy="79" r="5"/><circle cx="133" cy="83" r="5"/></g><path d="M99 104 Q110 113 121 104" fill="none" stroke="${ink}" stroke-width="3"/>${regionAccent}`;
+  if(profile==='spider'){
+    const spiderDark='#222222';
+    const spiderHighlight='#666666';
+    const spiderPink='#FF748C';
+    const tongueRed='#FF0000';
+    return `${defs}<line x1="125" y1="8" x2="125" y2="78" stroke="${spiderDark}" stroke-width="2"/>${regionBack}<g transform="translate(0 -6) scale(.88)">
+      <g fill="none" stroke="${spiderDark}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M110 100 L70 65 L30 115"/>
+        <path d="M100 115 L45 105 L15 160"/>
+        <path d="M95 135 L40 155 L25 210"/>
+        <path d="M100 155 L60 195 L55 240"/>
+        <path d="M140 100 L180 65 L220 115"/>
+        <path d="M150 115 L205 105 L235 160"/>
+        <path d="M155 135 L210 155 L225 210"/>
+        <path d="M150 155 L190 195 L195 240"/>
+      </g>
+      <g fill="none" stroke="${spiderHighlight}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M105 100 L70 65 L50 90"/>
+        <path d="M95 115 L45 105 L30 132"/>
+        <path d="M90 135 L40 155 L32 182"/>
+        <path d="M95 155 L60 195 L57 217"/>
+        <path d="M145 100 L180 65 L200 90"/>
+        <path d="M155 115 L205 105 L220 132"/>
+        <path d="M160 135 L210 155 L218 182"/>
+        <path d="M155 155 L190 195 L193 217"/>
+      </g>
+      <ellipse cx="125" cy="85" rx="52" ry="58" fill="${spiderDark}"/>
+      <ellipse cx="110" cy="55" rx="18" ry="8" fill="${spiderHighlight}" transform="rotate(-20 110 55)"/>
+      <circle cx="135" cy="45" r="3.5" fill="${spiderHighlight}"/>
+      <ellipse cx="125" cy="155" rx="65" ry="48" fill="${spiderDark}"/>
+      <path d="M85 125 Q125 115 165 125 Q125 122 85 125 Z" fill="${spiderHighlight}" stroke="${spiderHighlight}" stroke-width="2"/>
+      <path d="M90 128 Q100 122 110 128" fill="none" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
+      <path d="M140 128 Q150 122 160 128" fill="none" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="100" cy="150" r="16" fill="#FFFFFF"/>
+      <circle cx="100" cy="150" r="11" fill="#000000"/>
+      <circle cx="96" cy="145" r="4.5" fill="#FFFFFF"/>
+      <circle cx="104" cy="155" r="1.5" fill="#FFFFFF"/>
+      <circle cx="150" cy="150" r="16" fill="#FFFFFF"/>
+      <circle cx="150" cy="150" r="11" fill="#000000"/>
+      <circle cx="146" cy="145" r="4.5" fill="#FFFFFF"/>
+      <circle cx="154" cy="155" r="1.5" fill="#FFFFFF"/>
+      <ellipse cx="85" cy="170" rx="12" ry="6" fill="${spiderPink}" opacity="0.8"/>
+      <ellipse cx="165" cy="170" rx="12" ry="6" fill="${spiderPink}" opacity="0.8"/>
+      <path d="M112 172 C112 192 138 192 138 172 Z" fill="#000000"/>
+      <path d="M117 180 C122 188 128 188 133 180 C128 178 122 178 117 180 Z" fill="${tongueRed}"/>
+    </g>`;
+  }
   if(['ladybug','beetle','bee','cricket'].includes(profile)){
     const stripes=profile==='bee'?`<path d="M76 127 H144 M72 145 H148 M77 162 H143" stroke="#5b4152" stroke-width="10" opacity=".75"/>`:profile==='ladybug'?`<circle cx="88" cy="133" r="8" fill="#513547"/><circle cx="132" cy="133" r="8" fill="#513547"/><circle cx="94" cy="158" r="7" fill="#513547"/><circle cx="126" cy="158" r="7" fill="#513547"/><path d="M110 104 V181" stroke="#513547" stroke-width="4"/>`:'';
     const wings=profile==='bee'?`<ellipse class="pet-wing" cx="77" cy="112" rx="28" ry="39" fill="#e9fbff" opacity=".75" stroke="${outline}" stroke-width="2" transform="rotate(26 77 112)"/><ellipse class="pet-wing" cx="143" cy="112" rx="28" ry="39" fill="#e9fbff" opacity=".75" stroke="${outline}" stroke-width="2" transform="rotate(-26 143 112)"/>`:'';
@@ -2651,11 +2959,113 @@ function buildPetMarkupV20(stageIndex,companion,mood,regionNumber=1,size='big'){
   }
 
   if(profile==='snail')return `${defs}${shadow}${regionBack}<ellipse cx="112" cy="155" rx="65" ry="28" fill="${body}" stroke="${outline}" stroke-width="3"/><circle cx="87" cy="125" r="43" fill="${belly}" stroke="${accent}" stroke-width="5"/><path d="M88 110 q20 15 0 30 q-17 11-25-4 q-8-16 11-26" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round"/><circle cx="151" cy="118" r="34" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M138 89 Q129 69 121 69 M163 88 Q173 69 181 70" fill="none" stroke="${accent}" stroke-width="4"/>${petFace(mood,ink,151,118)}${regionAccent}`;
-  if(profile==='frog')return `${defs}${shadow}${regionBack}<ellipse cx="110" cy="153" rx="61" ry="45" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="80" cy="72" rx="24" ry="24" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="140" cy="72" rx="24" ry="24" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="108" rx="56" ry="50" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="76" cy="177" rx="24" ry="12" fill="${belly}"/><ellipse cx="144" cy="177" rx="24" ry="12" fill="${belly}"/>${petFace(mood,ink)}${regionAccent}`;
-  if(profile==='snake')return `${defs}${shadow}${regionBack}<path d="M71 178 Q42 155 72 137 Q101 120 81 101 Q63 84 84 66 Q105 48 128 62 Q148 75 140 98 Q132 120 153 130 Q179 144 163 169 Q146 194 110 180Z" fill="${body}" stroke="${outline}" stroke-width="4"/><ellipse cx="118" cy="76" rx="42" ry="34" fill="${body}" stroke="${outline}" stroke-width="3"/>${petFace(mood,ink,118,77)}<path d="M118 101 l-8 11 8-4 8 4z" fill="#e75d7c"/>${regionAccent}`;
+  if(profile==='frog'){
+    const frogGreen='#A9D159';
+    const frogBelly='#C2E078';
+    const frogLine='#000000';
+    const frogBlush='#F4B8B8';
+    return `${defs}${shadow}${regionBack}<g transform="translate(5 4) scale(.84)">
+      <ellipse cx="125" cy="235" rx="85" ry="10" fill="#DCE7D2"/>
+      <path d="M80 140 C20 130 10 215 40 215 C25 215 20 235 45 235 L90 235 Z" fill="${frogGreen}" stroke="${frogLine}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M35 215 C50 215 60 215 75 200" fill="none" stroke="${frogLine}" stroke-width="5" stroke-linecap="round"/>
+      <path d="M170 140 C230 130 240 215 210 215 C225 215 230 235 205 235 L160 235 Z" fill="${frogGreen}" stroke="${frogLine}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M215 215 C200 215 190 215 175 200" fill="none" stroke="${frogLine}" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="125" cy="180" rx="70" ry="55" fill="${frogGreen}" stroke="${frogLine}" stroke-width="5"/>
+      <ellipse cx="125" cy="190" rx="48" ry="42" fill="${frogBelly}" stroke="${frogLine}" stroke-width="4"/>
+      <path d="M88 130 C65 170 75 215 85 235 L90 242 L95 235 L102 242 L108 235 C105 200 105 170 112 130 Z" fill="${frogGreen}" stroke="${frogLine}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M162 130 C185 170 175 215 165 235 L160 242 L155 235 L148 242 L142 235 C145 200 145 170 138 130 Z" fill="${frogGreen}" stroke="${frogLine}" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="125" cy="105" rx="100" ry="65" fill="${frogGreen}" stroke="${frogLine}" stroke-width="6"/>
+      <circle cx="85" cy="55" r="38" fill="#FFFFFF" stroke="${frogLine}" stroke-width="6"/>
+      <circle cx="85" cy="55" r="24" fill="${frogLine}"/>
+      <circle cx="95" cy="45" r="8" fill="#FFFFFF"/>
+      <circle cx="102" cy="62" r="3" fill="#FFFFFF"/>
+      <circle cx="165" cy="55" r="38" fill="#FFFFFF" stroke="${frogLine}" stroke-width="6"/>
+      <circle cx="165" cy="55" r="24" fill="${frogLine}"/>
+      <circle cx="175" cy="45" r="8" fill="#FFFFFF"/>
+      <circle cx="182" cy="62" r="3" fill="#FFFFFF"/>
+      <circle cx="45" cy="115" r="12" fill="${frogBlush}" stroke="${frogLine}" stroke-width="3"/>
+      <circle cx="205" cy="115" r="12" fill="${frogBlush}" stroke="${frogLine}" stroke-width="3"/>
+      <path d="M85 115 C95 155 155 155 165 115" fill="none" stroke="${frogLine}" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="115" cy="98" rx="2.5" ry="5" fill="${frogLine}" transform="rotate(-15 115 98)"/>
+      <ellipse cx="135" cy="98" rx="2.5" ry="5" fill="${frogLine}" transform="rotate(15 135 98)"/>
+    </g>${regionAccent}`;
+  }
+  if(profile==='snake'){
+    const snakeLine='#000000';
+    const snakeGreen='#A4DF40';
+    const snakeBlue='#81D4FA';
+    const snakeSpot='#1B5E20';
+    const snakeRed='#FF5252';
+    const snakeBlush='#FF8A80';
+    return `${defs}${shadow}<g transform="translate(2 0) scale(.86)">
+      <path d="M160 190 C200 200 220 160 220 100 C220 80 235 60 240 60 C245 70 245 100 235 130 C225 160 205 210 160 215 Z" fill="${snakeGreen}" stroke="${snakeLine}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M160 190 C200 200 220 160 220 100 C220 80 235 60 240 60 C235 65 225 85 225 105 C225 150 210 185 160 198 Z" fill="${snakeBlue}" stroke="${snakeLine}" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="230" cy="115" r="4" fill="${snakeSpot}"/><circle cx="218" cy="155" r="5" fill="${snakeSpot}"/><circle cx="195" cy="185" r="6" fill="${snakeSpot}"/>
+      <path d="M75 120 C50 170 70 230 130 230 C180 230 205 210 205 180 C205 155 175 150 165 170 C155 190 125 195 115 175 C105 155 115 130 115 120 Z" fill="${snakeGreen}" stroke="${snakeLine}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M75 120 C50 170 70 230 130 230 C180 230 205 210 205 180 C205 165 190 165 180 175 C160 200 120 215 100 180 C85 155 95 120 95 120 Z" fill="${snakeBlue}" stroke="${snakeLine}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M72 150 L93 142 M65 170 L92 165 M68 190 L98 185 M78 208 L105 198 M95 220 L120 208 M115 228 L138 215 M140 228 L158 215 M165 222 L180 202 M185 212 L195 192" fill="none" stroke="${snakeLine}" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="130" cy="180" r="10" fill="${snakeSpot}"/><circle cx="160" cy="175" r="8" fill="${snakeSpot}"/><circle cx="115" cy="150" r="7" fill="${snakeSpot}"/><circle cx="180" cy="165" r="6" fill="${snakeSpot}"/>
+      <g transform="rotate(-15 110 80)">
+        <clipPath id="snakeHeadClip${seed}"><ellipse cx="110" cy="80" rx="60" ry="48"/></clipPath>
+        <ellipse cx="110" cy="80" rx="60" ry="48" fill="${snakeGreen}" stroke="${snakeLine}" stroke-width="5"/>
+        <g clip-path="url(#snakeHeadClip${seed})">
+          <ellipse cx="110" cy="115" rx="70" ry="35" fill="${snakeBlue}"/>
+          <circle cx="80" cy="45" r="7" fill="${snakeSpot}"/><circle cx="110" cy="38" r="9" fill="${snakeSpot}"/><circle cx="140" cy="45" r="6" fill="${snakeSpot}"/>
+          <ellipse cx="85" cy="40" rx="15" ry="8" fill="#FFFFFF" opacity="0.5"/>
+        </g>
+        <ellipse cx="110" cy="80" rx="60" ry="48" fill="none" stroke="${snakeLine}" stroke-width="5"/>
+        <path d="M55 70 C60 50 80 45 95 55" fill="none" stroke="${snakeLine}" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="75" cy="70" rx="16" ry="22" fill="${snakeLine}"/><path d="M62 78 C70 95 88 95 88 72 C85 85 65 85 62 78 Z" fill="${snakeRed}"/><circle cx="70" cy="62" r="6" fill="#FFFFFF"/><circle cx="82" cy="78" r="2.5" fill="#FFFFFF"/>
+        <path d="M125 55 C140 45 160 50 165 70" fill="none" stroke="${snakeLine}" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="145" cy="70" rx="16" ry="22" fill="${snakeLine}"/><path d="M132 78 C140 95 158 95 158 72 C155 85 135 85 132 78 Z" fill="${snakeRed}"/><circle cx="140" cy="62" r="6" fill="#FFFFFF"/><circle cx="152" cy="78" r="2.5" fill="#FFFFFF"/>
+        <ellipse cx="60" cy="95" rx="9" ry="5" fill="${snakeBlush}" opacity="0.9"/><ellipse cx="160" cy="95" rx="9" ry="5" fill="${snakeBlush}" opacity="0.9"/>
+        <path d="M95 100 Q102 110 110 100 Q118 110 125 100" fill="none" stroke="${snakeLine}" stroke-width="4" stroke-linecap="round"/>
+        <path d="M110 105 L110 120 M110 120 L104 126 M110 120 L116 126" fill="none" stroke="${snakeRed}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>`;
+  }
   if(profile==='lizard')return `${defs}${shadow}${regionBack}${petTail(profile,primary,secondary)}<ellipse cx="110" cy="146" rx="58" ry="36" fill="${body}" stroke="${outline}" stroke-width="3"/><circle cx="110" cy="88" r="42" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M74 145 L43 128 M76 158 L44 176 M146 145 L177 128 M144 158 L176 176" stroke="${primary}" stroke-width="9" stroke-linecap="round"/>${petFace(mood,ink)}${regionAccent}`;
   if(profile==='crocodile')return `${defs}${shadow}${regionBack}${petTail(profile,primary,secondary)}<path d="M47 141 Q74 111 124 116 Q170 121 179 148 Q164 177 109 174 Q62 171 47 141Z" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M67 101 Q110 67 164 101 L151 128 H74Z" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M79 119 l8 8 8-8 8 8 8-8 8 8 8-8 8 8" fill="none" stroke="#fff" stroke-width="4"/>${petFace(mood,ink,112,91)}${regionAccent}`;
-  if(profile==='turtle')return `${defs}${shadow}${regionBack}<ellipse cx="110" cy="145" rx="70" ry="47" fill="${accentFill}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="145" rx="57" ry="38" fill="${belly}" stroke="${outline}" stroke-width="2"/><circle cx="110" cy="91" r="42" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="56" cy="154" rx="20" ry="12" fill="${body}"/><ellipse cx="164" cy="154" rx="20" ry="12" fill="${body}"/><ellipse cx="77" cy="181" rx="18" ry="10" fill="${body}"/><ellipse cx="143" cy="181" rx="18" ry="10" fill="${body}"/>${petFace(mood,ink)}${regionAccent}`;
+  if(profile==='turtle'){
+    const turtleGreen='#4CAF50';
+    const turtleShell='#8D6E63';
+    const turtleShellLine='#5D4037';
+    const turtleYellow='#FFCA28';
+    const turtleBelly='#FFF59D';
+    const turtleInk='#111111';
+    return `${defs}${shadow}${regionBack}<g transform="translate(0 -2) scale(.84)">
+      <ellipse cx="140" cy="245" rx="90" ry="12" fill="#DCECDD"/>
+      <path d="M180 170 C220 180 245 230 225 245 C205 250 175 220 170 190 Z" fill="${turtleGreen}" stroke="${turtleInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M60 130 C40 180 50 240 70 245 C90 245 95 190 85 140 Z" fill="${turtleGreen}" stroke="${turtleInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M80 140 C90 220 150 235 210 200 C170 175 120 155 80 140 Z" fill="${turtleBelly}" stroke="${turtleInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M85 165 Q115 175 145 165" fill="none" stroke="${turtleInk}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M95 185 Q130 195 175 180" fill="none" stroke="${turtleInk}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M115 205 Q145 210 195 190" fill="none" stroke="${turtleInk}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M95 125 C130 45 240 60 255 160 C205 180 145 165 95 125 Z" fill="${turtleShell}" stroke="${turtleInk}" stroke-width="5" stroke-linejoin="round"/>
+      <g fill="none" stroke="${turtleShellLine}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+        <polygon points="175,80 210,95 220,135 185,150 150,130 155,95" />
+        <path d="M175 80 L155 55" />
+        <path d="M210 95 L245 88" />
+        <path d="M220 135 L252 150" />
+        <path d="M185 150 L195 175" />
+        <path d="M150 130 L115 125" />
+      </g>
+      <path d="M85 135 C135 175 215 190 260 155 C215 205 125 195 75 145 Z" fill="${turtleYellow}" stroke="${turtleInk}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M120 160 C105 220 130 255 155 250 C175 230 160 175 150 155 Z" fill="${turtleGreen}" stroke="${turtleInk}" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="95" cy="95" rx="60" ry="52" fill="${turtleGreen}" stroke="${turtleInk}" stroke-width="5" transform="rotate(-5 95 95)"/>
+      <circle cx="60" cy="85" r="14" fill="#FFFFFF" stroke="${turtleInk}" stroke-width="4"/>
+      <circle cx="63" cy="85" r="9" fill="${turtleInk}"/>
+      <circle cx="66" cy="81" r="3" fill="#FFFFFF"/>
+      <circle cx="120" cy="85" r="18" fill="#FFFFFF" stroke="${turtleInk}" stroke-width="4"/>
+      <circle cx="123" cy="85" r="12" fill="${turtleInk}"/>
+      <circle cx="127" cy="79" r="4" fill="#FFFFFF"/>
+      <circle cx="117" cy="92" r="1.5" fill="#FFFFFF"/>
+      <ellipse cx="85" cy="105" rx="1.5" ry="2.5" fill="${turtleInk}" transform="rotate(-15 85 105)"/>
+      <ellipse cx="97" cy="105" rx="1.5" ry="2.5" fill="${turtleInk}" transform="rotate(15 97 105)"/>
+      <path d="M70 120 Q95 140 125 120" fill="none" stroke="${turtleInk}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M125 120 Q130 123 133 118" fill="none" stroke="${turtleInk}" stroke-width="3" stroke-linecap="round"/>
+    </g>${regionAccent}`;
+  }
 
   if(profile==='bat')return `${defs}${shadow}${regionBack}<path class="pet-wing" d="M92 120 Q45 81 30 119 L54 114 L45 147 L79 133Z" fill="${accentFill}" opacity=".9"/><path class="pet-wing" d="M128 120 Q175 81 190 119 L166 114 L175 147 L141 133Z" fill="${accentFill}" opacity=".9"/><ellipse cx="110" cy="152" rx="50" ry="46" fill="${body}" stroke="${outline}" stroke-width="3"/>${petEars('cat',primary,secondary,accent)}<circle cx="110" cy="88" r="43" fill="${body}" stroke="${outline}" stroke-width="3"/>${petPaws(belly,outline,182,26,14)}${petFace(mood,ink)}${regionAccent}`;
   if(profile==='dragon')return `${defs}${shadow}${regionBack}${petTail(profile,primary,secondary)}<path class="pet-wing" d="M82 123 Q42 82 44 133 L68 122 L56 155 L91 141Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><path class="pet-wing" d="M138 123 Q178 82 176 133 L152 122 L164 155 L129 141Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><ellipse cx="110" cy="156" rx="54" ry="47" fill="${body}" stroke="${outline}" stroke-width="3"/>${petPaws(belly,outline,183,29,15)}<circle cx="110" cy="87" r="45" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M84 49 L92 26 L101 57 M119 57 L128 26 L136 49" fill="${accent}"/>${petFace(mood,ink)}${regionAccent}`;
@@ -2765,6 +3175,30 @@ function petV21Muzzle(profile,mood,ink,primary,secondary,accent){
 function petV21Mammal(stageIndex,companion,mood,regionNumber,size,profile,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront){
   const body=`url(#petBody${seed})`, belly=`url(#petBelly${seed})`;
   const shadow='<ellipse cx="110" cy="202" rx="64" ry="9" fill="#5b4868" opacity=".13"/>';
+  if(profile==='rhino'){
+    const line='#182024';
+    const bodyMain='#749C9E';
+    const bodyDark='#496D76';
+    const softBg='#D2E0E2';
+    const earInner='#F4C3B3';
+    return `${defs}<ellipse cx="120" cy="206" rx="70" ry="9" fill="${softBg}" opacity=".95"/>${regionBack}<g transform="translate(4 4) scale(.84)">
+      <path d="M 50 115 Q 25 135 30 100" fill="none" stroke="${line}" stroke-width="5" stroke-linecap="round"/>
+      <path d="M 30 100 C 20 90 25 60 40 75 C 45 85 40 95 30 100 Z" fill="${line}" stroke="${line}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M 85 150 L 70 200 C 70 210 95 210 100 200 L 105 150 Z" fill="${bodyDark}" stroke="${line}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M 145 150 L 130 200 C 130 210 155 210 160 200 L 165 150 Z" fill="${bodyDark}" stroke="${line}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M 55 120 C 40 80 80 65 110 75 C 125 78 135 70 145 70 C 175 70 195 95 210 110 C 225 125 225 145 210 160 C 195 175 165 170 155 160 C 140 150 125 155 110 155 C 85 155 70 150 55 120 Z" fill="${bodyMain}" stroke="${line}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M 140 75 L 130 40 C 145 30 160 45 155 70 Z" fill="${bodyMain}" stroke="${line}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M 140 70 L 133 45 C 143 40 153 50 149 65 Z" fill="${earInner}"/>
+      <path d="M 80 120 C 70 150 65 180 70 200 C 75 210 100 210 105 200 C 110 175 110 145 110 125 Z" fill="${bodyMain}" stroke="${line}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M 77 200 C 83 190 93 190 99 200 Z" fill="#FFFFFF" stroke="${line}" stroke-width="3"/>
+      <path d="M 135 130 C 125 160 125 180 130 200 C 135 210 160 210 165 200 C 170 175 170 145 160 135 Z" fill="${bodyMain}" stroke="${line}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M 137 200 C 143 190 153 190 159 200 Z" fill="#FFFFFF" stroke="${line}" stroke-width="3"/>
+      <ellipse cx="170" cy="110" rx="6" ry="8" fill="${line}" transform="rotate(-10 170 110)"/>
+      <circle cx="168" cy="107" r="2" fill="#FFFFFF"/>
+      <path d="M 200 130 C 220 125 220 100 215 95 C 205 110 195 115 190 120 Z" fill="#FFFFFF" stroke="${line}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M 180 145 C 190 155 205 150 210 145" fill="none" stroke="${line}" stroke-width="4" stroke-linecap="round"/>
+    </g>${regionFront}`;
+  }
   const tail=petV21Tail(profile,primary,secondary,outline);
   const ears=petV21Ears(profile,primary,secondary,outline);
   const face=petV21Muzzle(profile,mood,ink,primary,secondary,accent);
@@ -2813,12 +3247,28 @@ function petV21Bird(mood,profile,seed,primary,secondary,accent,ink,outline,defs,
   if(['swan','flamingo','peacock','penguin'].includes(profile))return null; // v20 already has strong species silhouettes.
   const beak=profile==='eagle'?'#d99b37':'#f2a544';
   const feet=profile==='duck'?`<path d="M86 185 L82 199 L70 202 L82 205 L93 202 L86 198 M134 185 L138 199 L127 202 L138 205 L150 202 L142 198" fill="none" stroke="#eda33b" stroke-width="4.4" stroke-linecap="round"/>`:`<path d="M92 183 L90 198 M128 183 L130 198 M80 199 h20 M120 199 h20" stroke="#e69a35" stroke-width="4.3" stroke-linecap="round"/>`;
-  const tail=profile==='parrot'?`<path d="M98 171 L104 211 L113 176 L122 211 L128 171" fill="${accent}" stroke="${outline}" stroke-width="2"/>`:`<path d="M92 170 L103 194 L110 174 L118 194 L129 170" fill="${secondary}" stroke="${outline}" stroke-width="2"/>`;
+  const tail=profile==='parrot'?`<path d="M98 171 L104 211 L113 176 L122 211 L128 171" fill="${accent}" stroke="${outline}" stroke-width="2"/>`:profile==='bird'?`<path d="M96 165 L102 194 L110 176 L118 194 L124 165" fill="${secondary}" stroke="${outline}" stroke-width="2.2" stroke-linejoin="round" opacity=".98"/>`:`<path d="M92 170 L103 194 L110 174 L118 194 L129 170" fill="${secondary}" stroke="${outline}" stroke-width="2"/>`;
   const owlDisc=profile==='owl'?`<ellipse cx="88" cy="80" rx="28" ry="29" fill="${petMix(secondary,'#ffffff',.8)}" opacity=".96"/><ellipse cx="132" cy="80" rx="28" ry="29" fill="${petMix(secondary,'#ffffff',.8)}" opacity=".96"/><path d="M70 58 L81 34 L94 61 M126 61 L139 34 L150 58" fill="${primary}" stroke="${outline}" stroke-width="2"/>`:'';
   const eagleCap=profile==='eagle'?`<path d="M68 71 Q110 40 152 71 Q135 64 122 70 Q110 55 98 70 Q85 63 68 71Z" fill="#fffaf0"/>`:'';
   const parrotPatch=profile==='parrot'?`<path d="M69 74 Q110 53 151 74 Q141 90 127 95 Q110 79 93 95 Q79 90 69 74Z" fill="${secondary}" opacity=".75"/>`:'';
-  const bill=profile==='duck'?`<path d="M86 96 Q110 89 134 96 Q131 110 110 112 Q89 110 86 96Z" fill="${beak}" stroke="${outline}" stroke-width="2.2"/>`:profile==='parrot'?`<path d="M106 93 Q136 91 140 106 Q131 119 108 113 Q120 104 106 93Z" fill="${beak}" stroke="${outline}" stroke-width="2.2"/>`:`<path d="M100 95 L110 103 L121 95 L111 113Z" fill="${beak}" stroke="${outline}" stroke-width="2"/>`;
+  const bill=profile==='duck'?`<path d="M86 96 Q110 89 134 96 Q131 110 110 112 Q89 110 86 96Z" fill="${beak}" stroke="${outline}" stroke-width="2.2"/>`:profile==='parrot'?`<path d="M106 93 Q136 91 140 106 Q131 119 108 113 Q120 104 106 93Z" fill="${beak}" stroke="${outline}" stroke-width="2.2"/>`:`<path d="M92 95 Q100 91 110 94 Q120 91 128 95 L110 109 Z" fill="${beak}" stroke="${outline}" stroke-width="2.1" stroke-linejoin="round"/>`;
   const crest=profile==='bird'?`<path d="M100 43 Q108 26 114 45 Q123 28 127 49" fill="none" stroke="${accent}" stroke-width="5.5" stroke-linecap="round"/>`:profile==='parrot'?`<path d="M98 46 Q110 24 117 47 Q128 29 131 52" fill="none" stroke="${accent}" stroke-width="6.5" stroke-linecap="round"/>`:'';
+  if(profile==='bird'){
+    const birdTail=`<path d="M55 149 Q17 154 28 171 Q44 183 61 166" fill="${primary}" stroke="${outline}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const birdFeet=`<path d="M88 176 L88 198 L77 198 M88 198 L99 198" fill="none" stroke="#ffc43a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M132 176 L132 198 L143 198 M132 198 L121 198" fill="none" stroke="#ffc43a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const birdBill=`<path d="M99 105 Q110 102 121 105 L110 119 Z" fill="#ffc43a" stroke="#e2ab2c" stroke-width="2.4" stroke-linejoin="round"/>`;
+    const birdCrest=`<path d="M110 50 C99 28, 121 22, 110 39 C121 17, 132 28, 116 45" fill="none" stroke="${primary}" stroke-width="5.5" stroke-linecap="round"/>`;
+    return `${defs}${shadow}${regionBack}${birdTail}<path d="M110 50 C176 50 187 121 165 170 C149 192 71 192 55 170 C33 121 44 50 110 50 Z" fill="${body}" stroke="${outline}" stroke-width="4"/><path d="M110 105 C149 105 154 149 143 171 C132 187 88 187 77 171 C66 149 71 105 110 105 Z" fill="${belly}" opacity=".96"/><path class="pet-wing" d="M50 121 C28 127 33 171 66 160 Z" fill="${primary}" stroke="${outline}" stroke-width="4" stroke-linejoin="round"/><path class="pet-wing" d="M170 121 C192 127 187 171 154 160 Z" fill="${primary}" stroke="${outline}" stroke-width="4" stroke-linejoin="round"/>${birdFeet}${birdCrest}${petV21Eyes(mood,ink,110,94,25,1)}<ellipse cx="61" cy="110" rx="8" ry="4" fill="#ff91b8" opacity=".5"/><ellipse cx="159" cy="110" rx="8" ry="4" fill="#ff91b8" opacity=".5"/>${birdBill}${regionFront}`;
+  }
+  if(profile==='parrot'){
+    const parrotTail=`<path d="M87 149 Q58 188 73 209 Q95 186 102 159" fill="${secondary}" stroke="${outline}" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M108 154 Q92 194 107 214 Q126 185 129 154" fill="${accent}" stroke="${outline}" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const parrotFeet=`<path d="M88 176 L88 198 L77 198 M88 198 L99 198" fill="none" stroke="${outline}" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M132 176 L132 198 L143 198 M132 198 L121 198" fill="none" stroke="${outline}" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const parrotFace=`<path d="M60 91 C60 59, 160 59, 160 91 C160 116, 125 126, 110 126 C95 126, 60 116, 60 91 Z" fill="${petMix(secondary,'#ffffff',.82)}" stroke="${outline}" stroke-width="3.2"/>`;
+    const parrotCrest=`<path d="M110 50 Q99 23 118 17 Q123 27 114 49" fill="${primary}" stroke="${outline}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const faceMarks=`<path d="M70 79 Q80 84 90 79 M70 91 Q80 96 90 91" fill="none" stroke="${outline}" stroke-width="2" stroke-linecap="round" opacity=".22"/><path d="M150 79 Q140 84 130 79 M150 91 Q140 96 130 91" fill="none" stroke="${outline}" stroke-width="2" stroke-linecap="round" opacity=".22"/>`;
+    const parrotBill=`<path d="M99 103 Q108 97 117 103 Q119 113 110 121 Q101 113 99 103 Z" fill="${petMix(secondary,'#f6f0e6',.45)}" stroke="${outline}" stroke-width="3" stroke-linejoin="round"/><path d="M103 116 Q110 123 117 116 Z" fill="${outline}" opacity=".95"/><path d="M100 111 Q110 118 120 111" fill="none" stroke="${outline}" stroke-width="2.4" stroke-linecap="round"/>`;
+    return `${defs}${shadow}${regionBack}${parrotTail}<path d="M110 50 C176 50 187 121 165 170 C149 192 71 192 55 170 C33 121 44 50 110 50 Z" fill="${body}" stroke="${outline}" stroke-width="4"/>${parrotFace}${parrotCrest}${faceMarks}<path class="pet-wing" d="M50 121 C28 127 33 171 66 160 Z" fill="${petMix(accent,'#ffd45a',.28)}" stroke="${outline}" stroke-width="4" stroke-linejoin="round"/><path d="M39 136 C24 156 43 175 66 160 Z" fill="${secondary}" stroke="${outline}" stroke-width="3.6" stroke-linejoin="round"/><path class="pet-wing" d="M170 121 C192 127 187 171 154 160 Z" fill="${petMix(accent,'#ffd45a',.28)}" stroke="${outline}" stroke-width="4" stroke-linejoin="round"/><path d="M181 136 C196 156 177 175 154 160 Z" fill="${secondary}" stroke="${outline}" stroke-width="3.6" stroke-linejoin="round"/><path d="M110 110 C145 110 150 149 140 170 C130 184 90 184 80 170 C70 149 75 110 110 110 Z" fill="${belly}" opacity=".22"/>${parrotFeet}${petV21Eyes(mood,ink,110,89,22,.96)}<ellipse cx="64" cy="106" rx="7" ry="4" fill="#ff91b8" opacity=".65"/><ellipse cx="156" cy="106" rx="7" ry="4" fill="#ff91b8" opacity=".65"/>${parrotBill}${regionFront}`;
+  }
   return `${defs}${shadow}${tail}${regionBack}<ellipse cx="110" cy="151" rx="53" ry="50" fill="${body}" stroke="${outline}" stroke-width="3.2"/><ellipse cx="110" cy="152" rx="27" ry="29" fill="${belly}" opacity=".9"/><path class="pet-wing" d="M76 124 Q46 144 63 181 Q90 173 98 137 Q93 127 76 124Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/><path class="pet-wing" d="M144 124 Q174 144 157 181 Q130 173 122 137 Q127 127 144 124Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>${feet}<circle cx="110" cy="81" r="40" fill="${body}" stroke="${outline}" stroke-width="3.2"/>${owlDisc}${eagleCap}${parrotPatch}${crest}${petV21Eyes(mood,ink,110,79,19,.95)}${petV21Blush(110,95)}${bill}${regionFront}`;
 }
 function buildPetMarkup(stageIndex,companion,mood,regionNumber=1,size='big'){
