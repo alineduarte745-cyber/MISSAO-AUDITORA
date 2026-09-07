@@ -2366,7 +2366,7 @@ function petGradientDefs(seed,primary,secondary,accent){
 }
 
 function petFace(mood,ink='#4b315d',cx=110,cy=96){
-  const lx=cx-26,rx=cx+26;
+  const lx=cx-22,rx=cx+22;
   const eyeY=cy;
   const blushY=cy+15;
   const mouthY=cy+20;
@@ -2406,9 +2406,9 @@ function petFace(mood,ink='#4b315d',cx=110,cy=96){
 function petAnimalFeatures(profile,mood,ink,primary,secondary,accent,cx=110,cy=96){
   const y=cy+17;
   if(['cat','tiger','lion'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y}" rx="24" ry="15" fill="#fff7f3" opacity=".82"/><path d="M${cx-5} ${y-7} L${cx} ${y-2} L${cx+5} ${y-7}Z" fill="#6b405d"/><path d="M${cx} ${y-1} q-7 8-13 4 M${cx} ${y-1} q7 8 13 4" fill="none" stroke="${ink}" stroke-width="2.8" stroke-linecap="round"/><path d="M${cx-19} ${y} L${cx-43} ${y-5} M${cx-19} ${y+5} L${cx-44} ${y+7} M${cx+19} ${y} L${cx+43} ${y-5} M${cx+19} ${y+5} L${cx+44} ${y+7}" stroke="${ink}" stroke-width="2" stroke-linecap="round" opacity=".78"/>${profile==='tiger'?`<path d="M${cx-25} ${cy-34} l9 13 M${cx+25} ${cy-34} l-9 13 M${cx} ${cy-39} v15" stroke="#633951" stroke-width="4" stroke-linecap="round"/>`:''}${profile==='lion'?`<circle cx="${cx}" cy="${cy-3}" r="51" fill="none" stroke="${petMix(accent,'#d99b45',.28)}" stroke-width="13" opacity=".58"/>`:''}</g>`;
-  if(['fox','wolf','dog'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y+1}" rx="28" ry="18" fill="${petMix(secondary,'#ffffff',.55)}" opacity=".9"/><ellipse cx="${cx}" cy="${y-6}" rx="7" ry="5" fill="#4c364d"/><path d="M${cx} ${y-1} q-9 10-18 5 M${cx} ${y-1} q9 10 18 5" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>${profile==='fox'?`<path d="M${cx-24} ${cy-28} Q${cx} ${cy-12} ${cx+24} ${cy-28}" fill="none" stroke="${secondary}" stroke-width="8" stroke-linecap="round" opacity=".8"/>`:''}</g>`;
+  if(['fox','wolf','dog'].includes(profile))return `<g class="species-face"><path d="M${cx-32} ${y+6} Q${cx} ${y-12} ${cx+32} ${y+6} Q${cx} ${y+22} ${cx-32} ${y+6}Z" fill="${petMix(secondary,'#fff',.6)}" opacity=".94"/><ellipse cx="${cx}" cy="${y-2}" rx="7" ry="5" fill="#4c364d"/><path d="M${cx} ${y+3} q-8 8-16 4 M${cx} ${y+3} q8 8 16 4" fill="none" stroke="${ink}" stroke-width="2.7" stroke-linecap="round"/>${profile==='fox'?`<path d="M${cx-26} ${cy-22} Q${cx} ${cy-6} ${cx+26} ${cy-22}" fill="none" stroke="${secondary}" stroke-width="8" stroke-linecap="round" opacity=".85"/>`:''}</g>`;
   if(['rabbit','kangaroo'].includes(profile))return `<g class="species-face"><ellipse cx="${cx-10}" cy="${y}" rx="14" ry="12" fill="#fff9f8"/><ellipse cx="${cx+10}" cy="${y}" rx="14" ry="12" fill="#fff9f8"/><path d="M${cx-5} ${y-8} L${cx} ${y-3} L${cx+5} ${y-8}Z" fill="#ef8cab"/><path d="M${cx} ${y-1} q-7 8-13 4 M${cx} ${y-1} q7 8 13 4" fill="none" stroke="${ink}" stroke-width="2.5" stroke-linecap="round"/><rect x="${cx-6}" y="${y+6}" width="5" height="9" rx="2" fill="#fff" stroke="#d8c8cf" stroke-width="1"/><rect x="${cx+1}" y="${y+6}" width="5" height="9" rx="2" fill="#fff" stroke="#d8c8cf" stroke-width="1"/></g>`;
-  if(['bear','polarBear','panda','koala'].includes(profile))return `<g class="species-face">${profile==='panda'?`<ellipse cx="${cx-26}" cy="${cy}" rx="14" ry="18" fill="#40384b" opacity=".95"/><ellipse cx="${cx+26}" cy="${cy}" rx="14" ry="18" fill="#40384b" opacity=".95"/>`:''}<ellipse cx="${cx}" cy="${y+1}" rx="27" ry="20" fill="${profile==='panda'?'#fffaf8':petMix(secondary,'#ffffff',.5)}" opacity=".95"/><ellipse cx="${cx}" cy="${y-7}" rx="7" ry="5" fill="#493746"/><path d="M${cx} ${y-2} q-8 8-15 5 M${cx} ${y-2} q8 8 15 5" fill="none" stroke="${ink}" stroke-width="2.8" stroke-linecap="round"/>${profile==='koala'?`<ellipse cx="${cx}" cy="${y-7}" rx="11" ry="8" fill="#4d4852"/>`:''}</g>`;
+  if(['bear','polarBear','panda','koala'].includes(profile))return `<g class="species-face">${profile==='panda'?`<ellipse cx="${cx-22}" cy="${cy-2}" rx="16" ry="19" fill="#3c3943" opacity=".92"/><ellipse cx="${cx+22}" cy="${cy-2}" rx="16" ry="19" fill="#3c3943" opacity=".92"/>`:''}<ellipse cx="${cx}" cy="${y+1}" rx="27" ry="20" fill="${profile==='panda'?'#fffaf8':petMix(secondary,'#ffffff',.5)}" opacity=".95"/><ellipse cx="${cx}" cy="${y-7}" rx="7" ry="5" fill="#493746"/><path d="M${cx} ${y-2} q-8 8-15 5 M${cx} ${y-2} q8 8 15 5" fill="none" stroke="${ink}" stroke-width="2.8" stroke-linecap="round"/>${profile==='koala'?`<ellipse cx="${cx}" cy="${y-7}" rx="11" ry="8" fill="#4d4852"/>`:''}</g>`;
   if(['hamster','rat','beaver','squirrel'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y}" rx="23" ry="15" fill="${petMix(secondary,'#ffffff',.58)}"/><ellipse cx="${cx}" cy="${y-6}" rx="5.5" ry="4" fill="#7a4a5d"/><path d="M${cx-18} ${y+2} L${cx-38} ${y-3} M${cx+18} ${y+2} L${cx+38} ${y-3}" stroke="${ink}" stroke-width="1.8"/><rect x="${cx-5}" y="${y+6}" width="4.5" height="8" rx="1.5" fill="#fff"/><rect x="${cx+1}" y="${y+6}" width="4.5" height="8" rx="1.5" fill="#fff"/></g>`;
   if(['raccoon','badger','skunk'].includes(profile))return `<g class="species-face">${profile==='raccoon'?`<path d="M${cx-43} ${cy-6} Q${cx} ${cy-29} ${cx+43} ${cy-6} Q${cx} ${cy+12} ${cx-43} ${cy-6}Z" fill="#4a4350" opacity=".78"/>`:''}${profile==='badger'?`<path d="M${cx-25} ${cy-37} L${cx-12} ${cy+4} M${cx+25} ${cy-37} L${cx+12} ${cy+4}" stroke="#f5f0ea" stroke-width="10" stroke-linecap="round"/>`:''}${profile==='skunk'?`<path d="M${cx} ${cy-42} Q${cx-9} ${cy-20} ${cx} ${cy+3} Q${cx+9} ${cy-20} ${cx} ${cy-42}" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>`:''}<ellipse cx="${cx}" cy="${y+1}" rx="25" ry="17" fill="#f6f0ec"/><ellipse cx="${cx}" cy="${y-6}" rx="6.5" ry="4.5" fill="#302c35"/><path d="M${cx} ${y-1} q-8 8-15 4 M${cx} ${y-1} q8 8 15 4" fill="none" stroke="${ink}" stroke-width="2.6"/></g>`;
   if(['deer','goat','ram','sheep','llama','horse','bison','unicorn','boar'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y+3}" rx="29" ry="19" fill="${petMix(secondary,'#fff8ed',.45)}" opacity=".96"/><ellipse cx="${cx-10}" cy="${y+1}" rx="3.2" ry="2.5" fill="#6b5362"/><ellipse cx="${cx+10}" cy="${y+1}" rx="3.2" ry="2.5" fill="#6b5362"/><path d="M${cx-8} ${y+9} Q${cx} ${y+14} ${cx+8} ${y+9}" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>${profile==='boar'?`<path d="M${cx-20} ${y+4} l-10 8 M${cx+20} ${y+4} l10 8" stroke="#fff4df" stroke-width="5" stroke-linecap="round"/>`:''}</g>`;
@@ -2664,7 +2664,7 @@ function buildPetMarkupV20(stageIndex,companion,mood,regionNumber=1,size='big'){
 }
 
 // ===== V21 • ANIMAIS COMPLETOS E RECONHECÍVEIS =====
-// Refinos anatômicos incorporados com preservação das espécies e do sistema atual.
+// Mantém a geração determinística/aleatória, mas a anatomia da espécie é fixa.
 function petV21Eyes(mood,ink,cx=110,cy=79,spread=20,scale=1){
   const lx=cx-spread, rx=cx+spread;
   const sw=4.2*scale;
@@ -2673,17 +2673,14 @@ function petV21Eyes(mood,ink,cx=110,cy=79,spread=20,scale=1){
   if(mood==='radiant')return `<path d="M${lx} ${cy-9} l3 7 7 1-5 5 2 7-7-4-7 4 2-7-5-5 7-1z" fill="${ink}"/><path d="M${rx} ${cy-9} l3 7 7 1-5 5 2 7-7-4-7 4 2-7-5-5 7-1z" fill="${ink}"/>`;
   return `<ellipse cx="${lx}" cy="${cy}" rx="${6.5*scale}" ry="${8.5*scale}" fill="${ink}"/><ellipse cx="${rx}" cy="${cy}" rx="${6.5*scale}" ry="${8.5*scale}" fill="${ink}"/><circle cx="${lx-2.4*scale}" cy="${cy-3.6*scale}" r="${2.2*scale}" fill="#fff"/><circle cx="${rx-2.4*scale}" cy="${cy-3.6*scale}" r="${2.2*scale}" fill="#fff"/>`;
 }
-function petV21Blush(cx=110,cy=96){return `<ellipse cx="${cx-29}" cy="${cy}" rx="9" ry="4.8" fill="#ff91b8" opacity=".48"/><ellipse cx="${cx+29}" cy="${cy}" rx="9" ry="4.8" fill="#ff91b8" opacity=".48"/>`;}
-function petV21Smile(ink,cx=110,cy=103,mood='normal'){
-  if(mood==='happy')return `<path d="M${cx-11} ${cy-2} Q${cx} ${cy+12} ${cx+11} ${cy-2}" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`;
-  return `<path d="M${cx-9} ${cy} Q${cx} ${cy+7} ${cx+9} ${cy}" fill="none" stroke="${ink}" stroke-width="3.2" stroke-linecap="round"/>`;
-}
+function petV21Blush(cx=110,cy=96){return `<ellipse cx="${cx-31}" cy="${cy}" rx="9" ry="4.8" fill="#ff91b8" opacity=".42"/><ellipse cx="${cx+31}" cy="${cy}" rx="9" ry="4.8" fill="#ff91b8" opacity=".42"/>`;}
+function petV21Smile(ink,cx=110,cy=103){return `<path d="M${cx-9} ${cy} Q${cx} ${cy+7} ${cx+9} ${cy}" fill="none" stroke="${ink}" stroke-width="3.2" stroke-linecap="round"/>`;}
 function petV21Paws(fill,outline){
   return `<g class="v21-hind-paws"><ellipse cx="78" cy="190" rx="25" ry="13" fill="${fill}" stroke="${outline}" stroke-width="2.5"/><ellipse cx="142" cy="190" rx="25" ry="13" fill="${fill}" stroke="${outline}" stroke-width="2.5"/><path d="M67 189 h20 M133 189 h20" stroke="#fff" stroke-width="2" opacity=".65"/></g>`;
 }
 function petV21FrontLegs(fill,outline,long=false){
-  const y1=long?128:132, y2=long?191:177, w=long?12:15;
-  return `<path class="v21-limb" d="M82 ${y1} Q75 ${y1+25} 82 ${y2}" fill="none" stroke="${fill}" stroke-width="${w}" stroke-linecap="round"/><path class="v21-limb" d="M138 ${y1} Q145 ${y1+25} 138 ${y2}" fill="none" stroke="${fill}" stroke-width="${w}" stroke-linecap="round"/><path d="M72 ${y2+2} h20 M128 ${y2+2} h20" stroke="${outline}" stroke-width="4" stroke-linecap="round"/>`;
+  const y1=long?130:136, y2=long?192:181, w=long?11:13;
+  return `<path class="v21-limb" d="M83 ${y1} Q77 ${y1+24} 83 ${y2}" fill="none" stroke="${fill}" stroke-width="${w}" stroke-linecap="round"/><path class="v21-limb" d="M137 ${y1} Q143 ${y1+24} 137 ${y2}" fill="none" stroke="${fill}" stroke-width="${w}" stroke-linecap="round"/><path d="M73 ${y2+2} h18 M129 ${y2+2} h18" stroke="${outline}" stroke-width="3.6" stroke-linecap="round"/>`;
 }
 function petV21Tail(profile,primary,secondary,outline){
   if(profile==='rabbit')return `<circle class="v21-tail" cx="169" cy="155" r="20" fill="${secondary}" stroke="${outline}" stroke-width="3"/>`;
@@ -2699,7 +2696,7 @@ function petV21Tail(profile,primary,secondary,outline){
 function petV21Ears(profile,primary,secondary,outline){
   if(['rabbit','kangaroo'].includes(profile))return `<ellipse cx="80" cy="42" rx="15" ry="42" fill="${primary}" stroke="${outline}" stroke-width="2.5" transform="rotate(-9 80 42)"/><ellipse cx="80" cy="42" rx="6.5" ry="29" fill="${secondary}" transform="rotate(-9 80 42)"/><ellipse cx="140" cy="42" rx="15" ry="42" fill="${primary}" stroke="${outline}" stroke-width="2.5" transform="rotate(9 140 42)"/><ellipse cx="140" cy="42" rx="6.5" ry="29" fill="${secondary}" transform="rotate(9 140 42)"/>`;
   if(profile==='dog')return `<path d="M69 70 Q45 58 52 95 Q59 112 78 92Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M151 70 Q175 58 168 95 Q161 112 142 92Z" fill="${primary}" stroke="${outline}" stroke-width="3"/>`;
-  if(['fox','wolf'].includes(profile))return `<path d="M58 76 L66 22 L101 64Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M162 76 L154 22 L119 64Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M69 66 L72 38 L92 60Z" fill="${secondary}"/><path d="M151 66 L148 38 L128 60Z" fill="${secondary}"/>`;
+  if(['fox','wolf'].includes(profile))return `<path d="M66 72 L76 24 L101 66Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M119 66 L145 24 L155 73Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M76 59 L80 40 L91 62Z" fill="${secondary}"/><path d="M130 61 L142 40 L146 60Z" fill="${secondary}"/>`;
   if(['cat','tiger','lion'].includes(profile))return `<path d="M69 69 L76 34 L99 65Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M121 65 L145 34 L152 70Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M77 59 L80 45 L90 61Z" fill="${secondary}"/><path d="M131 61 L141 45 L145 60Z" fill="${secondary}"/>`;
   if(['bear','polarBear','panda','hamster','rat','beaver','otter','monkey','orangutan','sloth'].includes(profile))return `<circle cx="74" cy="58" r="18" fill="${primary}" stroke="${outline}" stroke-width="3"/><circle cx="146" cy="58" r="18" fill="${primary}" stroke="${outline}" stroke-width="3"/><circle cx="74" cy="58" r="8" fill="${secondary}"/><circle cx="146" cy="58" r="8" fill="${secondary}"/>`;
   if(profile==='koala')return `<circle cx="69" cy="63" r="25" fill="${primary}" stroke="${outline}" stroke-width="3"/><circle cx="151" cy="63" r="25" fill="${primary}" stroke="${outline}" stroke-width="3"/><circle cx="69" cy="63" r="13" fill="${secondary}"/><circle cx="151" cy="63" r="13" fill="${secondary}"/>`;
@@ -2710,26 +2707,19 @@ function petV21Ears(profile,primary,secondary,outline){
   return '';
 }
 function petV21Muzzle(profile,mood,ink,primary,secondary,accent){
-  const eyes=petV21Eyes(mood,ink,110,76,21,1);
-  const blush=petV21Blush(110,95);
-
-  if(['cat','tiger','lion'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="98" rx="24" ry="16" fill="${petMix(secondary,'#fff',.5)}"/><path d="M104 90 L110 96 L116 90Z" fill="${ink}"/><path d="M110 96 q-8 8-15 4 M110 96 q8 8 15 4" fill="none" stroke="${ink}" stroke-width="2.5" stroke-linecap="round"/><path d="M89 101 L63 96 M90 107 L62 110 M131 101 L157 96 M130 107 L158 110" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/>`;
-
-  if(['fox','wolf','dog'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="102" rx="26" ry="18" fill="${petMix(secondary,'#fff',.6)}"/><ellipse cx="110" cy="94" rx="8" ry="6" fill="${ink}"/><path d="M110 100 V106 M110 106 q-8 6-16 0 M110 106 q8 6 16 0" fill="none" stroke="${ink}" stroke-width="2.5" stroke-linecap="round"/>`;
-
-  if(['rabbit','kangaroo'].includes(profile))return `${eyes}${blush}<ellipse cx="102" cy="98" rx="12" ry="10" fill="#fff8fb"/><ellipse cx="118" cy="98" rx="12" ry="10" fill="#fff8fb"/><path d="M106 91 L110 95 L114 91Z" fill="#ef8cab"/><path d="M110 95 V100 M110 100 q-6 6-12 3 M110 100 q6 6 12 3" fill="none" stroke="${ink}" stroke-width="2"/><rect x="106" y="103" width="4" height="7" rx="1" fill="#fff" stroke="#eee"/><rect x="110" y="103" width="4" height="7" rx="1" fill="#fff" stroke="#eee"/>`;
-
-  // Preserve the current app's strongest species markers for these families.
-  if(['bear','polarBear','panda','koala'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="100" rx="29" ry="20" fill="${petMix(secondary,'#fff',.45)}"/><ellipse cx="110" cy="94" rx="${profile==='koala'?11:7}" ry="${profile==='koala'?8:5}" fill="#433846"/>${petV21Smile(ink,110,101,mood)}`;
-  if(['hamster','rat','beaver','squirrel','otter'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="101" rx="25" ry="16" fill="${petMix(secondary,'#fff',.52)}"/><ellipse cx="110" cy="95" rx="5.5" ry="4" fill="#704756"/><path d="M92 103 L66 99 M128 103 L154 99" stroke="${ink}" stroke-width="1.6"/>${petV21Smile(ink,110,101,mood)}${['hamster','rat','beaver','squirrel'].includes(profile)?`<rect x="105" y="106" width="4.5" height="8" rx="1" fill="#fff"/><rect x="111" y="106" width="4.5" height="8" rx="1" fill="#fff"/>`:''}`;
-  if(profile==='raccoon')return `<path d="M66 73 Q110 54 154 73 Q140 96 110 96 Q80 96 66 73Z" fill="#45414d" opacity=".86"/>${eyes}${blush}<ellipse cx="110" cy="101" rx="24" ry="16" fill="#f8f3ef"/><ellipse cx="110" cy="95" rx="6" ry="4.5" fill="#302d34"/>${petV21Smile(ink,110,101,mood)}`;
-  if(profile==='skunk')return `${eyes}${blush}<path d="M110 41 Q101 62 110 83 Q119 62 110 41" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><ellipse cx="110" cy="101" rx="24" ry="16" fill="#f7f1ee"/><ellipse cx="110" cy="95" rx="6" ry="4" fill="#302d34"/>${petV21Smile(ink,110,101,mood)}`;
-  if(profile==='badger')return `<path d="M81 48 L96 91 M139 48 L124 91" stroke="#f4eee8" stroke-width="10" stroke-linecap="round"/>${eyes}${blush}<ellipse cx="110" cy="101" rx="25" ry="17" fill="#f6f0ec"/><ellipse cx="110" cy="95" rx="6" ry="4" fill="#302d34"/>${petV21Smile(ink,110,101,mood)}`;
-  if(['monkey','orangutan','sloth'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="99" rx="32" ry="26" fill="${petMix(secondary,'#f4d7bc',.28)}"/><ellipse cx="98" cy="96" rx="3" ry="2.4" fill="#684c59"/><ellipse cx="122" cy="96" rx="3" ry="2.4" fill="#684c59"/>${petV21Smile(ink,110,105,mood)}`;
-
-  if(['deer','goat','ram','sheep','llama','horse','bison','unicorn','boar'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="108" rx="28" ry="24" fill="${petMix(secondary,'#fff',.5)}"/><ellipse cx="100" cy="102" rx="4" ry="3" fill="${petMix(ink,'#000',.5)}"/><ellipse cx="120" cy="102" rx="4" ry="3" fill="${petMix(ink,'#000',.5)}"/><path d="M98 114 Q110 122 122 114" fill="none" stroke="${ink}" stroke-width="2.5" stroke-linecap="round"/>${profile==='boar'?`<path d="M89 108 l-11 8 M131 108 l11 8" stroke="#fff4df" stroke-width="5" stroke-linecap="round"/>`:''}`;
-
-  return `${eyes}${blush}${petV21Smile(ink,110,103,mood)}`;
+  const eyes=petV21Eyes(mood,ink,110,79,21,1);
+  const blush=petV21Blush(110,98);
+  if(['cat','tiger','lion'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="101" rx="27" ry="18" fill="${petMix(secondary,'#fff',.48)}"/><path d="M105 94 L110 99 L115 94Z" fill="#6b405d"/><path d="M110 99 q-7 8-14 4 M110 99 q7 8 14 4" fill="none" stroke="${ink}" stroke-width="2.7"/><path d="M89 102 L61 97 M90 108 L60 111 M131 102 L159 97 M130 108 L160 111" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/>`;
+  if(['fox','wolf','dog'].includes(profile))return `${eyes}${blush}<path d="M83 94 Q110 82 137 94 Q132 116 110 119 Q88 116 83 94Z" fill="${petMix(secondary,'#fff',.45)}"/><ellipse cx="110" cy="96" rx="7" ry="5" fill="#493846"/><path d="M110 101 q-9 10-18 4 M110 101 q9 10 18 4" fill="none" stroke="${ink}" stroke-width="2.8"/>`;
+  if(['rabbit','kangaroo'].includes(profile))return `${eyes}${blush}<ellipse cx="99" cy="101" rx="13" ry="12" fill="#fff8fb"/><ellipse cx="121" cy="101" rx="13" ry="12" fill="#fff8fb"/><path d="M105 94 L110 99 L115 94Z" fill="#ef8cab"/><path d="M110 100 q-6 7-12 4 M110 100 q6 7 12 4" fill="none" stroke="${ink}" stroke-width="2.4"/><rect x="105" y="106" width="5" height="9" rx="2" fill="#fff"/><rect x="111" y="106" width="5" height="9" rx="2" fill="#fff"/>`;
+  if(['bear','polarBear','panda','koala'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="100" rx="29" ry="20" fill="${petMix(secondary,'#fff',.45)}"/><ellipse cx="110" cy="94" rx="${profile==='koala'?11:7}" ry="${profile==='koala'?8:5}" fill="#433846"/>${petV21Smile(ink,110,101)}`;
+  if(['hamster','rat','beaver','squirrel','otter'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="101" rx="25" ry="16" fill="${petMix(secondary,'#fff',.52)}"/><ellipse cx="110" cy="95" rx="5.5" ry="4" fill="#704756"/><path d="M92 103 L66 99 M128 103 L154 99" stroke="${ink}" stroke-width="1.6"/>${petV21Smile(ink,110,101)}${['hamster','rat','beaver','squirrel'].includes(profile)?`<rect x="105" y="106" width="4.5" height="8" rx="1" fill="#fff"/><rect x="111" y="106" width="4.5" height="8" rx="1" fill="#fff"/>`:''}`;
+  if(profile==='raccoon')return `<path d="M66 73 Q110 54 154 73 Q140 96 110 96 Q80 96 66 73Z" fill="#45414d" opacity=".86"/>${eyes}${blush}<ellipse cx="110" cy="101" rx="24" ry="16" fill="#f8f3ef"/><ellipse cx="110" cy="95" rx="6" ry="4.5" fill="#302d34"/>${petV21Smile(ink,110,101)}`;
+  if(profile==='skunk')return `${eyes}${blush}<path d="M110 41 Q101 62 110 83 Q119 62 110 41" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><ellipse cx="110" cy="101" rx="24" ry="16" fill="#f7f1ee"/><ellipse cx="110" cy="95" rx="6" ry="4" fill="#302d34"/>${petV21Smile(ink,110,101)}`;
+  if(profile==='badger')return `<path d="M81 48 L96 91 M139 48 L124 91" stroke="#f4eee8" stroke-width="10" stroke-linecap="round"/>${eyes}${blush}<ellipse cx="110" cy="101" rx="25" ry="17" fill="#f6f0ec"/><ellipse cx="110" cy="95" rx="6" ry="4" fill="#302d34"/>${petV21Smile(ink,110,101)}`;
+  if(['monkey','orangutan','sloth'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="99" rx="32" ry="26" fill="${petMix(secondary,'#f4d7bc',.28)}"/><ellipse cx="98" cy="96" rx="3" ry="2.4" fill="#684c59"/><ellipse cx="122" cy="96" rx="3" ry="2.4" fill="#684c59"/>${petV21Smile(ink,110,105)}`;
+  if(['deer','goat','ram','sheep','llama','horse','bison','unicorn','boar'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="101" rx="30" ry="21" fill="${petMix(secondary,'#fff7ed',.42)}"/><ellipse cx="100" cy="100" rx="3" ry="2.5" fill="#6a5260"/><ellipse cx="120" cy="100" rx="3" ry="2.5" fill="#6a5260"/>${petV21Smile(ink,110,107)}${profile==='boar'?`<path d="M89 104 l-11 8 M131 104 l11 8" stroke="#fff4df" stroke-width="5" stroke-linecap="round"/>`:''}`;
+  return `${eyes}${blush}${petV21Smile(ink,110,103)}`;
 }
 function petV21Mammal(stageIndex,companion,mood,regionNumber,size,profile,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront){
   const body=`url(#petBody${seed})`, belly=`url(#petBelly${seed})`;
@@ -2747,7 +2737,7 @@ function petV21Mammal(stageIndex,companion,mood,regionNumber,size,profile,seed,p
   if(profile==='bison')extraBehind+=`<path d="M66 131 Q77 103 100 110 Q86 133 82 159Z" fill="${petMix(primary,'#3e2a58',.1)}" opacity=".8"/>`;
   const horns=profile==='ram'?`<path d="M80 61 q-29-27-35 1 q-2 27 23 22 M140 61 q29-27 35 1 q2 27-23 22" fill="none" stroke="${accent}" stroke-width="9" stroke-linecap="round"/>`:['deer','goat','bison'].includes(profile)?`<path d="M87 57 Q79 31 66 24 M81 43 L63 35 M133 57 Q141 31 154 24 M139 43 L157 35" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>`:'';
   const horn=profile==='unicorn'?`<path d="M110 48 L121 11 L130 51Z" fill="#fff0a0" stroke="${accent}" stroke-width="3"/>`:'';
-  const pandaBits=profile==='panda'?`<ellipse cx="82" cy="80" rx="15" ry="20" fill="#3c3943" opacity=".95"/><ellipse cx="138" cy="80" rx="15" ry="20" fill="#3c3943" opacity=".95"/><path d="M77 132 Q67 154 77 178 M143 132 Q153 154 143 178" stroke="#3c3943" stroke-width="17" stroke-linecap="round"/><ellipse cx="79" cy="190" rx="23" ry="12" fill="#3c3943"/><ellipse cx="141" cy="190" rx="23" ry="12" fill="#3c3943"/>`:'';
+  const pandaBits=profile==='panda'?`<ellipse cx="89" cy="79" rx="16" ry="20" fill="#3c3943" opacity=".94"/><ellipse cx="131" cy="79" rx="16" ry="20" fill="#3c3943" opacity=".94"/><path d="M77 132 Q67 154 77 178 M143 132 Q153 154 143 178" stroke="#3c3943" stroke-width="17" stroke-linecap="round"/><ellipse cx="79" cy="190" rx="23" ry="12" fill="#3c3943"/><ellipse cx="141" cy="190" rx="23" ry="12" fill="#3c3943"/>`:'';
   const tigerStripes=profile==='tiger'?`<path d="M85 50 l10 15 M110 43 v17 M135 50 l-10 15 M67 138 l18 9 M153 138 l-18 9" stroke="#553747" stroke-width="5" stroke-linecap="round" opacity=".75"/>`:'';
   const foxMask=profile==='fox'?`<path d="M67 76 Q84 55 110 66 Q136 55 153 76 Q136 72 124 88 Q110 77 96 88 Q84 72 67 76Z" fill="${secondary}" opacity=".82"/>`:'';
   const slothMask=profile==='sloth'?`<path d="M73 76 Q86 61 101 72 M147 76 Q134 61 119 72" fill="none" stroke="#5a4b57" stroke-width="10" stroke-linecap="round" opacity=".72"/>`:'';
@@ -3913,10 +3903,10 @@ function companionMemoryPool(a,t){
   if(animals>=2)pool.push(`Aline, lembra quando era só o Pingo? Já encontramos ${animals} companheiros. 🥹🐾`);
   if(regions>=2)pool.push(`Aline, sua jornada já abriu ${regions} das 12 regiões. 🗺️✨`);
 
-  // Próximas descobertas.
+  // Próximas descobertas — sem revelar qual será o próximo companheiro.
   if(next && idx<stages.length-1){
     const left=Math.max(0,Number(next.xp)-Number(s.xp||0));
-    if(left>0)pool.push(`Aline, faltam só ${left} XP para conhecer ${next.name}. 👀✨`);
+    if(left>0)pool.push(`Aline, faltam só ${left} XP para uma nova surpresa aparecer na floresta. 👀✨`);
   }
   if(milestone){
     const left=Math.max(0,milestone-Number(s.hours||0));
@@ -4482,7 +4472,7 @@ function render(){
   $('.garden').dataset.season=a.season||0;
   renderPremiumRegionScene(activeRegionNumber,i);
   refreshRareSceneBadge(activeRegionNumber);
-  $('#unlock').innerHTML=s.petDead?'<b>'+a.title+'</b><br>💀 Caiu em batalha. Estude hoje para fazer nascer um novo companheiro. 🌱':'<b>'+a.title+'</b><br>✨ Desbloqueada no Nível '+(i+1)+'<br>'+a.next;
+  $('#unlock').innerHTML=s.petDead?'<b>'+a.title+'</b><br>💀 Caiu em batalha. Estude hoje para fazer nascer um novo companheiro. 🌱':'<b>'+a.title+'</b><br>✨ Desbloqueada no Nível '+(i+1)+(i===stages.length-1?'<br>🏆 Coleção anual completa! A floresta lendária está cheia!':'<br>🔒 O próximo companheiro é uma surpresa. Continue estudando para descobrir. ✨');
   $('#regionInfo').innerHTML='🗺️ <b>'+regionNames[activeRegionNumber-1]+'</b>' + (s.visitedRegion && s.visitedRegion!==progressRegion ? '<br><span style="font-size:12px">Você está visitando uma região antiga. Seu companheiro atual continua com você.</span>' : '<br><span style="font-size:12px">'+((premiumRegionMeta[activeRegionNumber]||premiumRegionMeta[1]).arrival||'Sua floresta continua crescendo.')+'</span>');
 
   maybeAwardShield(streak);
@@ -4491,7 +4481,7 @@ function render(){
   $('#shields').textContent=s.shields;
   $('#hoursTotal').textContent=(Math.round(s.hours*100)/100)+'h';
   $('#xpfill').style.width=Math.max(0,Math.min(100,pct))+'%';
-  $('#xpText').textContent=i===stages.length-1?s.xp+' XP • evolução máxima':s.xp+' XP • '+(next.xp-s.xp)+' XP para '+next.name;
+  $('#xpText').textContent=i===stages.length-1?s.xp+' XP • evolução máxima':s.xp+' XP • '+(next.xp-s.xp)+' XP para a próxima surpresa';
 
   $('#todayHours').textContent=(Math.round(t*100)/100)+'h / 4h';
 
