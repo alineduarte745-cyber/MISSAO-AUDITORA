@@ -1875,6 +1875,14 @@ if(!s.dailyGifts || typeof s.dailyGifts!=='object')s.dailyGifts={};
 while(s.days.length<30)s.days.push(false);
 s.days=s.days.slice(0,30);
 
+// ✨ Temas ambientais precisam existir antes de qualquer renderização, inclusive a renderização disparada pela nuvem.
+const ambientMagicThemes={
+  1:['✨','🌸','🌷','💗','⭐','✦'],2:['✨','🍃','🌿','✦','⭐'],3:['✨','🫧','💧','🐚','✦'],4:['✨','🍄','🔮','💜','✦'],
+  5:['✨','☀️','🌾','⭐','🍂'],6:['✨','🌙','⭐','🪲','✦'],7:['✨','❄️','🤍','🧊','✦'],8:['✨','🌸','💗','🌺','✦'],
+  9:['✨','🌊','🐚','🌺','☀️'],10:['✨','💎','🔮','💫','✦'],11:['✨','🔥','💎','💫','⭐'],12:['✨','👑','🏆','⭐','💛']
+};
+let lastAmbientRegion=0;
+let ambientSoundTimer=null;
 
 // ☁️ Sincronização em nuvem — mantém o localStorage como cópia local.
 const firebaseConfig = {
@@ -4767,13 +4775,6 @@ if(calendarNext)calendarNext.onclick=()=>{
   renderStudyCalendar();
 };
 
-const ambientMagicThemes={
-  1:['✨','🌸','🌷','💗','⭐','✦'],2:['✨','🍃','🌿','✦','⭐'],3:['✨','🫧','💧','🐚','✦'],4:['✨','🍄','🔮','💜','✦'],
-  5:['✨','☀️','🌾','⭐','🍂'],6:['✨','🌙','⭐','🪲','✦'],7:['✨','❄️','🤍','🧊','✦'],8:['✨','🌸','💗','🌺','✦'],
-  9:['✨','🌊','🐚','🌺','☀️'],10:['✨','💎','🔮','💫','✦'],11:['✨','🔥','💎','💫','⭐'],12:['✨','👑','🏆','⭐','💛']
-};
-let lastAmbientRegion=0;
-let ambientSoundTimer=null;
 
 function createAmbientMagic(regionNumber=1){
   const layer=document.getElementById('ambientMagic');
