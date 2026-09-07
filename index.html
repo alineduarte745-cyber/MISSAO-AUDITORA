@@ -69,6 +69,7 @@ position:relative;overflow:hidden;border:2px solid #e7f1e0
   opacity:.95
 }
 .deathnote{margin-top:10px;background:#fff0f0;color:#a94b4b;border-radius:14px;padding:10px;font-size:13px;font-weight:800}
+.deathnoteOutside{margin-top:12px;padding:12px 14px;border:2px solid #ffd6df;background:linear-gradient(135deg,#fff7f8,#fff0f4);box-shadow:0 6px 16px #a94b4b12;text-align:center;line-height:1.4}
 
 .days{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
 .day{border:2px solid #eee;background:#faf7fa}
@@ -259,17 +260,62 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 .rareSceneBadge.show{display:block;animation:rareBadgePop .35s ease}
 @keyframes rareBadgePop{from{opacity:0;transform:translateY(-8px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 
-.regionUnlockOverlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(52,34,74,.42);backdrop-filter:blur(6px);z-index:60}
-.regionUnlockOverlay.show{display:flex;animation:regionUnlockFade .35s ease}
-.regionUnlockCard{width:min(520px,94vw);padding:22px 20px 18px;border-radius:28px;background:linear-gradient(145deg,#fffdf8,#fff0f8 50%,#ece8ff);border:2px solid #fff;box-shadow:0 18px 46px #4f367521;text-align:center;position:relative;overflow:hidden}
-.regionUnlockCard:before{content:'✨  🌸  ✨';position:absolute;top:12px;left:20px;right:20px;opacity:.8;letter-spacing:10px}
-.regionUnlockEyebrow{font-size:12px;font-weight:950;letter-spacing:.12em;color:#8e6286;margin-bottom:14px}
-.regionUnlockPreview{font-size:46px;line-height:1.1;margin:4px 0 10px;filter:drop-shadow(0 6px 5px #6e4a6d22)}
-.regionUnlockName{font-size:30px;font-weight:1000;color:#593d8a;line-height:1.1}
-.regionUnlockMeta{margin-top:10px;font-size:14px;font-weight:850;color:#6c5a79;line-height:1.45}
-.regionUnlockHint{margin-top:12px;font-size:13px;font-weight:900;color:#7c6887}
-.regionUnlockClose{margin-top:16px;background:linear-gradient(135deg,#ff5ea5,#7d5cff) !important;color:#fff !important;min-width:220px}
-@keyframes regionUnlockFade{from{opacity:0}to{opacity:1}}
+/* ===== CHEGADA CINEMATOGRÁFICA À NOVA REGIÃO ===== */
+.regionUnlockOverlay{
+  --cineA:#ffb8d5;--cineB:#8770ff;--cineC:#82e9c0;--cineGlow:#fff1a8;
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(255,255,255,.34),transparent 23%),
+    radial-gradient(circle at 14% 18%,var(--cineGlow),transparent 27%),
+    linear-gradient(145deg,var(--cineA),var(--cineB) 58%,var(--cineC));
+  backdrop-filter:blur(9px);z-index:60;overflow:hidden;isolation:isolate
+}
+.regionUnlockOverlay.show{display:flex;animation:regionCineOpen .72s ease both}
+.regionUnlockOverlay:before{content:'';position:absolute;inset:-25%;z-index:-2;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.18) 0 7deg,transparent 7deg 18deg);animation:regionCineRays 28s linear infinite;opacity:.8}
+.regionUnlockOverlay:after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,transparent 20%,rgba(38,20,62,.24) 100%);pointer-events:none}
+.regionUnlockOverlay[data-region='1']{--cineA:#ffb6d3;--cineB:#8edb91;--cineC:#81dfff;--cineGlow:#fff1a0}
+.regionUnlockOverlay[data-region='2']{--cineA:#7fd58d;--cineB:#3e9b68;--cineC:#89ddc2;--cineGlow:#d9ff91}
+.regionUnlockOverlay[data-region='3']{--cineA:#8de8ff;--cineB:#4a96e8;--cineC:#7ee8d2;--cineGlow:#e9ffff}
+.regionUnlockOverlay[data-region='4']{--cineA:#c79cff;--cineB:#7049bf;--cineC:#ff9ad5;--cineGlow:#f4d8ff}
+.regionUnlockOverlay[data-region='5']{--cineA:#ffd45e;--cineB:#e28f45;--cineC:#cfa44d;--cineGlow:#fff2a3}
+.regionUnlockOverlay[data-region='6']{--cineA:#293563;--cineB:#4c3c88;--cineC:#16294e;--cineGlow:#ddd7ff}
+.regionUnlockOverlay[data-region='7']{--cineA:#e9fbff;--cineB:#8ecfff;--cineC:#b9e4ff;--cineGlow:#ffffff}
+.regionUnlockOverlay[data-region='8']{--cineA:#ffb6d6;--cineB:#f66fa9;--cineC:#ffd4ea;--cineGlow:#fff0f7}
+.regionUnlockOverlay[data-region='9']{--cineA:#70dcff;--cineB:#38b8d0;--cineC:#ffd16b;--cineGlow:#fff1a3}
+.regionUnlockOverlay[data-region='10']{--cineA:#b69cff;--cineB:#6750bd;--cineC:#63d7c4;--cineGlow:#eadcff}
+.regionUnlockOverlay[data-region='11']{--cineA:#7a54a8;--cineB:#492d78;--cineC:#dc5b66;--cineGlow:#ffc479}
+.regionUnlockOverlay[data-region='12']{--cineA:#ffd548;--cineB:#ff67a8;--cineC:#775bff;--cineGlow:#fff4a6}
+.regionCinematicAtmosphere{position:absolute;inset:0;pointer-events:none;z-index:1}
+.regionCineParticle{position:absolute;left:var(--x);top:var(--y);font-size:var(--size);opacity:0;filter:drop-shadow(0 5px 8px rgba(35,19,57,.25));animation:regionCineFloat var(--dur) ease-in-out var(--delay) infinite}
+.regionUnlockCard{
+  width:min(560px,94vw);max-height:min(90vh,720px);overflow:auto;padding:28px 22px 20px;border-radius:32px;
+  background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,249,252,.91) 54%,rgba(243,239,255,.93));
+  border:3px solid rgba(255,255,255,.95);box-shadow:0 0 0 1px rgba(255,255,255,.45),0 25px 80px rgba(42,24,72,.35),0 0 46px color-mix(in srgb,var(--cineGlow) 70%,transparent);
+  text-align:center;position:relative;z-index:4;animation:regionCineCard 1.05s cubic-bezier(.18,.9,.2,1.15) both
+}
+.regionUnlockCard:before{content:'✦  ✨  ✦';position:absolute;top:12px;left:20px;right:20px;opacity:.65;letter-spacing:12px;animation:regionCineTwinkle 1.8s ease-in-out infinite}
+.regionUnlockChapter{font-size:10px;font-weight:1000;letter-spacing:.17em;text-transform:uppercase;color:#8a6a91;margin:4px 0 7px;opacity:0;animation:regionCineText .55s ease .25s forwards}
+.regionUnlockEyebrow{font-size:12px;font-weight:1000;letter-spacing:.13em;color:#8e6286;margin-bottom:10px;opacity:0;animation:regionCineText .55s ease .4s forwards}
+.regionUnlockPreview{font-size:50px;line-height:1.05;margin:3px 0 7px;filter:drop-shadow(0 8px 8px #6e4a6d28);opacity:0;animation:regionCinePreview .8s cubic-bezier(.2,.85,.2,1.2) .5s forwards}
+.regionUnlockName{font-size:clamp(29px,7vw,43px);font-weight:1000;color:#593d8a;line-height:1.02;text-shadow:0 2px #fff,0 0 22px var(--cineGlow);opacity:0;animation:regionCineTitle .8s cubic-bezier(.2,.9,.2,1.16) .7s forwards}
+.regionUnlockPet{height:155px;display:flex;align-items:center;justify-content:center;margin:-1px auto -2px;opacity:0;animation:regionCinePet .95s cubic-bezier(.2,.9,.2,1.2) .9s forwards}
+.regionUnlockPet .petArt.big{width:150px;height:150px;max-width:42vw;filter:drop-shadow(0 12px 12px rgba(69,42,91,.32)) saturate(1.16)}
+.regionUnlockSpeech{display:inline-block;max-width:94%;margin:0 auto 7px;padding:9px 13px;border-radius:18px;background:linear-gradient(135deg,#fff8c8,#ffe3f0);border:2px solid #fff;box-shadow:0 7px 18px #76507e22;color:#653f75;font-size:13px;font-weight:950;line-height:1.3;opacity:0;animation:regionCineText .55s ease 1.25s forwards}
+.regionUnlockMeta{margin-top:5px;font-size:13px;font-weight:850;color:#6c5a79;line-height:1.42;opacity:0;animation:regionCineText .55s ease 1.42s forwards}
+.regionUnlockHint{margin-top:9px;font-size:12px;font-weight:900;color:#7c6887;opacity:0;animation:regionCineText .55s ease 1.58s forwards}
+.regionUnlockClose{margin-top:14px;background:linear-gradient(135deg,#ff5ea5,#7d5cff) !important;color:#fff !important;min-width:230px;opacity:0;animation:regionCineButton .62s cubic-bezier(.2,.85,.2,1.12) 1.75s forwards}
+@keyframes regionCineOpen{from{opacity:0;filter:brightness(1.35)}to{opacity:1;filter:brightness(1)}}
+@keyframes regionCineRays{to{transform:rotate(360deg)}}
+@keyframes regionCineCard{0%{opacity:0;transform:translateY(30px) scale(.72)}65%{opacity:1;transform:translateY(-5px) scale(1.025)}100%{opacity:1;transform:none}}
+@keyframes regionCineText{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes regionCinePreview{from{opacity:0;transform:scale(.45) rotate(-6deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes regionCineTitle{from{opacity:0;transform:scale(.72);letter-spacing:.14em}to{opacity:1;transform:scale(1);letter-spacing:normal}}
+@keyframes regionCinePet{0%{opacity:0;transform:translateY(28px) scale(.5)}58%{opacity:1;transform:translateY(-10px) scale(1.12)}100%{opacity:1;transform:none}}
+@keyframes regionCineButton{from{opacity:0;transform:translateY(12px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes regionCineTwinkle{50%{opacity:1;transform:scale(1.08)}}
+@keyframes regionCineFloat{0%,100%{opacity:.08;transform:translateY(15px) rotate(-8deg) scale(.8)}45%{opacity:.88;transform:translateY(-18px) rotate(8deg) scale(1.08)}70%{opacity:.45;transform:translateY(-7px) rotate(-2deg)}}
+@media(max-width:520px){.rareSceneBadge{top:44px;max-width:58%}.regionUnlockCard{padding:25px 15px 17px}.regionUnlockPreview{font-size:41px}.regionUnlockName{font-size:30px}.regionUnlockPet{height:135px}.regionUnlockPet .petArt.big{width:132px;height:132px}.regionUnlockSpeech{font-size:12px}.regionUnlockClose{min-width:210px}}
+@media(prefers-reduced-motion:reduce){.regionUnlockOverlay:before,.regionCineParticle,.regionUnlockCard,.regionUnlockChapter,.regionUnlockEyebrow,.regionUnlockPreview,.regionUnlockName,.regionUnlockPet,.regionUnlockSpeech,.regionUnlockMeta,.regionUnlockHint,.regionUnlockClose{animation:none !important;opacity:1 !important}}
 
 .rareEventToast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(18px);opacity:0;pointer-events:none;z-index:65;max-width:min(92vw,560px);padding:13px 16px;border-radius:18px;background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,245,250,.96));border:2px solid #fff;box-shadow:0 14px 34px #69498c25;font-size:13px;font-weight:900;color:#5d4b6b;text-align:center;transition:.25s ease}
 .rareEventToast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -592,6 +638,7 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
 .bigpet{
   position:relative;
   z-index:4;
+  cursor:pointer;
   transform-origin:center bottom;
   will-change:transform,filter;
   user-select:none;
@@ -814,6 +861,15 @@ button:hover{filter:brightness(1.08) saturate(1.15)}
   transform-origin:center center;
   animation:petAccessoryFloat 3.2s ease-in-out infinite;
 }
+.petArt .pet-region-outfit,.friendPetArt .pet-region-outfit{
+  transform-box:fill-box;
+  transform-origin:center top;
+  animation:petOutfitSway 3.8s ease-in-out infinite;
+}
+.petArt .pet-outfit-sparkle,.friendPetArt .pet-outfit-sparkle{
+  animation:petSparkle 1.7s ease-in-out infinite alternate;
+}
+@keyframes petOutfitSway{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(1.5px) rotate(.8deg)}}
 @keyframes petTailSway{50%{transform:rotate(9deg)}}
 @keyframes petEarTwitch{0%,87%,100%{transform:rotate(0)}90%{transform:rotate(-7deg)}94%{transform:rotate(5deg)}}
 @keyframes petWingFloat{50%{transform:rotate(5deg) translateY(-2px)}}
@@ -1178,9 +1234,9 @@ main{position:relative;z-index:1}
 }
 @keyframes ambientRise{
   0%{opacity:0;transform:translate3d(0,0,0) rotate(0deg) scale(.72)}
-  12%{opacity:.34}
-  48%{opacity:.48;transform:translate3d(var(--drift,12px),-55vh,0) rotate(165deg) scale(1.05)}
-  84%{opacity:.24}
+  12%{opacity:.50}
+  48%{opacity:.72;transform:translate3d(var(--drift,12px),-55vh,0) rotate(165deg) scale(1.12)}
+  84%{opacity:.38}
   100%{opacity:0;transform:translate3d(var(--drift2,-10px),-120vh,0) rotate(360deg) scale(.78)}
 }
 
@@ -1208,12 +1264,20 @@ main{position:relative;z-index:1}
 .dailyPet{height:80px;display:flex;align-items:center;justify-content:center;animation:miniPetIdle 3.2s ease-in-out infinite}
 .dailyPet .petArt.small{width:78px;height:78px;max-width:none}
 .dailyPetName{margin-top:-3px;font-size:11px;font-weight:950;color:#694287;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dailyGoalbar{margin:10px 0 12px}
+.dailyGoalbar{margin:11px 0 13px}
+.dailyHourTrack{position:relative;height:18px;border-radius:999px;background:linear-gradient(180deg,#f1e7f3,#eadff0);border:2px solid #fff;box-shadow:inset 0 2px 5px #6d4f751c,0 5px 13px #9c6bb31a;overflow:hidden}
+.dailyHourFill{position:absolute;inset:0 auto 0 0;width:0%;border-radius:inherit;background:linear-gradient(90deg,#69dda0 0%,#ffe36d 35%,#ff9ac8 70%,#9a7bff 100%);box-shadow:0 0 15px #ffb5d788;transition:width .65s cubic-bezier(.2,.85,.25,1.12);overflow:hidden}
+.dailyHourFill:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 35%,rgba(255,255,255,.75) 48%,transparent 62%);transform:translateX(-120%);animation:dailyBarShine 3.2s ease-in-out infinite}
+.dailyHourFill.complete{box-shadow:0 0 13px #ffe66dcc,0 0 26px #ff9ac888;animation:dailyBarComplete 1.9s ease-in-out infinite}
+.dailyHourScale{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px;padding:0 2px;font-size:9px;font-weight:950;color:#92849a}
+.dailyHourScale .dailyBarStatus{font-size:10px;color:#6d527b;text-align:center;flex:1}
+@keyframes dailyBarShine{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(130%)}}
+@keyframes dailyBarComplete{50%{filter:brightness(1.12) saturate(1.12);transform:scaleY(1.06)}}
 .miniGoalWorld{position:relative;margin:8px 0 8px;padding:34px 8px 8px;border-radius:20px;background:linear-gradient(180deg,#fffaff,#fffdf0);border:1px solid #f6e7f2;overflow:hidden;box-shadow:inset 0 0 28px #fff,0 8px 24px #ff9ecb1c}
 .miniGoalWorld:before{content:'💗';position:absolute;left:9px;top:8px;font-size:15px;opacity:.62;animation:missionHeart 2.4s ease-in-out infinite;filter:drop-shadow(0 0 7px #ff8fc7)}
 .miniGoalWorld:after{content:'🌸';position:absolute;right:10px;bottom:8px;font-size:16px;opacity:.62;animation:missionFlower 3.1s ease-in-out infinite;filter:drop-shadow(0 0 7px #ffd66c)}
 .missionMagic{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
-.missionMagic span{position:absolute;left:var(--x);top:var(--y);font-size:var(--s);opacity:.38;filter:drop-shadow(0 0 5px #fff);animation:missionFloat var(--d) ease-in-out infinite;animation-delay:var(--delay)}
+.missionMagic span{position:absolute;left:var(--x);top:var(--y);font-size:var(--s);opacity:.56;filter:drop-shadow(0 0 8px #fff7) saturate(1.1);animation:missionFloat var(--d) ease-in-out infinite;animation-delay:var(--delay)}
 .miniGoalPath{position:absolute;left:12%;right:12%;top:55px;height:5px;border-radius:99px;background:#eee4ef;box-shadow:inset 0 1px 3px #6f55751a}
 .miniGoalSteps{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
 .miniGoal{text-align:center;min-width:0;transition:transform .22s ease,filter .22s ease}
@@ -1252,6 +1316,11 @@ main{position:relative;z-index:1}
   min-height:390px !important;
   isolation:isolate;
   transition:background 1s ease, box-shadow .8s ease, border-color .8s ease;
+  animation:gardenAura 6.4s ease-in-out infinite;
+}
+@keyframes gardenAura{
+  0%,100%{box-shadow:inset 0 -12px 30px #149c4930,0 12px 28px #6554c033,0 0 0 rgba(255,255,255,0)}
+  50%{box-shadow:inset 0 -14px 34px #149c4940,0 16px 34px #6554c044,0 0 22px #fff3,0 0 38px #ffd8ef33}
 }
 .garden:before,.garden:after{content:none !important}
 .regionScenery{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
@@ -1261,14 +1330,14 @@ main{position:relative;z-index:1}
 .regionFront{bottom:-5px;z-index:5;font-size:29px;letter-spacing:5px;white-space:nowrap;text-align:center;filter:drop-shadow(0 4px 3px #40394a25)}
 .regionFloat{inset:0;z-index:4}
 .regionScenery:after{content:"";position:absolute;left:-4%;right:-4%;bottom:28%;height:18px;border-radius:50%;background:rgba(255,255,255,.09);filter:blur(8px);z-index:0;pointer-events:none}
-.regionParticle{position:absolute;display:block;animation:regionDrift 5.8s ease-in-out infinite;filter:drop-shadow(0 2px 3px #fff8);will-change:transform}
+.regionParticle{position:absolute;display:block;animation:regionDrift 5.1s ease-in-out infinite;filter:drop-shadow(0 0 8px #fff9);will-change:transform;opacity:1}.regionParticle.soft{opacity:.78;filter:drop-shadow(0 0 10px #ffffffaa)}
 @keyframes regionDrift{0%,100%{transform:translate3d(0,0,0) rotate(-5deg)}50%{transform:translate3d(8px,-14px,0) rotate(7deg)}}
 @keyframes regionTwinkle{0%,100%{opacity:.35;transform:scale(.75)}50%{opacity:1;transform:scale(1.2)}}
 
 /* ===== PREMIUM FASE 2 • JARDIM QUE CRESCE ===== */
 .regionGrowth{position:absolute;inset:0;z-index:3;pointer-events:none}
-.growthItem{position:absolute;display:block;transform-origin:50% 100%;filter:drop-shadow(0 7px 5px #27483b24);animation:growthBreathe 4.6s ease-in-out infinite;will-change:transform}
-@keyframes growthBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.025)}}
+.growthItem{position:absolute;display:block;transform-origin:50% 100%;filter:drop-shadow(0 8px 7px #27483b36) saturate(1.06);animation:growthBreathe 4.2s ease-in-out infinite;will-change:transform}
+@keyframes growthBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.04)}}
 .regionPath{display:none;position:absolute;z-index:2;left:50%;bottom:-74px;width:86px;height:235px;transform:translateX(-50%);clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);background:linear-gradient(180deg,#f8dda9cc,#dfb976e8);box-shadow:inset 0 0 0 4px #fff5c72e;filter:drop-shadow(0 3px 4px #6f5d3526);transition:.8s ease;pointer-events:none}
 .regionGrowthBadge{position:absolute;left:12px;top:12px;z-index:9;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.84);backdrop-filter:blur(5px);border:1px solid #ffffffcc;box-shadow:0 5px 15px #65465d1f;font-size:11px;font-weight:950;color:#6d4b70;letter-spacing:.01em;transition:.35s ease}
 .garden[data-region] .regionPath{display:block}
@@ -1414,6 +1483,99 @@ main{position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){.regionParticle{animation:none !important}}
 </style>
 
+
+<style id="daily-gift-style">
+/* ===== PRESENTE SURPRESA DAS 4H ===== */
+.dailyGiftOverlay{
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+  padding:18px;background:rgba(49,31,72,.48);backdrop-filter:blur(7px);z-index:85000
+}
+.dailyGiftOverlay.show{display:flex;animation:dailyGiftFade .32s ease both}
+.dailyGiftCard{
+  width:min(92vw,500px);min-height:350px;padding:25px 20px 20px;border-radius:30px;
+  text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#fffdf7 0%,#fff0f8 48%,#ece8ff 100%);
+  border:3px solid #fff;box-shadow:0 22px 60px #43285e55,0 0 34px #ffe66d66
+}
+.dailyGiftCard:before{content:'✨  🌸  ✨  💗  ✨';position:absolute;left:12px;right:12px;top:12px;letter-spacing:8px;opacity:.55;animation:dailyGiftTwinkle 2.2s ease-in-out infinite}
+.dailyGiftEyebrow{margin-top:13px;font-size:12px;font-weight:1000;letter-spacing:.12em;color:#8b5b86}
+.dailyGiftBox{
+  animation:giftBoxPulse 2.3s ease-in-out infinite;font-size:96px;line-height:1;margin:20px 0 14px;filter:drop-shadow(0 12px 10px #68457338);animation:dailyGiftBounce 1.8s ease-in-out infinite;cursor:pointer;user-select:none}
+.dailyGiftPrompt{font-size:19px;font-weight:1000;color:#5a387f;line-height:1.25}
+.dailyGiftSub{margin-top:8px;font-size:13px;font-weight:850;color:#7a687f;line-height:1.4}
+.dailyGiftReveal{display:none;margin-top:7px}
+.dailyGiftReveal.show{display:block;animation:dailyGiftReveal .55s cubic-bezier(.2,.9,.25,1.18) both}
+.dailyGiftIcon{font-size:92px;line-height:1.08;filter:drop-shadow(0 10px 12px #7353913a);animation:dailyGiftFloat 2.1s ease-in-out infinite}
+.dailyGiftRarity{display:inline-block;margin-top:9px;padding:5px 11px;border-radius:999px;background:#fff;border:1px solid #fff0a8;box-shadow:0 5px 14px #76538d18;font-size:10px;font-weight:1000;letter-spacing:.08em;color:#7d5982;text-transform:uppercase}
+.dailyGiftName{margin-top:8px;font-size:27px;font-weight:1000;color:#5a3785;line-height:1.05}
+.dailyGiftText{margin:10px auto 0;max-width:390px;font-size:14px;font-weight:850;color:#6d5a76;line-height:1.45}
+.dailyGiftBtn{margin-top:18px;min-width:230px;background:linear-gradient(135deg,#ff5da8,#8b5cf6) !important;color:#fff !important}
+.dailyGiftClose{display:none;margin-top:17px;min-width:230px;background:linear-gradient(135deg,#6f5df6,#ff79b7) !important;color:#fff !important}
+.dailyGiftClose.show{display:inline-block}
+.dailyGiftCard.opened .dailyGiftBox,.dailyGiftCard.opened .dailyGiftPrompt,.dailyGiftCard.opened .dailyGiftSub,.dailyGiftCard.opened .dailyGiftBtn{display:none}
+.dailyGiftCard.legendary{box-shadow:0 22px 60px #43285e55,0 0 52px #ffd94fbb}
+.dailyGiftCard.legendary:after{content:'👑  ✨  👑';position:absolute;left:0;right:0;bottom:13px;font-size:18px;letter-spacing:12px;opacity:.24;pointer-events:none}
+@keyframes dailyGiftFade{from{opacity:0}to{opacity:1}}
+@keyframes dailyGiftBounce{0%,100%{transform:translateY(0) rotate(-2deg) scale(1)}50%{transform:translateY(-10px) rotate(2deg) scale(1.06)}}
+@keyframes dailyGiftTwinkle{0%,100%{opacity:.3;transform:scale(.98)}50%{opacity:.8;transform:scale(1.03)}}
+@keyframes dailyGiftReveal{from{opacity:0;transform:scale(.55) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes dailyGiftFloat{50%{transform:translateY(-7px) scale(1.04)}}
+@media(max-width:430px){.dailyGiftCard{min-height:330px;padding:23px 15px 18px}.dailyGiftBox,.dailyGiftIcon{font-size:78px}.dailyGiftName{font-size:23px}.dailyGiftBtn,.dailyGiftClose{min-width:210px}}
+@media(prefers-reduced-motion:reduce){.dailyGiftOverlay,.dailyGiftCard:before,.dailyGiftBox,.dailyGiftReveal,.dailyGiftIcon{animation:none !important}}
+</style>
+
+
+<style id="clean-companion-panel-style">
+/* ===== COMPANHEIRO • VISUAL LIMPO =====
+   Informações de nível/próximo animal/região já aparecem em outras partes do app.
+   Aqui o protagonista é o bichinho. */
+#unlock,#regionInfo{display:none !important;}
+.petname{margin-top:8px;}
+</style>
+
+<style id="single-offensive-message-fix">
+/* Mantém apenas o aviso real de ofensiva quebrada; o lembrete do escudo continua nos contadores, sem segundo recado. */
+#shieldInfo{display:none !important;}
+</style>
+
+<style id="growth-badge-outside-style">
+.regionGrowthBadge.regionGrowthBadgeOutside{
+  position:relative !important;
+  left:auto !important;
+  top:auto !important;
+  display:table;
+  max-width:100%;
+  margin:-2px auto 10px;
+  padding:7px 12px;
+  text-align:center;
+  z-index:2;
+}
+@media(max-width:520px){
+  .regionGrowthBadge.regionGrowthBadgeOutside{
+    left:auto !important;
+    top:auto !important;
+    margin:-2px auto 9px;
+    padding:6px 9px;
+    font-size:10px;
+  }
+}
+</style>
+
+<style id="animal-clarity-v20">
+/* V20 • anatomia primeiro, roupinha depois */
+.petArt .pet-region-outfit{opacity:.78}
+.petArt .species-face{pointer-events:none}
+.friendPetArt .pet-region-outfit{opacity:.65}
+</style>
+
+<style id="animal-redesign-v21">
+/* V21 • redesign estrutural: silhueta de animal primeiro. */
+.petArt .pet-region-outfit{opacity:.54}
+.friendPetArt .pet-region-outfit{opacity:.42}
+.petArt .v21-animal-outline{stroke-linejoin:round;stroke-linecap:round}
+.petArt .v21-limb{transform-box:fill-box;transform-origin:50% 8%;}
+.petArt .v21-tail{transform-box:fill-box;transform-origin:10% 70%;}
+</style>
 </head><body><div id="ambientMagic" class="ambientMagic" aria-hidden="true"></div><main>
 
 <section class="card top">
@@ -1447,6 +1609,12 @@ main{position:relative;z-index:1}
     <div id="mood" class="dailyMood">🥚 Esperando o primeiro estudo</div>
   </div>
 </div>
+<div class="dailyGoalbar">
+  <div id="dailyHourTrack" class="dailyHourTrack" role="progressbar" aria-label="Progresso das horas de estudo de hoje" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+    <div id="dailyHourFill" class="dailyHourFill"></div>
+  </div>
+  <div class="dailyHourScale"><span>0h</span><span id="dailyBarStatus" class="dailyBarStatus">🌱 0% da missão</span><span>4h 🏆</span></div>
+</div>
 <div class="miniGoalWorld" aria-label="Mini metas do dia">
   <div id="missionMagic" class="missionMagic" aria-hidden="true"></div>
   <div class="miniGoalPath"></div>
@@ -1469,8 +1637,9 @@ main{position:relative;z-index:1}
 
 <section class="card">
 <h2>🐾 Seu companheiro</h2>
+<div id="regionGrowthBadge" class="regionGrowthBadge regionGrowthBadgeOutside" aria-live="polite"></div>
 <div class="garden">
-<div id="regionScenery" class="regionScenery" aria-hidden="true"><div id="regionFar" class="regionFar"></div><div id="regionMid" class="regionMid"></div><div id="regionGrowth" class="regionGrowth"></div><div id="regionPath" class="regionPath"></div><div id="regionFloat" class="regionFloat"></div><div id="regionFront" class="regionFront"></div></div><div id="regionGrowthBadge" class="regionGrowthBadge" aria-live="polite"></div><div id="rareSceneBadge" class="rareSceneBadge" aria-live="polite"></div><div id="rareVisualLayer" class="rareVisualLayer" aria-hidden="true"></div>
+<div id="regionScenery" class="regionScenery" aria-hidden="true"><div id="regionFar" class="regionFar"></div><div id="regionMid" class="regionMid"></div><div id="regionGrowth" class="regionGrowth"></div><div id="regionPath" class="regionPath"></div><div id="regionFloat" class="regionFloat"></div><div id="regionFront" class="regionFront"></div></div><div id="rareSceneBadge" class="rareSceneBadge" aria-live="polite"></div><div id="rareVisualLayer" class="rareVisualLayer" aria-hidden="true"></div>
 <div id="scene" class="scene">
   <div id="companionFx" class="companion-fx" aria-hidden="true"></div>
   <div id="companionBubble" class="companion-bubble" role="status" aria-live="polite"></div>
@@ -1488,8 +1657,8 @@ main{position:relative;z-index:1}
 </div>
 <div style="font-size:12px;font-weight:800;color:#786b80;margin-top:5px">10 novos companheiros por temporada · 12 regiões ao longo da jornada</div>
 <div id="forestFriends" class="forestFriends"></div>
-<div id="deathnote" class="deathnote" style="display:none"></div>
 </div>
+<div id="deathnote" class="deathnote deathnoteOutside" style="display:none"></div>
 </section>
 
 <section class="card" id="calendarCard">
@@ -1596,18 +1765,41 @@ main{position:relative;z-index:1}
   </div>
 </div>
 
-<div id="regionUnlockOverlay" class="regionUnlockOverlay" aria-hidden="true">
+<div id="regionUnlockOverlay" class="regionUnlockOverlay" aria-hidden="true" data-region="1">
+  <div id="regionCinematicAtmosphere" class="regionCinematicAtmosphere" aria-hidden="true"></div>
   <div class="regionUnlockCard" role="status" aria-live="polite">
+    <div id="regionUnlockChapter" class="regionUnlockChapter">NOVO CAPÍTULO</div>
     <div class="regionUnlockEyebrow">✨ NOVA REGIÃO DESBLOQUEADA ✨</div>
     <div id="regionUnlockPreview" class="regionUnlockPreview">🌷🌳🦋</div>
     <div id="regionUnlockName" class="regionUnlockName">Jardim da Partida</div>
+    <div id="regionUnlockPet" class="regionUnlockPet" aria-hidden="true"></div>
+    <div id="regionUnlockSpeech" class="regionUnlockSpeech">Aline, olha onde a nossa jornada chegou. 💗</div>
     <div id="regionUnlockMeta" class="regionUnlockMeta">Um novo mundo se abriu para a sua jornada.</div>
-    <div class="regionUnlockHint">Sua floresta acaba de crescer. 🌿</div>
-    <button id="regionUnlockClose" class="regionUnlockClose">🌸 CONTINUAR AVENTURA</button>
+    <div class="regionUnlockHint">🌿 Um novo capítulo da sua floresta começou.</div>
+    <button id="regionUnlockClose" class="regionUnlockClose">✨ ENTRAR NA NOVA REGIÃO</button>
   </div>
 </div>
 
 <div id="rareEventToast" class="rareEventToast" aria-live="polite"></div>
+
+
+<div id="dailyGiftOverlay" class="dailyGiftOverlay" aria-hidden="true">
+  <div id="dailyGiftCard" class="dailyGiftCard" role="dialog" aria-modal="true" aria-labelledby="dailyGiftPrompt">
+    <div class="dailyGiftEyebrow">🏆 PRESENTE DA MISSÃO DE HOJE</div>
+    <div id="dailyGiftBox" class="dailyGiftBox" aria-hidden="true">🎁</div>
+    <div id="dailyGiftPrompt" class="dailyGiftPrompt">Aline, seu companheiro encontrou alguma coisa...</div>
+    <div class="dailyGiftSub">Você completou as 4h. Abra para descobrir o presente que a floresta deixou hoje. ✨</div>
+    <button id="dailyGiftOpen" class="dailyGiftBtn" type="button">🎁 ABRIR PRESENTE</button>
+    <div id="dailyGiftReveal" class="dailyGiftReveal" aria-live="polite">
+      <div id="dailyGiftIcon" class="dailyGiftIcon">🌸</div>
+      <div id="dailyGiftRarity" class="dailyGiftRarity">Especial</div>
+      <div id="dailyGiftName" class="dailyGiftName">Flor Luminosa</div>
+      <div id="dailyGiftText" class="dailyGiftText">A floresta floresceu por você ter cumprido sua missão.</div>
+    </div>
+    <button id="dailyGiftClose" class="dailyGiftClose" type="button">🌷 CONTINUAR AVENTURA</button>
+  </div>
+</div>
+
 
 <div id="approvalOverlay" class="approval-overlay" aria-hidden="true">
   <div class="approval-world"></div>
@@ -1641,6 +1833,8 @@ main{position:relative;z-index:1}
 <script>
 const KEY='missao-auditora-pets-v3', oldKeys=['missao-auditora-pets-v2','missao-auditora-v1'];
 const SYNC_META_KEY='missao-auditora-sync-meta-v1';
+// Nome usado pelos companheiros nas falas personalizadas.
+const PLAYER_NAME='Aline';
 
 function localDate(d=new Date()){
   const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
@@ -1657,7 +1851,7 @@ function previousDay(ds){
 let s={
   xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},
   campaignStart:localDate(),lastOpened:localDate(),petDead:false,deathDate:null,
-  shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[],lastRareEventAt:0,activeRareEvent:null,discoveredRareEvents:[]
+  shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[],lastRareEventAt:0,activeRareEvent:null,discoveredRareEvents:[],dailyGifts:{}
 };
 
 try{
@@ -1675,6 +1869,7 @@ if(!s.protectedDays)s.protectedDays={};
 if(!('visitedRegion' in s))s.visitedRegion=null;
 if(!Array.isArray(s.unlockedAchievements))s.unlockedAchievements=[];
 if(!Array.isArray(s.discoveredRareEvents))s.discoveredRareEvents=[];
+if(!s.dailyGifts || typeof s.dailyGifts!=='object')s.dailyGifts={};
 }catch(e){}
 
 while(s.days.length<30)s.days.push(false);
@@ -1718,7 +1913,7 @@ function normalizeState(x){
   const base={
     xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},
     campaignStart:localDate(),lastOpened:localDate(),petDead:false,deathDate:null,
-    shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[],lastRareEventAt:0,activeRareEvent:null,discoveredRareEvents:[]
+    shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[],lastRareEventAt:0,activeRareEvent:null,discoveredRareEvents:[],dailyGifts:{}
   };
   const out={...base,...(x||{})};
   if(typeof out.shields!=='number')out.shields=1;
@@ -1729,6 +1924,7 @@ function normalizeState(x){
   if(typeof out.lastRareEventAt!=='number')out.lastRareEventAt=0;
   if(!out.activeRareEvent || typeof out.activeRareEvent!=='object')out.activeRareEvent=null;
   if(!Array.isArray(out.discoveredRareEvents))out.discoveredRareEvents=[];
+  if(!out.dailyGifts || typeof out.dailyGifts!=='object')out.dailyGifts={};
   if(!Array.isArray(out.days))out.days=[];
   while(out.days.length<30)out.days.push(false);
   out.days=out.days.slice(0,30);
@@ -2033,27 +2229,75 @@ function petPick(rng,arr){return arr[Math.floor(rng()*arr.length)]}
 
 function petProfile(emoji){
   if(emoji==='🥚')return 'egg';
-  if(['🐣','🐦','🦜','🦚','🦩','🦆','🦢','🐧','🦅','🦉'].includes(emoji))return 'bird';
-  if(['🐬','🐳','🐋','🦭','🐠','🐡','🦈','🦞'].includes(emoji))return 'aquatic';
+  if(['🐣','🐦'].includes(emoji))return 'bird';
+  if(emoji==='🦉')return 'owl';
+  if(emoji==='🐧')return 'penguin';
+  if(emoji==='🦆')return 'duck';
+  if(emoji==='🦢')return 'swan';
+  if(emoji==='🦜')return 'parrot';
+  if(emoji==='🦚')return 'peacock';
+  if(emoji==='🦩')return 'flamingo';
+  if(emoji==='🦅')return 'eagle';
+  if(emoji==='🐠')return 'fish';
+  if(emoji==='🐡')return 'puffer';
+  if(emoji==='🦈')return 'shark';
+  if(emoji==='🐬')return 'dolphin';
+  if(['🐳','🐋'].includes(emoji))return 'whale';
+  if(emoji==='🦭')return 'seal';
+  if(emoji==='🦞')return 'lobster';
   if(emoji==='🐙')return 'octopus';
   if(emoji==='🦀')return 'crab';
-  if(['🐞','🐝','🦋','🐛','🪲','🦗','🕷️'].includes(emoji))return 'bug';
+  if(emoji==='🐞')return 'ladybug';
+  if(emoji==='🐝')return 'bee';
+  if(emoji==='🦋')return 'butterfly';
+  if(emoji==='🐛')return 'caterpillar';
+  if(emoji==='🪲')return 'beetle';
+  if(emoji==='🦗')return 'cricket';
+  if(emoji==='🕷️')return 'spider';
   if(emoji==='🐌')return 'snail';
   if(emoji==='🐸')return 'frog';
-  if(['🐍','🦎','🐊'].includes(emoji))return 'reptile';
+  if(emoji==='🐍')return 'snake';
+  if(emoji==='🦎')return 'lizard';
+  if(emoji==='🐊')return 'crocodile';
   if(emoji==='🐢')return 'turtle';
   if(['🐲','🐉'].includes(emoji))return 'dragon';
   if(emoji==='🧚')return 'fairy';
   if(emoji==='🦄')return 'unicorn';
   if(emoji==='👑')return 'crown';
   if(emoji==='🦇')return 'bat';
-  if(['🐰','🐇','🦘'].includes(emoji))return 'longEar';
-  if(['🐱','🐈','🐈‍⬛','🐯','🦁'].includes(emoji))return 'cat';
-  if(['🦊','🐺','🐶','🐕'].includes(emoji))return 'canine';
-  if(['🐼','🐻','🐻‍❄️','🐨'].includes(emoji))return 'bear';
-  if(['🦌','🐐','🐏','🦙','🐎','🦬'].includes(emoji))return 'hoof';
-  if(['🐹','🐿️','🦔','🐀','🦫'].includes(emoji))return 'rodent';
-  if(['🐒','🦧'].includes(emoji))return 'primate';
+  if(['🐰','🐇'].includes(emoji))return 'rabbit';
+  if(emoji==='🦘')return 'kangaroo';
+  if(['🐱','🐈','🐈‍⬛'].includes(emoji))return 'cat';
+  if(emoji==='🐯')return 'tiger';
+  if(emoji==='🦁')return 'lion';
+  if(emoji==='🦊')return 'fox';
+  if(emoji==='🐺')return 'wolf';
+  if(['🐶','🐕'].includes(emoji))return 'dog';
+  if(emoji==='🐼')return 'panda';
+  if(emoji==='🐨')return 'koala';
+  if(emoji==='🐻‍❄️')return 'polarBear';
+  if(emoji==='🐻')return 'bear';
+  if(emoji==='🦌')return 'deer';
+  if(emoji==='🐐')return 'goat';
+  if(emoji==='🐏')return 'ram';
+  if(emoji==='🐑')return 'sheep';
+  if(emoji==='🦙')return 'llama';
+  if(emoji==='🐎')return 'horse';
+  if(emoji==='🦬')return 'bison';
+  if(emoji==='🐹')return 'hamster';
+  if(emoji==='🐿️')return 'squirrel';
+  if(emoji==='🦔')return 'hedgehog';
+  if(emoji==='🐀')return 'rat';
+  if(emoji==='🦫')return 'beaver';
+  if(emoji==='🐒')return 'monkey';
+  if(emoji==='🦧')return 'orangutan';
+  if(emoji==='🦝')return 'raccoon';
+  if(emoji==='🦦')return 'otter';
+  if(emoji==='🦥')return 'sloth';
+  if(emoji==='🐗')return 'boar';
+  if(emoji==='🦨')return 'skunk';
+  if(emoji==='🦡')return 'badger';
+  if(emoji==='🦣')return 'mammoth';
   return 'round';
 }
 
@@ -2150,6 +2394,31 @@ function petFace(mood,ink='#4b315d',cx=110,cy=96){
     <path d="M${cx-8} ${mouthY} Q${cx} ${mouthY+7} ${cx+8} ${mouthY}" fill="none" stroke="${ink}" stroke-width="4" stroke-linecap="round"/>`;
 }
 
+
+function petAnimalFeatures(profile,mood,ink,primary,secondary,accent,cx=110,cy=96){
+  const y=cy+17;
+  if(['cat','tiger','lion'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y}" rx="24" ry="15" fill="#fff7f3" opacity=".82"/><path d="M${cx-5} ${y-7} L${cx} ${y-2} L${cx+5} ${y-7}Z" fill="#6b405d"/><path d="M${cx} ${y-1} q-7 8-13 4 M${cx} ${y-1} q7 8 13 4" fill="none" stroke="${ink}" stroke-width="2.8" stroke-linecap="round"/><path d="M${cx-19} ${y} L${cx-43} ${y-5} M${cx-19} ${y+5} L${cx-44} ${y+7} M${cx+19} ${y} L${cx+43} ${y-5} M${cx+19} ${y+5} L${cx+44} ${y+7}" stroke="${ink}" stroke-width="2" stroke-linecap="round" opacity=".78"/>${profile==='tiger'?`<path d="M${cx-25} ${cy-34} l9 13 M${cx+25} ${cy-34} l-9 13 M${cx} ${cy-39} v15" stroke="#633951" stroke-width="4" stroke-linecap="round"/>`:''}${profile==='lion'?`<circle cx="${cx}" cy="${cy-3}" r="51" fill="none" stroke="${petMix(accent,'#d99b45',.28)}" stroke-width="13" opacity=".58"/>`:''}</g>`;
+  if(['fox','wolf','dog'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y+1}" rx="28" ry="18" fill="${petMix(secondary,'#ffffff',.55)}" opacity=".9"/><ellipse cx="${cx}" cy="${y-6}" rx="7" ry="5" fill="#4c364d"/><path d="M${cx} ${y-1} q-9 10-18 5 M${cx} ${y-1} q9 10 18 5" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>${profile==='fox'?`<path d="M${cx-24} ${cy-28} Q${cx} ${cy-12} ${cx+24} ${cy-28}" fill="none" stroke="${secondary}" stroke-width="8" stroke-linecap="round" opacity=".8"/>`:''}</g>`;
+  if(['rabbit','kangaroo'].includes(profile))return `<g class="species-face"><ellipse cx="${cx-10}" cy="${y}" rx="14" ry="12" fill="#fff9f8"/><ellipse cx="${cx+10}" cy="${y}" rx="14" ry="12" fill="#fff9f8"/><path d="M${cx-5} ${y-8} L${cx} ${y-3} L${cx+5} ${y-8}Z" fill="#ef8cab"/><path d="M${cx} ${y-1} q-7 8-13 4 M${cx} ${y-1} q7 8 13 4" fill="none" stroke="${ink}" stroke-width="2.5" stroke-linecap="round"/><rect x="${cx-6}" y="${y+6}" width="5" height="9" rx="2" fill="#fff" stroke="#d8c8cf" stroke-width="1"/><rect x="${cx+1}" y="${y+6}" width="5" height="9" rx="2" fill="#fff" stroke="#d8c8cf" stroke-width="1"/></g>`;
+  if(['bear','polarBear','panda','koala'].includes(profile))return `<g class="species-face">${profile==='panda'?`<ellipse cx="${cx-26}" cy="${cy}" rx="14" ry="18" fill="#40384b" opacity=".95"/><ellipse cx="${cx+26}" cy="${cy}" rx="14" ry="18" fill="#40384b" opacity=".95"/>`:''}<ellipse cx="${cx}" cy="${y+1}" rx="27" ry="20" fill="${profile==='panda'?'#fffaf8':petMix(secondary,'#ffffff',.5)}" opacity=".95"/><ellipse cx="${cx}" cy="${y-7}" rx="7" ry="5" fill="#493746"/><path d="M${cx} ${y-2} q-8 8-15 5 M${cx} ${y-2} q8 8 15 5" fill="none" stroke="${ink}" stroke-width="2.8" stroke-linecap="round"/>${profile==='koala'?`<ellipse cx="${cx}" cy="${y-7}" rx="11" ry="8" fill="#4d4852"/>`:''}</g>`;
+  if(['hamster','rat','beaver','squirrel'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y}" rx="23" ry="15" fill="${petMix(secondary,'#ffffff',.58)}"/><ellipse cx="${cx}" cy="${y-6}" rx="5.5" ry="4" fill="#7a4a5d"/><path d="M${cx-18} ${y+2} L${cx-38} ${y-3} M${cx+18} ${y+2} L${cx+38} ${y-3}" stroke="${ink}" stroke-width="1.8"/><rect x="${cx-5}" y="${y+6}" width="4.5" height="8" rx="1.5" fill="#fff"/><rect x="${cx+1}" y="${y+6}" width="4.5" height="8" rx="1.5" fill="#fff"/></g>`;
+  if(['raccoon','badger','skunk'].includes(profile))return `<g class="species-face">${profile==='raccoon'?`<path d="M${cx-43} ${cy-6} Q${cx} ${cy-29} ${cx+43} ${cy-6} Q${cx} ${cy+12} ${cx-43} ${cy-6}Z" fill="#4a4350" opacity=".78"/>`:''}${profile==='badger'?`<path d="M${cx-25} ${cy-37} L${cx-12} ${cy+4} M${cx+25} ${cy-37} L${cx+12} ${cy+4}" stroke="#f5f0ea" stroke-width="10" stroke-linecap="round"/>`:''}${profile==='skunk'?`<path d="M${cx} ${cy-42} Q${cx-9} ${cy-20} ${cx} ${cy+3} Q${cx+9} ${cy-20} ${cx} ${cy-42}" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>`:''}<ellipse cx="${cx}" cy="${y+1}" rx="25" ry="17" fill="#f6f0ec"/><ellipse cx="${cx}" cy="${y-6}" rx="6.5" ry="4.5" fill="#302c35"/><path d="M${cx} ${y-1} q-8 8-15 4 M${cx} ${y-1} q8 8 15 4" fill="none" stroke="${ink}" stroke-width="2.6"/></g>`;
+  if(['deer','goat','ram','sheep','llama','horse','bison','unicorn','boar'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y+3}" rx="29" ry="19" fill="${petMix(secondary,'#fff8ed',.45)}" opacity=".96"/><ellipse cx="${cx-10}" cy="${y+1}" rx="3.2" ry="2.5" fill="#6b5362"/><ellipse cx="${cx+10}" cy="${y+1}" rx="3.2" ry="2.5" fill="#6b5362"/><path d="M${cx-8} ${y+9} Q${cx} ${y+14} ${cx+8} ${y+9}" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>${profile==='boar'?`<path d="M${cx-20} ${y+4} l-10 8 M${cx+20} ${y+4} l10 8" stroke="#fff4df" stroke-width="5" stroke-linecap="round"/>`:''}</g>`;
+  if(['monkey','orangutan','sloth'].includes(profile))return `<g class="species-face"><ellipse cx="${cx}" cy="${y}" rx="30" ry="23" fill="${petMix(secondary,'#f4d7bc',.35)}"/><ellipse cx="${cx-10}" cy="${y-3}" rx="3" ry="2" fill="#65485a"/><ellipse cx="${cx+10}" cy="${y-3}" rx="3" ry="2" fill="#65485a"/><path d="M${cx-10} ${y+8} Q${cx} ${y+14} ${cx+10} ${y+8}" fill="none" stroke="${ink}" stroke-width="2.7" stroke-linecap="round"/>${profile==='sloth'?`<path d="M${cx-39} ${cy-2} Q${cx-25} ${cy-18} ${cx-10} ${cy-7} M${cx+39} ${cy-2} Q${cx+25} ${cy-18} ${cx+10} ${cy-7}" fill="none" stroke="#5b4b57" stroke-width="8" stroke-linecap="round" opacity=".8"/>`:''}</g>`;
+  if(profile==='otter')return `<g class="species-face"><ellipse cx="${cx}" cy="${y}" rx="27" ry="18" fill="${petMix(secondary,'#fff4df',.5)}"/><ellipse cx="${cx}" cy="${y-7}" rx="6" ry="4" fill="#4e3a43"/><path d="M${cx-18} ${y+2} L${cx-39} ${y-2} M${cx+18} ${y+2} L${cx+39} ${y-2}" stroke="${ink}" stroke-width="1.8"/><path d="M${cx} ${y-2} q-7 8-14 4 M${cx} ${y-2} q7 8 14 4" fill="none" stroke="${ink}" stroke-width="2.5"/></g>`;
+  if(profile==='mammoth')return `<g class="species-face"><path d="M${cx} ${cy+2} Q${cx-9} ${cy+28} ${cx+4} ${cy+43} Q${cx+15} ${cy+34} ${cx+8} ${cy+17}" fill="none" stroke="${primary}" stroke-width="13" stroke-linecap="round"/><path d="M${cx-23} ${cy+20} q-16 7-14 23 M${cx+23} ${cy+20} q16 7 14 23" fill="none" stroke="#fff7e4" stroke-width="5" stroke-linecap="round"/></g>`;
+  return '';
+}
+
+function petBirdFace(mood,ink,cx=110,cy=84,beak='#f2a53a'){
+  const lx=cx-25,rx=cx+25;
+  let eyes='';
+  if(mood==='sleep')eyes=`<path d="M${lx-9} ${cy} Q${lx} ${cy+7} ${lx+9} ${cy}" fill="none" stroke="${ink}" stroke-width="4.5" stroke-linecap="round"/><path d="M${rx-9} ${cy} Q${rx} ${cy+7} ${rx+9} ${cy}" fill="none" stroke="${ink}" stroke-width="4.5" stroke-linecap="round"/>`;
+  else if(mood==='happy')eyes=`<path d="M${lx-9} ${cy+2} Q${lx} ${cy-8} ${lx+9} ${cy+2}" fill="none" stroke="${ink}" stroke-width="4.5" stroke-linecap="round"/><path d="M${rx-9} ${cy+2} Q${rx} ${cy-8} ${rx+9} ${cy+2}" fill="none" stroke="${ink}" stroke-width="4.5" stroke-linecap="round"/>`;
+  else if(mood==='radiant')eyes=`<path d="M${lx} ${cy-9} l3 7 7 1-5 5 2 7-7-4-7 4 2-7-5-5 7-1z" fill="${ink}"/><path d="M${rx} ${cy-9} l3 7 7 1-5 5 2 7-7-4-7 4 2-7-5-5 7-1z" fill="${ink}"/>`;
+  else eyes=`<ellipse cx="${lx}" cy="${cy}" rx="7" ry="9" fill="${ink}"/><ellipse cx="${rx}" cy="${cy}" rx="7" ry="9" fill="${ink}"/><circle cx="${lx-2}" cy="${cy-4}" r="2.4" fill="#fff"/><circle cx="${rx-2}" cy="${cy-4}" r="2.4" fill="#fff"/>`;
+  return `${eyes}<ellipse cx="${lx-8}" cy="${cy+16}" rx="10" ry="5" fill="#ff93b7" opacity=".45"/><ellipse cx="${rx+8}" cy="${cy+16}" rx="10" ry="5" fill="#ff93b7" opacity=".45"/><path d="M${cx-11} ${cy+12} L${cx} ${cy+21} L${cx+12} ${cy+12} L${cx} ${cy+7}Z" fill="${beak}" stroke="#c97b28" stroke-width="1.5"/>`;
+}
 function petAccessory(rng,accent){
   const kind=Math.floor(rng()*7);
   if(kind===0)return `<path d="M87 146 Q110 158 133 146 L128 164 Q110 172 92 164Z" fill="${accent}" opacity=".92"/><circle cx="110" cy="157" r="5" fill="#fff4a8"/>`;
@@ -2172,17 +2441,26 @@ function petPattern(rng,secondary,accent){
 }
 
 function petEars(profile,primary,secondary,accent){
-  if(profile==='longEar')return `<g class="pet-ear"><ellipse cx="78" cy="49" rx="17" ry="42" fill="${primary}" transform="rotate(-10 78 49)"/><ellipse cx="79" cy="50" rx="8" ry="28" fill="${secondary}" transform="rotate(-10 79 50)"/></g><g class="pet-ear"><ellipse cx="142" cy="49" rx="17" ry="42" fill="${primary}" transform="rotate(10 142 49)"/><ellipse cx="141" cy="50" rx="8" ry="28" fill="${secondary}" transform="rotate(10 141 50)"/></g>`;
-  if(profile==='cat'||profile==='canine')return `<g class="pet-ear"><path d="M62 74 L76 29 L99 67Z" fill="${primary}"/><path d="M71 62 L78 42 L89 64Z" fill="${secondary}"/></g><g class="pet-ear"><path d="M121 67 L145 29 L158 76Z" fill="${primary}"/><path d="M132 64 L144 42 L150 63Z" fill="${secondary}"/></g>`;
-  if(profile==='bear'||profile==='rodent'||profile==='primate'||profile==='round')return `<g class="pet-ear"><circle cx="73" cy="59" r="20" fill="${primary}"/><circle cx="73" cy="59" r="10" fill="${secondary}"/></g><g class="pet-ear"><circle cx="147" cy="59" r="20" fill="${primary}"/><circle cx="147" cy="59" r="10" fill="${secondary}"/></g>`;
-  if(profile==='hoof')return `<g class="pet-ear"><path d="M68 68 Q49 45 60 35 Q82 42 88 66Z" fill="${primary}"/></g><g class="pet-ear"><path d="M132 66 Q138 42 160 35 Q171 45 152 68Z" fill="${primary}"/></g><path d="M83 48 Q72 31 82 20" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/><path d="M137 48 Q148 31 138 20" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>`;
-  if(profile==='unicorn')return `<g class="pet-ear"><path d="M62 70 L76 36 L96 68Z" fill="${primary}"/></g><g class="pet-ear"><path d="M124 68 L144 36 L158 70Z" fill="${primary}"/></g><path d="M110 52 L119 13 L128 55Z" fill="#fff1a8" stroke="${accent}" stroke-width="3"/>`;
+  if(['rabbit','kangaroo'].includes(profile))return `<g class="pet-ear"><ellipse cx="78" cy="48" rx="16" ry="43" fill="${primary}" transform="rotate(-10 78 48)"/><ellipse cx="79" cy="49" rx="7" ry="29" fill="${secondary}" transform="rotate(-10 79 49)"/></g><g class="pet-ear"><ellipse cx="142" cy="48" rx="16" ry="43" fill="${primary}" transform="rotate(10 142 48)"/><ellipse cx="141" cy="49" rx="7" ry="29" fill="${secondary}" transform="rotate(10 141 49)"/></g>`;
+  if(['cat','tiger','lion','fox','wolf','dog','raccoon','skunk','badger'].includes(profile))return `<g class="pet-ear"><path d="M62 74 L76 29 L99 67Z" fill="${primary}" stroke="${accent}" stroke-width="1.6"/><path d="M71 62 L78 42 L89 64Z" fill="${secondary}"/></g><g class="pet-ear"><path d="M121 67 L145 29 L158 76Z" fill="${primary}" stroke="${accent}" stroke-width="1.6"/><path d="M132 64 L144 42 L150 63Z" fill="${secondary}"/></g>`;
+  if(['bear','polarBear','panda','koala','hamster','rat','beaver','otter','sloth','monkey','orangutan','round'].includes(profile))return `<g class="pet-ear"><circle cx="73" cy="59" r="20" fill="${primary}"/><circle cx="73" cy="59" r="10" fill="${secondary}"/></g><g class="pet-ear"><circle cx="147" cy="59" r="20" fill="${primary}"/><circle cx="147" cy="59" r="10" fill="${secondary}"/></g>`;
+  if(profile==='squirrel')return `<g class="pet-ear"><path d="M64 70 Q55 37 74 31 Q90 43 92 68Z" fill="${primary}"/><path d="M73 61 Q68 43 77 41 Q84 49 84 62Z" fill="${secondary}"/></g><g class="pet-ear"><path d="M128 68 Q132 40 149 31 Q167 43 155 71Z" fill="${primary}"/><path d="M137 61 Q142 44 149 42 Q154 50 147 63Z" fill="${secondary}"/></g>`;
+  if(profile==='hedgehog')return `<g class="pet-ear"><circle cx="75" cy="64" r="13" fill="${secondary}" stroke="${accent}" stroke-width="2"/></g><g class="pet-ear"><circle cx="145" cy="64" r="13" fill="${secondary}" stroke="${accent}" stroke-width="2"/></g>`;
+  if(['deer','goat','ram','sheep','llama','horse','bison','unicorn'].includes(profile))return `<g class="pet-ear"><path d="M68 68 Q49 45 60 35 Q82 42 88 66Z" fill="${primary}"/></g><g class="pet-ear"><path d="M132 66 Q138 42 160 35 Q171 45 152 68Z" fill="${primary}"/></g>`;
+  if(profile==='boar')return `<g class="pet-ear"><path d="M67 71 L70 42 L91 66Z" fill="${primary}"/></g><g class="pet-ear"><path d="M129 66 L151 42 L154 72Z" fill="${primary}"/></g>`;
+  if(profile==='mammoth')return `<g class="pet-ear"><ellipse cx="65" cy="88" rx="27" ry="34" fill="${secondary}" stroke="${accent}" stroke-width="2"/></g><g class="pet-ear"><ellipse cx="155" cy="88" rx="27" ry="34" fill="${secondary}" stroke="${accent}" stroke-width="2"/></g>`;
   return '';
 }
 
 function petTail(profile,primary,secondary){
-  if(['cat','canine','rodent','longEar','hoof','round','bear'].includes(profile))return `<path class="pet-tail" d="M154 145 Q199 124 183 90 Q172 120 144 123" fill="none" stroke="${primary}" stroke-width="18" stroke-linecap="round"/>`;
-  if(profile==='reptile'||profile==='dragon')return `<path class="pet-tail" d="M153 148 Q201 151 191 112 Q176 137 147 126" fill="none" stroke="${primary}" stroke-width="18" stroke-linecap="round"/>`;
+  if(['cat','tiger','lion','fox','wolf','dog','rabbit','kangaroo','hamster','rat','beaver','otter','raccoon','skunk','badger','squirrel','monkey','orangutan','sheep','goat','deer','horse','llama','bison','boar'].includes(profile)){
+    if(profile==='rabbit')return `<circle class="pet-tail" cx="168" cy="157" r="18" fill="${secondary}" stroke="${primary}" stroke-width="4"/>`;
+    if(profile==='fox'||profile==='squirrel'||profile==='skunk')return `<path class="pet-tail" d="M154 158 Q205 143 185 91 Q164 105 151 133" fill="none" stroke="${primary}" stroke-width="25" stroke-linecap="round"/><path d="M183 96 Q191 115 178 128" fill="none" stroke="${secondary}" stroke-width="13" stroke-linecap="round"/>`;
+    if(profile==='beaver')return `<path class="pet-tail" d="M154 157 Q194 151 190 118 Q169 125 151 140Z" fill="${primary}" stroke="${secondary}" stroke-width="3"/>`;
+    if(profile==='kangaroo')return `<path class="pet-tail" d="M151 164 Q202 177 207 146" fill="none" stroke="${primary}" stroke-width="18" stroke-linecap="round"/>`;
+    return `<path class="pet-tail" d="M154 145 Q199 124 183 90 Q172 120 144 123" fill="none" stroke="${primary}" stroke-width="18" stroke-linecap="round"/>`;
+  }
+  if(['lizard','crocodile','dragon'].includes(profile))return `<path class="pet-tail" d="M153 148 Q201 151 191 112 Q176 137 147 126" fill="none" stroke="${primary}" stroke-width="18" stroke-linecap="round"/>`;
   return '';
 }
 
@@ -2192,43 +2470,107 @@ function resolvePetRegion(stageIndex,companion,size='big',regionOverride=null){
   return Number(s.visitedRegion || currentProgressRegion(stageIndex))||1;
 }
 
-function regionAccessoryMarkup(regionNumber,seed,size='big',accent='#ff9ed1',outline='#6a4b7a',secondary='#ffffff'){
+function regionAccessoryMarkup(regionNumber,seed,size='big',accent='#ff9ed1',outline='#6a4b7a',secondary='#ffffff',profile='round',layer='front'){
   const small=size!=='big';
-  const variant=seed%2;
-  const neckY=small?149:151;
-  const scarfDrop=small?11:13;
-  const flowerY=small?52:49;
-  switch(Number(regionNumber)||1){
-    case 1:
-      return `<g class="pet-region-accent"><path d="M110 ${flowerY+7} C103 ${flowerY-12} 101 ${flowerY-19} 110 ${flowerY-29} C119 ${flowerY-19} 117 ${flowerY-12} 110 ${flowerY+7}Z" fill="#67c26c" stroke="#407b48" stroke-width="2"/><circle cx="98" cy="${flowerY}" r="7" fill="#ff95be" stroke="#ffffff" stroke-width="2"/><circle cx="122" cy="${flowerY+1}" r="7" fill="#ffd96a" stroke="#ffffff" stroke-width="2"/><circle cx="110" cy="${flowerY-4}" r="5.5" fill="#ffffff" stroke="#f5c65f" stroke-width="1.4"/></g>`;
-    case 2:
-      return `<g class="pet-region-accent"><path d="M71 ${neckY-1} Q110 ${neckY-17} 149 ${neckY-1}" fill="none" stroke="#4f9b60" stroke-width="7" stroke-linecap="round"/><path d="M81 ${neckY-3} q-7 -11 -15 -8 q7 13 15 8z" fill="#7fcf88"/><path d="M139 ${neckY-4} q8 -10 15 -6 q-8 12 -15 6z" fill="#7fcf88"/></g>`;
-    case 3:
-      return `<g class="pet-region-accent"><ellipse cx="110" cy="${neckY}" rx="25" ry="8" fill="#7ad6ee" opacity=".94"/><path d="M110 ${neckY+2} l8 11 h-16z" fill="#fff2d5" stroke="#d5a872" stroke-width="2"/><circle cx="110" cy="${neckY-11}" r="6" fill="#f7f1ff" stroke="#8bdaf0" stroke-width="2"/></g>`;
-    case 4:
-      return `<g class="pet-region-accent"><path d="M99 ${flowerY+2} q10 -18 22 0" fill="#c792ff" stroke="#7b55ac" stroke-width="3"/><rect x="101" y="${flowerY+1}" width="18" height="8" rx="4" fill="#f3d4ff" stroke="#7b55ac" stroke-width="2"/><circle cx="92" cy="${flowerY+2}" r="5" fill="#ffd5ff"/><circle cx="128" cy="${flowerY+2}" r="5" fill="#ffd5ff"/></g>`;
-    case 5:
-      return `<g class="pet-region-accent"><path d="M74 ${neckY} Q110 ${neckY-18} 146 ${neckY}" fill="none" stroke="#e0a33f" stroke-width="8" stroke-linecap="round"/><path d="M110 ${neckY-6} l5 10 11 2-8 8 2 11-10-6-10 6 2-11-8-8 11-2z" fill="#ffe38a" stroke="#d89834" stroke-width="2"/></g>`;
-    case 6:
-      return `<g class="pet-region-accent"><path d="M80 ${flowerY+1} q18 -15 39 -10 q18 4 23 13" fill="none" stroke="#8e85ff" stroke-width="5" stroke-linecap="round"/><path d="M118 ${flowerY-11} a8 8 0 1 0 0 16 a6 6 0 1 1 0-16z" fill="#fff6bc"/><circle cx="92" cy="${flowerY-4}" r="3.4" fill="#fff6bc"/><circle cx="137" cy="${flowerY-2}" r="3" fill="#fff6bc"/></g>`;
-    case 7:
-      return `<g class="pet-region-accent"><path d="M72 ${neckY-3} Q110 ${neckY+scarfDrop} 148 ${neckY-3} L142 ${neckY+13} Q110 ${neckY+5} 78 ${neckY+13}Z" fill="#e6f7ff" stroke="#7bb7df" stroke-width="2.4"/><rect x="102" y="${neckY+3}" width="12" height="18" rx="4" fill="#d9f0ff" stroke="#7bb7df" stroke-width="2"/><path d="M110 ${flowerY-2} l4 6 7 1-5 5 1 7-7-4-7 4 1-7-5-5 7-1z" fill="#ffffff" stroke="#94cce7" stroke-width="1.5"/></g>`;
-    case 8:
-      return `<g class="pet-region-accent"><circle cx="88" cy="${flowerY}" r="6.5" fill="#ff8ab5" stroke="#ffffff" stroke-width="2"/><circle cx="101" cy="${flowerY-5}" r="6.5" fill="#ffd2ea" stroke="#ffffff" stroke-width="2"/><circle cx="116" cy="${flowerY-6}" r="6.5" fill="#ff9ac3" stroke="#ffffff" stroke-width="2"/><circle cx="130" cy="${flowerY}" r="6.5" fill="#ffd56f" stroke="#ffffff" stroke-width="2"/><path d="M85 ${flowerY+2} Q110 ${flowerY-17} 133 ${flowerY+2}" fill="none" stroke="#6fbf7b" stroke-width="3"/></g>`;
-    case 9:
-      return `<g class="pet-region-accent"><circle cx="110" cy="${neckY-5}" r="7.5" fill="#fff4d8" stroke="#d5a872" stroke-width="2.2"/><path d="M104 ${neckY-2} q6 8 12 0" fill="none" stroke="#d5a872" stroke-width="2" stroke-linecap="round"/><circle cx="94" cy="${flowerY}" r="6.5" fill="#ff7fae" stroke="#ffffff" stroke-width="2"/><circle cx="126" cy="${flowerY+1}" r="6.5" fill="#ffb66f" stroke="#ffffff" stroke-width="2"/></g>`;
-    case 10:
-      return `<g class="pet-region-accent"><path d="M110 ${neckY-16} l10 12 -10 12 -10-12z" fill="#9de4ff" stroke="#5a7dd5" stroke-width="2.3"/><path d="M86 ${flowerY+1} q24 -18 48 0" fill="none" stroke="#8c72ff" stroke-width="4" stroke-linecap="round"/><circle cx="90" cy="${flowerY+2}" r="3.8" fill="#fff4ff"/><circle cx="130" cy="${flowerY+2}" r="3.8" fill="#fff4ff"/></g>`;
-    case 11:
-      return `<g class="pet-region-accent"><path d="M77 ${neckY} Q110 ${neckY-19} 143 ${neckY}" fill="none" stroke="#8e74ff" stroke-width="7" stroke-linecap="round"/><path d="M110 ${neckY-12} l6 9 10 2-7 7 2 10-11-5-11 5 2-10-7-7 10-2z" fill="#ff7c8d" stroke="#744a92" stroke-width="2"/>${variant?`<circle cx="92" cy="${flowerY-2}" r="3.5" fill="#7de1ff"/><circle cx="129" cy="${flowerY-1}" r="3.5" fill="#7de1ff"/>`:''}</g>`;
-    case 12:
-      return `<g class="pet-region-accent"><path d="M95 ${flowerY+4} L101 ${flowerY-11} L110 ${flowerY-1} L119 ${flowerY-11} L125 ${flowerY+4}Z" fill="#ffd95b" stroke="#d39b2f" stroke-width="2.2"/><circle cx="101" cy="${flowerY-4}" r="3" fill="#ff7ba6"/><circle cx="119" cy="${flowerY-4}" r="3" fill="#8c6cff"/><path d="M80 ${neckY+2} Q110 ${neckY+14} 140 ${neckY+2}" fill="none" stroke="#ffd95b" stroke-width="5" stroke-linecap="round"/></g>`;
-    default:
-      return '';
+  const r=Number(regionNumber)||1;
+  if(profile==='egg')return '';
+
+  const birdProfiles=['bird','owl','duck','parrot','eagle','swan','flamingo','peacock','penguin'];
+  const tallProfiles=['deer','goat','ram','sheep','llama','horse','unicorn','bison'];
+  const aquaticProfiles=['fish','puffer','shark','dolphin','whale','seal','lobster','octopus','crab'];
+  const reptileProfiles=['frog','snake','lizard','crocodile','turtle'];
+  const magicProfiles=['dragon','fairy','bat','butterfly','bee','ladybug','beetle','cricket','spider','snail','crown'];
+
+  let headX=110;
+  let crownY=small?51:46;
+  let neckY=small?146:151;
+  let chestY=small?156:162;
+  let collarW=small?26:34;
+
+  if(tallProfiles.includes(profile)){
+    crownY-=10; neckY-=8; chestY-=9;
+  }
+  if(profile==='kangaroo'){
+    crownY-=6; neckY-=4; chestY-=5;
+  }
+  if(birdProfiles.includes(profile)){
+    crownY=small?49:43; neckY=small?143:148; chestY=small?154:160;
+  }
+  if(['swan','flamingo'].includes(profile)){
+    headX=124; crownY=small?37:35; neckY=small?141:144; chestY=small?152:156;
+  }
+  if(['penguin'].includes(profile)){
+    crownY=small?50:44; neckY=small?145:149;
+  }
+  if(aquaticProfiles.includes(profile)){
+    crownY=small?57:55; neckY=small?132:138; chestY=small?145:152; collarW=small?30:40;
+  }
+  if(reptileProfiles.includes(profile)){
+    crownY=small?56:52; neckY=small?136:141; chestY=small?148:154;
+    if(profile==='snake')headX=123;
+  }
+  if(magicProfiles.includes(profile)){
+    crownY=small?48:43; neckY=small?144:149; chestY=small?154:160;
+  }
+
+  const sparkle=(x,y,rad=3,fill='#fff8c6')=>`<circle class="pet-outfit-sparkle" cx="${x}" cy="${y}" r="${rad}" fill="${fill}"/>`;
+  const flower=(x,y,petal='#ff95be',center='#fff0a8',rad=small?5.6:6.8)=>`<g><circle cx="${x-rad}" cy="${y}" r="${rad}" fill="${petal}" stroke="#fff" stroke-width="1.7"/><circle cx="${x+rad}" cy="${y}" r="${rad}" fill="${petal}" stroke="#fff" stroke-width="1.7"/><circle cx="${x}" cy="${y-rad}" r="${rad}" fill="${petal}" stroke="#fff" stroke-width="1.7"/><circle cx="${x}" cy="${y+rad}" r="${rad}" fill="${petal}" stroke="#fff" stroke-width="1.7"/><circle cx="${x}" cy="${y}" r="${rad-2}" fill="${center}" stroke="#fff" stroke-width="1.2"/></g>`;
+  const leaf=(x,y,color='#88d88f')=>`<path d="M${x-9} ${y+1} q10-14 18 0 q-9 9-18 0z" fill="${color}" stroke="${petMix(color,'#3e7a4e',.42)}" stroke-width="1.6"/>`;
+  const gem=(x,y,fill='#9de4ff',strokeColor='#6171d1',size=small?7:8.6)=>`<path d="M${x} ${y-size} l${size} ${size} -${size} ${size} -${size} -${size}z" fill="${fill}" stroke="${strokeColor}" stroke-width="2"/>`;
+  const crown=(x,y,fill='#ffd84d',strokeColor='#c18a21',scale=small?0.9:1)=>`<g transform="translate(${x-18*scale} ${y-9*scale}) scale(${scale})"><path d="M0 13 L8 0 L18 9 L28 0 L36 13 L32 25 L4 25Z" fill="${fill}" stroke="${strokeColor}" stroke-width="2.1"/><circle cx="8" cy="0" r="2.4" fill="#ff7ba6"/><circle cx="18" cy="9" r="2.4" fill="#8c6cff"/><circle cx="28" cy="0" r="2.4" fill="#45d48c"/></g>`;
+  const scarf=(y,fill='#e7f7ff',strokeColor='#7bb7df')=>`<g class="pet-region-outfit"><path d="M${110-collarW-10} ${y-3} Q110 ${y+11} ${110+collarW+10} ${y-3} L${110+collarW+3} ${y+13} Q110 ${y+5} ${110-collarW-3} ${y+13}Z" fill="${fill}" stroke="${strokeColor}" stroke-width="2.4"/><rect x="104" y="${y+4}" width="12" height="18" rx="4" fill="${petMix(fill,'#bde8ff',.35)}" stroke="${strokeColor}" stroke-width="2"/></g>`;
+  const collar=(y,strokeColor,fill='none',sw=small?5.5:7)=>`<path d="M${110-collarW} ${y} Q110 ${y+10} ${110+collarW} ${y}" fill="${fill}" stroke="${strokeColor}" stroke-width="${sw}" stroke-linecap="round"/>`;
+  const cape=(y,fill,strokeColor,bottom=small?190:198)=>`<g class="pet-region-outfit"><path d="M${110-collarW-18} ${y-2} Q110 ${y+18} ${110+collarW+18} ${y-2} L${110+collarW+6} ${bottom-22} Q110 ${bottom-8} ${110-collarW-6} ${bottom-22}Z" fill="${fill}" opacity=".9" stroke="${strokeColor}" stroke-width="2.6"/></g>`;
+  const tropicalFlowers=(y)=>`${flower(92,y,'#ff8fb8','#fff0a8',small?5.4:6.4)}${flower(110,y-4,'#ffd56f','#fff',small?5.2:6)}${flower(128,y,'#ffb66f','#fff0a8',small?5.4:6.4)}`;
+
+  if(small){
+    switch(r){
+      case 1:return `<g class="pet-region-accent">${collar(neckY,'#67b974')}${flower(headX,crownY)}</g>`;
+      case 2:return `<g class="pet-region-accent">${collar(neckY,'#4f9b60')}${leaf(headX-10,crownY,'#8ada93')}${leaf(headX+8,crownY,'#7bcc84')}</g>`;
+      case 3:return `<g class="pet-region-accent">${collar(neckY,'#71d7ee')}<path d="M${headX} ${neckY+2} l7 10 h-14z" fill="#fff0d8" stroke="#d3a56c" stroke-width="2"/>${sparkle(headX,neckY-11,4,'#f9f7ff')}</g>`;
+      case 4:return `<g class="pet-region-accent"><path d="M${headX-12} ${crownY+6} Q${headX} ${crownY-16} ${headX+12} ${crownY+6}Z" fill="#bb8cff" stroke="#774faa" stroke-width="2"/>${collar(neckY,'#c59aff')}</g>`;
+      case 5:return `<g class="pet-region-accent">${collar(neckY,'#d89a33')}<circle cx="${headX}" cy="${neckY-8}" r="6.6" fill="#ffe889" stroke="#c68b26" stroke-width="2"/>${sparkle(headX,neckY-8,3.4,'#fff8c0')}</g>`;
+      case 6:return `<g class="pet-region-accent">${collar(neckY,'#7e76df')}<path d="M${headX+8} ${crownY-3} a8 8 0 1 0 0 16 a6 6 0 1 1 0-16z" fill="#fff5ad"/>${sparkle(headX-16,crownY-1,2.8,'#fff')}${sparkle(headX+18,crownY+1,2.6,'#fff')}</g>`;
+      case 7:return `<g class="pet-region-accent">${scarf(neckY)}${sparkle(headX,neckY+10,4.5,'#ffffff')}</g>`;
+      case 8:return `<g class="pet-region-accent">${collar(neckY,'#ff9fc7')}${tropicalFlowers(crownY-1)}</g>`;
+      case 9:return `<g class="pet-region-accent">${collar(neckY,'#62c783')}${tropicalFlowers(neckY-2)}</g>`;
+      case 10:return `<g class="pet-region-accent">${collar(neckY,'#8c72ff')}${gem(headX,neckY-10)}${sparkle(headX-18,crownY+2,3.2,'#fff4ff')}${sparkle(headX+18,crownY+1,3.2,'#fff4ff')}</g>`;
+      case 11:return `<g class="pet-region-accent">${collar(neckY,'#7652c0')}<path d="M${headX} ${neckY-11} l6 8 10 2-7 7 2 9-11-5-11 5 2-9-7-7 10-2z" fill="#ff7184" stroke="#5f3a83" stroke-width="2"/></g>`;
+      case 12:return `<g class="pet-region-accent">${collar(neckY,'#e4ad2f')}${crown(headX,crownY,'#ffd94d','#bd8420',0.78)}</g>`;
+      default:return '';
+    }
+  }
+
+  if(layer==='back'){
+    switch(r){
+      case 4:return cape(neckY,'#d8b5ff','#8157b6');
+      case 5:return cape(neckY,'#f7c759','#c78d28');
+      case 6:return cape(neckY,'#5550a8','#38316f');
+      case 10:return cape(neckY,'#b8a1ff','#7159bd');
+      case 11:return cape(neckY,'#6846a6','#402866');
+      case 12:return cape(neckY,'#fff2ae','#d6a32d');
+      default:return '';
+    }
+  }
+
+  switch(r){
+    case 1:return `<g class="pet-region-outfit">${collar(neckY,'#72bf79','#fff6fb',8)}</g><g class="pet-region-accent">${flower(headX-18,crownY+5,'#ff95be','#fff0a8',7)}${flower(headX,crownY-1,'#ffd56f','#fff',6.6)}${flower(headX+18,crownY+5,'#ffb8d3','#fff0a8',7)}</g>`;
+    case 2:return `<g class="pet-region-outfit">${collar(neckY,'#3e8f55','#c4eec5',8)}</g><g class="pet-region-accent">${leaf(headX-18,crownY,'#8de095')}${leaf(headX,crownY-5,'#a6e9ad')}${leaf(headX+18,crownY,'#7fd08a')}</g>`;
+    case 3:return `<g class="pet-region-outfit">${collar(neckY,'#58cde6','#dff8ff',9)}<path d="M${headX} ${chestY-1} l11 16 h-22z" fill="#fff0d5" stroke="#d3a56c" stroke-width="2.2"/>${sparkle(headX,chestY-14,6,'#f9f7ff')}</g>`;
+    case 4:return `<g class="pet-region-accent"><path d="M${headX-16} ${crownY+6} Q${headX} ${crownY-23} ${headX+16} ${crownY+6} Q${headX} ${crownY+12} ${headX-16} ${crownY+6}Z" fill="#b984ff" stroke="#7249a0" stroke-width="3"/>${collar(neckY,'#c59aff','none',7)}${sparkle(headX-10,crownY+1,3.6,'#fff2ff')}${sparkle(headX+10,crownY+1,3.6,'#ffd2f3')}</g>`;
+    case 5:return `<g class="pet-region-accent">${collar(neckY,'#d89a33','none',8.5)}<circle cx="${headX}" cy="${neckY-8}" r="8.6" fill="#ffe889" stroke="#c68b26" stroke-width="2.4"/>${sparkle(headX,neckY-8,4,'#fff8c0')}</g>`;
+    case 6:return `<g class="pet-region-accent"><path d="M${headX-21} ${crownY+2} q19-16 42-10 q18 4 24 12" fill="none" stroke="#7e76df" stroke-width="5" stroke-linecap="round"/><path d="M${headX+12} ${crownY-10} a9 9 0 1 0 0 18 a6.5 6.5 0 1 1 0-18z" fill="#fff5ad"/>${collar(neckY,'#8b83e8','none',5)}${sparkle(headX-18,crownY-2,3.5,'#fff')}${sparkle(headX+19,crownY+1,3.1,'#fff')}</g>`;
+    case 7:return `<g class="pet-region-accent">${scarf(neckY,'#dff5ff','#78afd2')}<path class="pet-outfit-sparkle" d="M${headX} ${crownY-2} l5 7 8 1-6 6 2 8-9-4-9 4 2-8-6-6 8-1z" fill="#fff" stroke="#87c4e2" stroke-width="1.5"/></g>`;
+    case 8:return `<g class="pet-region-outfit">${collar(neckY,'#ff9fc7','#ffd8e9',8)}</g><g class="pet-region-accent">${flower(headX-20,crownY+4,'#ff82b0','#fff0a8',7)}${flower(headX,crownY-2,'#ffd0e8','#fff',6.8)}${flower(headX+20,crownY+4,'#ff9ac3','#fff0a8',7)}</g>`;
+    case 9:return `<g class="pet-region-accent">${collar(neckY,'#56c98a','#fff3c2',7.5)}${tropicalFlowers(neckY-3)}${sparkle(headX,neckY-11,4.6,'#fff4d8')}</g>`;
+    case 10:return `<g class="pet-region-accent">${gem(headX,crownY+2,'#9de4ff','#5b73d1',10)}${collar(neckY,'#8c72ff','none',7)}${sparkle(headX-18,crownY+4,4,'#fff4ff')}${sparkle(headX+18,crownY+3,4,'#fff4ff')}</g>`;
+    case 11:return `<g class="pet-region-accent">${collar(neckY,'#7652c0','none',8.5)}<path d="M${headX} ${neckY-12} l7 10 12 2-9 8 3 12-13-6-13 6 3-12-9-8 12-2z" fill="#ff7184" stroke="#5f3a83" stroke-width="2.2"/>${sparkle(headX-18,crownY+1,3.5,'#7de1ff')}${sparkle(headX+18,crownY+1,3.5,'#7de1ff')}</g>`;
+    case 12:return `<g class="pet-region-accent">${crown(headX,crownY,'#ffd94d','#bd8420',1.02)}${collar(neckY+2,'#e4ad2f','none',8)}${sparkle(headX,neckY-8,5,'#fff6a8')}</g>`;
+    default:return '';
   }
 }
 
-function buildPetMarkup(stageIndex,companion,mood,regionNumber=1,size='big'){
+function buildPetMarkupV20(stageIndex,companion,mood,regionNumber=1,size='big'){
   const seed=petHash(stageIndex+'|'+companion.name+'|'+companion.pet);
   const rng=petRng(seed);
   const [primary,secondary,accent]=PET_PALETTES[seed%PET_PALETTES.length];
@@ -2240,39 +2582,212 @@ function buildPetMarkup(stageIndex,companion,mood,regionNumber=1,size='big'){
   const accentFill=`url(#petAccent${seed})`;
   const glow=`url(#petGlow${seed})`;
   const defs=petGradientDefs(seed,primary,secondary,accent);
-  const shadow='<ellipse cx="110" cy="194" rx="57" ry="11" fill="#5b4868" opacity=".13"/>';
-  const glowSpot='<ellipse cx="110" cy="112" rx="72" ry="78" fill="'+glow+'" opacity=".68"/>';
-  const regionAccent=regionAccessoryMarkup(regionNumber,seed,size,accent,outline,secondary);
+  const shadow='<ellipse cx="110" cy="198" rx="58" ry="10" fill="#5b4868" opacity=".13"/>';
+  const glowSpot='<ellipse cx="110" cy="112" rx="72" ry="78" fill="'+glow+'" opacity=".58"/>';
+  const regionBack=regionAccessoryMarkup(regionNumber,seed,size,accent,outline,secondary,profile,'back');
+  const regionFront=regionAccessoryMarkup(regionNumber,seed,size,accent,outline,secondary,profile,'front');
 
   if(profile==='egg')return `${defs}${shadow}<path d="M110 26 C75 26 56 85 62 132 C67 174 86 190 110 190 C134 190 153 174 158 132 C164 85 145 26 110 26Z" fill="${body}" stroke="${outline}" stroke-width="3.5"/>${petGloss(92,74,23,13,.23)}<path d="M76 113 Q110 95 145 112" fill="none" stroke="${belly}" stroke-width="12" stroke-linecap="round" opacity=".96"/>${petFace(mood,ink)}${petAccessory(rng,accentFill)}${regionAccent}`;
 
-  if(profile==='bird')return `${defs}${shadow}<ellipse cx="110" cy="156" rx="58" ry="50" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="131" rx="27" ry="22" fill="${belly}" opacity=".92"/><path d="M96 112 Q110 122 124 112" fill="none" stroke="${petMix(secondary,'#ffffff',.45)}" stroke-width="7" stroke-linecap="round" opacity=".9"/>${petGloss(96,146,22,11,.17)}<g class="pet-wing"><ellipse cx="68" cy="151" rx="24" ry="38" fill="${belly}" stroke="${outline}" stroke-width="2" transform="rotate(20 68 151)"/></g><g class="pet-wing"><ellipse cx="152" cy="151" rx="24" ry="38" fill="${belly}" stroke="${outline}" stroke-width="2" transform="rotate(-20 152 151)"/></g><path d="M94 188 Q101 176 108 188" fill="none" stroke="#f2a53a" stroke-width="5" stroke-linecap="round"/><path d="M112 188 Q119 176 126 188" fill="none" stroke="#f2a53a" stroke-width="5" stroke-linecap="round"/><circle cx="110" cy="84" r="44" fill="${body}" stroke="${outline}" stroke-width="3"/>${glowSpot}${petGloss(95,61,18,10,.22)}<path d="M101 104 L110 117 L120 104Z" fill="#f2a53a"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}${petAccessory(rng,accent)}${regionAccent}`;
+  // AVES: cabeça, tronco, asas, cauda e pés sempre legíveis. Nada de nariz/boca de mamífero em cima do bico.
+  if(['bird','owl','penguin','duck','swan','parrot','peacock','flamingo','eagle'].includes(profile)){
+    if(profile==='flamingo')return `${defs}${shadow}<path d="M103 69 Q69 74 78 111 Q84 133 112 135 Q142 137 148 116 Q154 93 133 85 Q119 80 115 64 Q111 48 126 41" fill="none" stroke="${primary}" stroke-width="17" stroke-linecap="round"/><ellipse cx="128" cy="42" rx="25" ry="22" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M145 43 q18 1 24 10 q-11 8-26 3z" fill="#f1a94c" stroke="${outline}" stroke-width="2"/><ellipse cx="111" cy="144" rx="48" ry="39" fill="${body}" stroke="${outline}" stroke-width="3"/><path class="pet-wing" d="M86 130 Q110 111 137 137 Q118 162 89 157Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><path d="M96 174 L91 198 M126 174 L132 198" stroke="#e58e9f" stroke-width="5" stroke-linecap="round"/><path d="M83 198 h18 M123 198 h18" stroke="#e58e9f" stroke-width="4" stroke-linecap="round"/>${petBirdFace(mood,ink,128,40,'#f1a94c')}${regionAccent}`;
+    if(profile==='peacock')return `${defs}${shadow}<g opacity=".8">${[0,1,2,3,4].map(k=>`<ellipse cx="${72+k*19}" cy="128" rx="26" ry="58" fill="${k%2?petMix(accent,'#69d9bf',.2):petMix(primary,'#5dcfa7',.25)}" transform="rotate(${(k-2)*18} ${72+k*19} 128)"/><circle cx="${72+k*19}" cy="94" r="8" fill="#4a64bd" stroke="#ffd45d" stroke-width="4"/>`).join('')}</g><ellipse cx="110" cy="156" rx="46" ry="42" fill="${body}" stroke="${outline}" stroke-width="3"/><path class="pet-wing" d="M81 143 Q110 126 139 143 Q126 166 110 170 Q94 166 81 143Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><circle cx="110" cy="84" r="39" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M98 48 q-7-20-13-26 M110 46 V20 M122 48 q7-20 13-26" stroke="${accent}" stroke-width="3"/><circle cx="85" cy="22" r="4" fill="#ffd85f"/><circle cx="110" cy="19" r="4" fill="#ffd85f"/><circle cx="135" cy="22" r="4" fill="#ffd85f"/>${petBirdFace(mood,ink)}<path d="M88 188 q7-11 14 0 M118 188 q7-11 14 0" fill="none" stroke="#e59b38" stroke-width="5"/>${regionAccent}`;
+    if(profile==='swan')return `${defs}${shadow}<ellipse cx="116" cy="154" rx="65" ry="39" fill="${body}" stroke="${outline}" stroke-width="3"/><path class="pet-wing" d="M88 150 Q118 119 158 147 Q143 176 105 175Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><path d="M86 147 Q72 116 86 90 Q101 63 112 81 Q94 96 102 122" fill="none" stroke="${primary}" stroke-width="19" stroke-linecap="round"/><circle cx="110" cy="75" r="27" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M128 77 l30 9-29 10z" fill="#f39a3c" stroke="${outline}" stroke-width="2"/>${petBirdFace(mood,ink,110,72,'#f39a3c')}${regionAccent}`;
+    if(profile==='penguin')return `${defs}${shadow}<ellipse cx="110" cy="146" rx="57" ry="61" fill="${petMix(primary,'#263346',.72)}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="149" rx="35" ry="45" fill="#f7fbff"/><path class="pet-wing" d="M67 126 Q42 144 57 174 Q72 165 82 139Z" fill="${petMix(primary,'#263346',.75)}"/><path class="pet-wing" d="M153 126 Q178 144 163 174 Q148 165 138 139Z" fill="${petMix(primary,'#263346',.75)}"/><circle cx="110" cy="78" r="44" fill="${petMix(primary,'#263346',.72)}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="90" rx="32" ry="27" fill="#f7fbff"/>${petBirdFace(mood,ink,110,78,'#f3a43a')}<ellipse cx="87" cy="196" rx="18" ry="7" fill="#f3a43a"/><ellipse cx="133" cy="196" rx="18" ry="7" fill="#f3a43a"/>${regionAccent}`;
+    const birdHeadExtra=profile==='owl'?`<circle cx="84" cy="82" r="27" fill="${petMix(secondary,'#ffffff',.45)}" opacity=".8"/><circle cx="136" cy="82" r="27" fill="${petMix(secondary,'#ffffff',.45)}" opacity=".8"/><path d="M72 53 L83 35 L94 57 M126 57 L137 35 L148 53" fill="${primary}"/>`:profile==='eagle'?`<path d="M66 71 Q110 41 154 71 Q137 62 122 68 Q110 51 98 68 Q82 61 66 71Z" fill="#f8f5e8" opacity=".95"/>`:profile==='parrot'?`<path d="M132 102 q27 3 29 18 q-18 7-31-2z" fill="#f6b143" stroke="${outline}" stroke-width="2"/><path d="M76 124 q34 22 68 0" fill="none" stroke="${accent}" stroke-width="8" opacity=".8"/>`:profile==='duck'?`<path d="M90 102 Q110 94 132 103 Q130 116 110 117 Q91 116 90 102Z" fill="#f1ad43" stroke="${outline}" stroke-width="2"/>`:'';
+    const birdFace=profile==='owl'?`${petBirdFace(mood,ink,110,81,'#efa63f')}`:profile==='duck'?`${petBirdFace(mood,ink,110,81,'#f1ad43')}`:`${petBirdFace(mood,ink,110,82,profile==='eagle'?'#dca13f':'#f2a53a')}`;
+    const tail=profile==='parrot'?`<path d="M96 181 L105 210 L114 181 L124 210 L132 180" fill="${accent}" stroke="${outline}" stroke-width="2"/>`:`<path d="M91 182 L103 205 L110 183 L119 205 L131 182" fill="${secondary}" opacity=".9"/>`;
+    return `${defs}${shadow}${tail}<ellipse cx="110" cy="151" rx="55" ry="49" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="142" rx="29" ry="29" fill="${belly}" opacity=".9"/><g class="pet-wing"><path d="M73 126 Q45 147 65 177 Q86 166 91 138Z" fill="${belly}" stroke="${outline}" stroke-width="2"/></g><g class="pet-wing"><path d="M147 126 Q175 147 155 177 Q134 166 129 138Z" fill="${belly}" stroke="${outline}" stroke-width="2"/></g><circle cx="110" cy="82" r="43" fill="${body}" stroke="${outline}" stroke-width="3"/>${birdHeadExtra}${birdFace}<path d="M92 190 q8-12 16 0 M112 190 q8-12 16 0" fill="none" stroke="#e89d3d" stroke-width="5" stroke-linecap="round"/>${regionAccent}`;
+  }
 
-  if(profile==='aquatic')return `${defs}${shadow}<path d="M43 130 Q54 89 114 83 Q164 78 176 112 L205 91 L198 132 L207 155 L176 143 Q153 174 103 171 Q54 168 43 130Z" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(88,111,26,14,.16)}<ellipse class="pet-wing" cx="112" cy="151" rx="28" ry="12" fill="${belly}" opacity=".92" transform="rotate(-10 112 151)"/><circle cx="88" cy="116" r="45" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(75,95,16,9,.22)}${petFace(mood,ink,88,116)}${petAccessory(rng,accent)}${regionAccent}`;
+  // Animais aquáticos têm silhueta própria; não recebem rosto de mamífero genérico.
+  if(['fish','puffer','shark','dolphin','whale'].includes(profile)){
+    const headX=profile==='dolphin'||profile==='whale'?95:88;
+    if(profile==='puffer')return `${defs}${shadow}<g stroke="${outline}" stroke-width="3" fill="${body}"><circle cx="110" cy="128" r="62"/>${[0,30,60,90,120,150,180,210,240,270,300,330].map(a=>{const x=110+74*Math.cos(a*Math.PI/180),y=128+74*Math.sin(a*Math.PI/180);const x2=110+57*Math.cos(a*Math.PI/180),y2=128+57*Math.sin(a*Math.PI/180);return `<path d="M${x2.toFixed(1)} ${y2.toFixed(1)} L${x.toFixed(1)} ${y.toFixed(1)}"/>`}).join('')}</g><path d="M164 126 l35-20-5 38z" fill="${secondary}" stroke="${outline}" stroke-width="3"/>${petBirdFace(mood,ink,99,117,'#f0ad49')}${regionAccent}`;
+    const fin=profile==='shark'?`<path d="M116 90 L132 46 L145 98Z" fill="${secondary}" stroke="${outline}" stroke-width="3"/>`:`<path d="M112 154 Q132 181 151 160 Q131 150 112 154Z" fill="${secondary}" opacity=".8"/>`;
+    const snout=profile==='dolphin'?`<path d="M55 116 Q27 110 25 121 Q42 132 63 126Z" fill="${body}" stroke="${outline}" stroke-width="3"/>`:'';
+    const blow=profile==='whale'?`<path d="M104 75 q-8-20-20-24 M106 76 q5-20 18-27" fill="none" stroke="#9be7ff" stroke-width="5" stroke-linecap="round"/>`:'';
+    return `${defs}${shadow}${fin}${snout}<path d="M42 130 Q54 88 116 84 Q165 82 177 113 L205 92 L198 131 L207 155 L176 143 Q151 174 102 172 Q53 169 42 130Z" fill="${body}" stroke="${outline}" stroke-width="3"/>${blow}<ellipse cx="${headX}" cy="120" rx="42" ry="39" fill="${body}" opacity=".35"/><ellipse cx="75" cy="110" rx="7" ry="9" fill="${ink}"/><circle cx="72" cy="106" r="2.5" fill="#fff"/><path d="M65 136 Q78 143 91 135" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>${profile==='shark'?`<path d="M68 137 l8 8 8-8 8 8" fill="none" stroke="#fff" stroke-width="3"/>`:''}${regionAccent}`;
+  }
+  if(profile==='seal')return `${defs}${shadow}<ellipse cx="110" cy="151" rx="67" ry="42" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M64 157 Q38 169 47 187 Q68 181 81 166Z" fill="${secondary}"/><path d="M156 157 Q182 169 173 187 Q152 181 139 166Z" fill="${secondary}"/><circle cx="110" cy="91" r="48" fill="${body}" stroke="${outline}" stroke-width="3"/>${petFace(mood,ink)}${petAnimalFeatures('otter',mood,ink,primary,secondary,accent)}${regionAccent}`;
+  if(profile==='lobster')return `${defs}${shadow}<ellipse cx="110" cy="139" rx="36" ry="53" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M87 104 Q55 82 39 105 Q54 126 83 119 M133 104 Q165 82 181 105 Q166 126 137 119" fill="${body}" stroke="${outline}" stroke-width="4"/><path d="M86 151 L57 172 M134 151 L163 172 M88 167 L67 190 M132 167 L153 190" stroke="${accent}" stroke-width="6" stroke-linecap="round"/><path d="M101 87 Q89 61 72 53 M119 87 Q131 61 148 53" fill="none" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>${petFace(mood,ink,110,121)}${regionAccent}`;
 
-  if(profile==='octopus')return `${defs}${shadow}<path d="M63 154 Q48 174 62 184 Q77 188 83 168 Q85 191 102 190 Q114 188 110 169 Q120 192 137 188 Q151 183 139 165 Q154 182 169 174 Q179 161 158 151Z" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="111" rx="61" ry="67" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(92,86,24,14,.18)}<ellipse cx="110" cy="137" rx="39" ry="26" fill="${belly}" opacity=".62"/>${petFace(mood,ink)}${petAccessory(rng,accent)}${regionAccent}`;
+  if(profile==='octopus')return `${defs}${shadow}<path d="M63 154 Q48 174 62 184 Q77 188 83 168 Q85 191 102 190 Q114 188 110 169 Q120 192 137 188 Q151 183 139 165 Q154 182 169 174 Q179 161 158 151Z" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="111" rx="61" ry="67" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(92,86,24,14,.18)}<ellipse cx="110" cy="137" rx="39" ry="26" fill="${belly}" opacity=".62"/>${petFace(mood,ink)}${regionAccent}`;
+  if(profile==='crab')return `${defs}${shadow}<ellipse cx="110" cy="132" rx="55" ry="45" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M58 126 Q28 101 25 125 Q26 148 54 141" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M162 126 Q192 101 195 125 Q194 148 166 141" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M70 163 L50 184 M87 168 L76 191 M150 163 L170 184 M133 168 L144 191" stroke="${accent}" stroke-width="8" stroke-linecap="round"/>${petFace(mood,ink)}${regionAccent}`;
 
-  if(profile==='crab')return `${defs}${shadow}<ellipse cx="110" cy="132" rx="55" ry="45" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(94,115,18,11,.15)}<path d="M58 126 Q28 101 25 125 Q26 148 54 141" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M162 126 Q192 101 195 125 Q194 148 166 141" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M70 163 L50 184 M87 168 L76 191 M150 163 L170 184 M133 168 L144 191" stroke="${accent}" stroke-width="8" stroke-linecap="round"/>${petFace(mood,ink)}${petAccessory(rng,accent)}${regionAccent}`;
+  // INSETOS: nada de aranha com asa ou lagarta com corpo de joaninha.
+  if(profile==='butterfly')return `${defs}${shadow}<ellipse cx="110" cy="132" rx="17" ry="52" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse class="pet-wing" cx="70" cy="118" rx="38" ry="50" fill="${belly}" stroke="${outline}" stroke-width="3" transform="rotate(18 70 118)"/><ellipse class="pet-wing" cx="150" cy="118" rx="38" ry="50" fill="${belly}" stroke="${outline}" stroke-width="3" transform="rotate(-18 150 118)"/><circle cx="110" cy="76" r="31" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M99 51 Q89 31 77 30 M121 51 Q131 31 143 30" fill="none" stroke="${accent}" stroke-width="4"/>${petFace(mood,ink,110,78)}${regionAccent}`;
+  if(profile==='caterpillar')return `${defs}${shadow}<g>${[0,1,2,3,4].map(i=>`<circle cx="${70+i*25}" cy="145" r="27" fill="${i%2?belly:body}" stroke="${outline}" stroke-width="3"/>`).join('')}</g><circle cx="62" cy="102" r="38" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M50 72 Q39 52 31 54 M74 72 Q84 52 93 54" fill="none" stroke="${accent}" stroke-width="4"/>${petFace(mood,ink,62,104)}<path d="M73 170 q-5 15-15 17 M103 170 q-5 15-15 17 M133 170 q-5 15-15 17 M163 168 q5 15 15 17" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>${regionAccent}`;
+  if(profile==='spider')return `${defs}${shadow}<ellipse cx="110" cy="143" rx="44" ry="48" fill="${body}" stroke="${outline}" stroke-width="3"/><circle cx="110" cy="91" r="36" fill="${body}" stroke="${outline}" stroke-width="3"/>${[-1,1].map(side=>[0,1,2,3].map(i=>{const y=111+i*17,x1=side<0?76:144,x2=side<0?39-i*3:181+i*3,x3=side<0?24-i*2:196+i*2;return `<path d="M${x1} ${y} Q${x2} ${y-8} ${x3} ${y+9}" fill="none" stroke="${primary}" stroke-width="7" stroke-linecap="round"/>`}).join('')).join('')}<g fill="${ink}"><circle cx="94" cy="83" r="5"/><circle cx="107" cy="79" r="5"/><circle cx="120" cy="79" r="5"/><circle cx="133" cy="83" r="5"/></g><path d="M99 104 Q110 113 121 104" fill="none" stroke="${ink}" stroke-width="3"/>${regionAccent}`;
+  if(['ladybug','beetle','bee','cricket'].includes(profile)){
+    const stripes=profile==='bee'?`<path d="M76 127 H144 M72 145 H148 M77 162 H143" stroke="#5b4152" stroke-width="10" opacity=".75"/>`:profile==='ladybug'?`<circle cx="88" cy="133" r="8" fill="#513547"/><circle cx="132" cy="133" r="8" fill="#513547"/><circle cx="94" cy="158" r="7" fill="#513547"/><circle cx="126" cy="158" r="7" fill="#513547"/><path d="M110 104 V181" stroke="#513547" stroke-width="4"/>`:'';
+    const wings=profile==='bee'?`<ellipse class="pet-wing" cx="77" cy="112" rx="28" ry="39" fill="#e9fbff" opacity=".75" stroke="${outline}" stroke-width="2" transform="rotate(26 77 112)"/><ellipse class="pet-wing" cx="143" cy="112" rx="28" ry="39" fill="#e9fbff" opacity=".75" stroke="${outline}" stroke-width="2" transform="rotate(-26 143 112)"/>`:'';
+    const legs=profile==='cricket'?`<path d="M77 153 L42 180 M143 153 L178 180 M81 166 L60 194 M139 166 L160 194" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>`:'';
+    return `${defs}${shadow}${wings}${legs}<ellipse cx="110" cy="143" rx="49" ry="54" fill="${body}" stroke="${outline}" stroke-width="3"/>${stripes}<circle cx="110" cy="82" r="37" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M97 54 Q87 31 76 32 M123 54 Q133 31 144 32" fill="none" stroke="${accent}" stroke-width="4"/>${petFace(mood,ink,110,84)}${regionAccent}`;
+  }
 
-  if(profile==='bug')return `${defs}${shadow}<ellipse cx="110" cy="136" rx="48" ry="56" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(95,119,18,11,.14)}<ellipse class="pet-wing" cx="75" cy="128" rx="30" ry="43" fill="${belly}" opacity=".72" stroke="${outline}" stroke-width="2" transform="rotate(18 75 128)"/><ellipse class="pet-wing" cx="145" cy="128" rx="30" ry="43" fill="${belly}" opacity=".72" stroke="${outline}" stroke-width="2" transform="rotate(-18 145 128)"/><circle cx="110" cy="82" r="40" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M93 50 Q80 28 68 31 M127 50 Q140 28 152 31" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}${regionAccent}`;
+  if(profile==='snail')return `${defs}${shadow}<ellipse cx="112" cy="155" rx="65" ry="28" fill="${body}" stroke="${outline}" stroke-width="3"/><circle cx="87" cy="125" r="43" fill="${belly}" stroke="${accent}" stroke-width="5"/><path d="M88 110 q20 15 0 30 q-17 11-25-4 q-8-16 11-26" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round"/><circle cx="151" cy="118" r="34" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M138 89 Q129 69 121 69 M163 88 Q173 69 181 70" fill="none" stroke="${accent}" stroke-width="4"/>${petFace(mood,ink,151,118)}${regionAccent}`;
+  if(profile==='frog')return `${defs}${shadow}<ellipse cx="110" cy="153" rx="61" ry="45" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="80" cy="72" rx="24" ry="24" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="140" cy="72" rx="24" ry="24" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="108" rx="56" ry="50" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="76" cy="177" rx="24" ry="12" fill="${belly}"/><ellipse cx="144" cy="177" rx="24" ry="12" fill="${belly}"/>${petFace(mood,ink)}${regionAccent}`;
+  if(profile==='snake')return `${defs}${shadow}<path d="M71 178 Q42 155 72 137 Q101 120 81 101 Q63 84 84 66 Q105 48 128 62 Q148 75 140 98 Q132 120 153 130 Q179 144 163 169 Q146 194 110 180Z" fill="${body}" stroke="${outline}" stroke-width="4"/><ellipse cx="118" cy="76" rx="42" ry="34" fill="${body}" stroke="${outline}" stroke-width="3"/>${petFace(mood,ink,118,77)}<path d="M118 101 l-8 11 8-4 8 4z" fill="#e75d7c"/>${regionAccent}`;
+  if(profile==='lizard')return `${defs}${shadow}${petTail(profile,primary,secondary)}<ellipse cx="110" cy="146" rx="58" ry="36" fill="${body}" stroke="${outline}" stroke-width="3"/><circle cx="110" cy="88" r="42" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M74 145 L43 128 M76 158 L44 176 M146 145 L177 128 M144 158 L176 176" stroke="${primary}" stroke-width="9" stroke-linecap="round"/>${petFace(mood,ink)}${regionAccent}`;
+  if(profile==='crocodile')return `${defs}${shadow}${petTail(profile,primary,secondary)}<path d="M47 141 Q74 111 124 116 Q170 121 179 148 Q164 177 109 174 Q62 171 47 141Z" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M67 101 Q110 67 164 101 L151 128 H74Z" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M79 119 l8 8 8-8 8 8 8-8 8 8 8-8 8 8" fill="none" stroke="#fff" stroke-width="4"/>${petFace(mood,ink,112,91)}${regionAccent}`;
+  if(profile==='turtle')return `${defs}${shadow}<ellipse cx="110" cy="145" rx="70" ry="47" fill="${accentFill}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="145" rx="57" ry="38" fill="${belly}" stroke="${outline}" stroke-width="2"/><circle cx="110" cy="91" r="42" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="56" cy="154" rx="20" ry="12" fill="${body}"/><ellipse cx="164" cy="154" rx="20" ry="12" fill="${body}"/><ellipse cx="77" cy="181" rx="18" ry="10" fill="${body}"/><ellipse cx="143" cy="181" rx="18" ry="10" fill="${body}"/>${petFace(mood,ink)}${regionAccent}`;
 
-  if(profile==='snail')return `${defs}${shadow}<ellipse cx="112" cy="155" rx="65" ry="28" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(137,147,20,9,.16)}<circle cx="87" cy="125" r="43" fill="${belly}" stroke="${accent}" stroke-width="5"/><path d="M88 110 q20 15 0 30 q-17 11-25-4 q-8-16 11-26" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round"/><circle cx="151" cy="118" r="34" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(141,105,13,7,.2)}<path d="M138 89 Q129 69 121 69 M163 88 Q173 69 181 70" fill="none" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>${petFace(mood,ink,151,118)}${regionAccent}`;
+  if(profile==='bat')return `${defs}${shadow}<path class="pet-wing" d="M92 120 Q45 81 30 119 L54 114 L45 147 L79 133Z" fill="${accentFill}" opacity=".9"/><path class="pet-wing" d="M128 120 Q175 81 190 119 L166 114 L175 147 L141 133Z" fill="${accentFill}" opacity=".9"/><ellipse cx="110" cy="152" rx="50" ry="46" fill="${body}" stroke="${outline}" stroke-width="3"/>${petEars('cat',primary,secondary,accent)}<circle cx="110" cy="88" r="43" fill="${body}" stroke="${outline}" stroke-width="3"/>${petPaws(belly,outline,182,26,14)}${petFace(mood,ink)}${regionAccent}`;
+  if(profile==='dragon')return `${defs}${shadow}${petTail(profile,primary,secondary)}<path class="pet-wing" d="M82 123 Q42 82 44 133 L68 122 L56 155 L91 141Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><path class="pet-wing" d="M138 123 Q178 82 176 133 L152 122 L164 155 L129 141Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><ellipse cx="110" cy="156" rx="54" ry="47" fill="${body}" stroke="${outline}" stroke-width="3"/>${petPaws(belly,outline,183,29,15)}<circle cx="110" cy="87" r="45" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M84 49 L92 26 L101 57 M119 57 L128 26 L136 49" fill="${accent}"/>${petFace(mood,ink)}${regionAccent}`;
+  if(profile==='fairy')return `${defs}${shadow}<path class="pet-wing" d="M87 128 Q42 85 48 138 Q62 158 91 146Z" fill="${belly}" opacity=".75" stroke="${outline}" stroke-width="2"/><path class="pet-wing" d="M133 128 Q178 85 172 138 Q158 158 129 146Z" fill="${belly}" opacity=".75" stroke="${outline}" stroke-width="2"/><ellipse cx="110" cy="154" rx="47" ry="44" fill="${body}" stroke="${outline}" stroke-width="3"/>${petPaws(belly,outline,184,26,15)}<circle cx="110" cy="88" r="44" fill="${body}" stroke="${outline}" stroke-width="3"/>${petFace(mood,ink)}${regionAccent}`;
+  if(profile==='crown')return `${defs}${shadow}<path d="M49 143 L63 60 L98 94 L111 43 L128 94 L161 61 L171 143Z" fill="${accentFill}" stroke="#fff1a1" stroke-width="6"/><rect x="53" y="136" width="114" height="38" rx="17" fill="${accentFill}"/><circle cx="68" cy="74" r="8" fill="#ff71b5"/><circle cx="111" cy="57" r="8" fill="#8b5cf6"/><circle cx="154" cy="75" r="8" fill="#45d48c"/>${petFace(mood,ink)}${regionAccent}`;
 
-  if(profile==='frog')return `${defs}${shadow}<ellipse cx="110" cy="153" rx="61" ry="45" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="132" rx="29" ry="21" fill="${belly}" opacity=".85"/><ellipse cx="80" cy="72" rx="24" ry="24" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="140" cy="72" rx="24" ry="24" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="108" rx="56" ry="50" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(90,92,18,12,.18)}<ellipse cx="76" cy="177" rx="17" ry="11" fill="${belly}" opacity=".75"/><ellipse cx="144" cy="177" rx="17" ry="11" fill="${belly}" opacity=".75"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}${regionAccent}`;
-
-  if(profile==='turtle')return `${defs}${shadow}<ellipse cx="110" cy="145" rx="70" ry="47" fill="${accentFill}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="145" rx="57" ry="38" fill="${belly}" stroke="${outline}" stroke-width="2"/><circle cx="110" cy="91" r="42" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(95,75,16,9,.18)}<ellipse cx="56" cy="154" rx="20" ry="12" fill="${body}"/><ellipse cx="164" cy="154" rx="20" ry="12" fill="${body}"/>${petFace(mood,ink)}${regionAccent}`;
-
-  if(profile==='bat')return `${defs}${shadow}<path class="pet-wing" d="M92 120 Q45 81 30 119 L54 114 L45 147 L79 133Z" fill="${accentFill}" opacity=".9"/><path class="pet-wing" d="M128 120 Q175 81 190 119 L166 114 L175 147 L141 133Z" fill="${accentFill}" opacity=".9"/><ellipse cx="110" cy="152" rx="50" ry="46" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="132" rx="26" ry="19" fill="${belly}" opacity=".9"/>${petEars('cat',primary,secondary,accent)}<circle cx="110" cy="88" r="43" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(95,69,18,11,.19)}${petPaws(belly,outline,182,26,14)}${petFace(mood,ink)}${petAccessory(rng,accent)}${regionAccent}`;
-
-  if(profile==='dragon')return `${defs}${shadow}${petTail(profile,petMix(primary,'#3e2a58',.1),secondary)}<path class="pet-wing" d="M82 123 Q42 82 44 133 L68 122 L56 155 L91 141Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><path class="pet-wing" d="M138 123 Q178 82 176 133 L152 122 L164 155 L129 141Z" fill="${belly}" stroke="${outline}" stroke-width="2"/><ellipse cx="110" cy="156" rx="54" ry="47" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="134" rx="28" ry="20" fill="${belly}" opacity=".9"/>${petPaws(belly,outline,183,29,15)}<circle cx="110" cy="87" r="45" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(95,67,18,11,.2)}<path d="M84 49 L92 26 L101 57 M119 57 L128 26 L136 49" fill="${accent}"/>${petFace(mood,ink)}${petPattern(rng,secondary,accent)}${regionAccent}`;
-
-  if(profile==='fairy')return `${defs}${shadow}<path class="pet-wing" d="M87 128 Q42 85 48 138 Q62 158 91 146Z" fill="${belly}" opacity=".75" stroke="${outline}" stroke-width="2"/><path class="pet-wing" d="M133 128 Q178 85 172 138 Q158 158 129 146Z" fill="${belly}" opacity=".75" stroke="${outline}" stroke-width="2"/><ellipse cx="110" cy="154" rx="47" ry="44" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="133" rx="24" ry="19" fill="${belly}" opacity=".9"/>${petPaws(belly,outline,184,26,15)}<circle cx="110" cy="88" r="44" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(96,69,18,11,.2)}${petFace(mood,ink)}<circle class="pet-sparkle" cx="54" cy="78" r="5" fill="#fff5a3"/><circle class="pet-sparkle" cx="168" cy="65" r="4" fill="#fff5a3"/>${petAccessory(rng,accent)}${regionAccent}`;
-
-  if(profile==='crown')return `${defs}${shadow}<path d="M49 143 L63 60 L98 94 L111 43 L128 94 L161 61 L171 143Z" fill="${accentFill}" stroke="#fff1a1" stroke-width="6"/>${petGloss(97,80,20,11,.18)}<rect x="53" y="136" width="114" height="38" rx="17" fill="${accentFill}"/><circle cx="68" cy="74" r="8" fill="#ff71b5"/><circle cx="111" cy="57" r="8" fill="#8b5cf6"/><circle cx="154" cy="75" r="8" fill="#45d48c"/>${petFace(mood,ink)}${regionAccent}`;
-
+  // MAMÍFEROS: anatomia completa e rosto específico por família.
   const ears=petEars(profile,primary,secondary,accent);
   const tail=petTail(profile,petMix(primary,'#3e2a58',.08),secondary);
-  return `${defs}${shadow}${tail}${ears}<ellipse cx="110" cy="156" rx="57" ry="48" fill="${body}" stroke="${outline}" stroke-width="3"/>${petGloss(92,145,18,9,.14)}<ellipse cx="110" cy="134" rx="31" ry="25" fill="${belly}" opacity=".94"/><ellipse cx="81" cy="168" rx="18" ry="12" fill="${accent}" opacity=".42"/><ellipse cx="139" cy="168" rx="18" ry="12" fill="${accent}" opacity=".42"/>${petPaws(belly,outline,186,31,16)}<circle cx="110" cy="84" r="46" fill="${body}" stroke="${outline}" stroke-width="3"/>${glowSpot}<ellipse cx="110" cy="118" rx="16" ry="9" fill="#ffffff" opacity=".18"/>${petGloss(94,64,18,11,.22)}${petFace(mood,ink)}${petPattern(rng,secondary,accent)}${petAccessory(rng,accent)}${regionAccent}`;
+  const horns=['deer','goat','ram','bison'].includes(profile)?(profile==='ram'?`<path d="M82 57 q-28-31-35 2 q-3 27 23 23 M138 57 q28-31 35 2 q3 27-23 23" fill="none" stroke="${accent}" stroke-width="8" stroke-linecap="round"/>`:`<path d="M86 57 Q77 31 66 25 M80 42 L62 35 M134 57 Q143 31 154 25 M140 42 L158 35" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>`):'';
+  const unicornHorn=profile==='unicorn'?`<path d="M110 52 L121 12 L130 55Z" fill="#fff1a8" stroke="${accent}" stroke-width="3"/>`:'';
+  const hedgehogSpines=profile==='hedgehog'?`<path d="M59 164 L38 146 L57 142 L39 121 L65 124 L54 95 L80 107 L82 78 L103 100 L125 78 L129 108 L158 95 L151 125 L179 121 L161 143 L182 148 L158 164Z" fill="${petMix(accent,'#704c58',.3)}" opacity=".82"/>`:'';
+  const wool=profile==='sheep'?`<g fill="#fffaf4" opacity=".9">${[[76,136],[95,127],[115,128],[135,136],[83,154],[104,150],[128,154]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="17"/>`).join('')}</g>`:'';
+  const bodyShape=profile==='kangaroo'?`<ellipse cx="110" cy="157" rx="49" ry="56" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="145" rx="25" ry="31" fill="${belly}" opacity=".9"/><path d="M91 164 q19 18 38 0 v24 q-19 13-38 0z" fill="${secondary}" opacity=".8"/>`:`<ellipse cx="110" cy="157" rx="57" ry="49" fill="${body}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="141" rx="31" ry="28" fill="${belly}" opacity=".94"/>`;
+  const headRx=profile==='llama'?42:46, headRy=profile==='horse'||profile==='llama'?51:46;
+  const muzzle=petAnimalFeatures(profile,mood,ink,primary,secondary,accent,110,88);
+  const frontPaws=['deer','goat','ram','sheep','llama','horse','bison','unicorn','boar'].includes(profile)?`<path d="M82 174 L80 198 M138 174 L140 198" stroke="${primary}" stroke-width="13" stroke-linecap="round"/><path d="M72 199 h17 M131 199 h17" stroke="${accent}" stroke-width="5" stroke-linecap="round"/>`:`${petPaws(belly,outline,190,31,16)}`;
+  const mammothBody=profile==='mammoth';
+  if(mammothBody)return `${defs}${shadow}${ears}<ellipse cx="110" cy="153" rx="66" ry="52" fill="${body}" stroke="${outline}" stroke-width="3"/><path d="M78 169 L76 198 M142 169 L144 198" stroke="${primary}" stroke-width="17" stroke-linecap="round"/><circle cx="110" cy="88" r="51" fill="${body}" stroke="${outline}" stroke-width="3"/>${petFace(mood,ink,110,77)}${petAnimalFeatures(profile,mood,ink,primary,secondary,accent,110,77)}${regionAccent}`;
+  return `${defs}${shadow}${hedgehogSpines}${tail}${horns}${ears}${bodyShape}${wool}${frontPaws}<ellipse cx="110" cy="88" rx="${headRx}" ry="${headRy}" fill="${body}" stroke="${outline}" stroke-width="3"/>${glowSpot}${petGloss(94,65,18,11,.18)}${unicornHorn}${petFace(mood,ink,110,88)}${muzzle}${petPattern(rng,secondary,accent)}${regionAccent}`;
+}
+
+// ===== V21 • ANIMAIS COMPLETOS E RECONHECÍVEIS =====
+// Mantém a geração determinística/aleatória, mas a anatomia da espécie é fixa.
+function petV21Eyes(mood,ink,cx=110,cy=79,spread=20,scale=1){
+  const lx=cx-spread, rx=cx+spread;
+  const sw=4.2*scale;
+  if(mood==='sleep')return `<path d="M${lx-9*scale} ${cy} Q${lx} ${cy+7*scale} ${lx+9*scale} ${cy}" fill="none" stroke="${ink}" stroke-width="${sw}" stroke-linecap="round"/><path d="M${rx-9*scale} ${cy} Q${rx} ${cy+7*scale} ${rx+9*scale} ${cy}" fill="none" stroke="${ink}" stroke-width="${sw}" stroke-linecap="round"/>`;
+  if(mood==='happy')return `<path d="M${lx-9*scale} ${cy+2*scale} Q${lx} ${cy-8*scale} ${lx+9*scale} ${cy+2*scale}" fill="none" stroke="${ink}" stroke-width="${sw}" stroke-linecap="round"/><path d="M${rx-9*scale} ${cy+2*scale} Q${rx} ${cy-8*scale} ${rx+9*scale} ${cy+2*scale}" fill="none" stroke="${ink}" stroke-width="${sw}" stroke-linecap="round"/>`;
+  if(mood==='radiant')return `<path d="M${lx} ${cy-9} l3 7 7 1-5 5 2 7-7-4-7 4 2-7-5-5 7-1z" fill="${ink}"/><path d="M${rx} ${cy-9} l3 7 7 1-5 5 2 7-7-4-7 4 2-7-5-5 7-1z" fill="${ink}"/>`;
+  return `<ellipse cx="${lx}" cy="${cy}" rx="${6.5*scale}" ry="${8.5*scale}" fill="${ink}"/><ellipse cx="${rx}" cy="${cy}" rx="${6.5*scale}" ry="${8.5*scale}" fill="${ink}"/><circle cx="${lx-2.4*scale}" cy="${cy-3.6*scale}" r="${2.2*scale}" fill="#fff"/><circle cx="${rx-2.4*scale}" cy="${cy-3.6*scale}" r="${2.2*scale}" fill="#fff"/>`;
+}
+function petV21Blush(cx=110,cy=96){return `<ellipse cx="${cx-31}" cy="${cy}" rx="9" ry="4.8" fill="#ff91b8" opacity=".42"/><ellipse cx="${cx+31}" cy="${cy}" rx="9" ry="4.8" fill="#ff91b8" opacity=".42"/>`;}
+function petV21Smile(ink,cx=110,cy=103){return `<path d="M${cx-9} ${cy} Q${cx} ${cy+7} ${cx+9} ${cy}" fill="none" stroke="${ink}" stroke-width="3.2" stroke-linecap="round"/>`;}
+function petV21Paws(fill,outline){
+  return `<g class="v21-hind-paws"><ellipse cx="78" cy="190" rx="25" ry="13" fill="${fill}" stroke="${outline}" stroke-width="2.5"/><ellipse cx="142" cy="190" rx="25" ry="13" fill="${fill}" stroke="${outline}" stroke-width="2.5"/><path d="M67 189 h20 M133 189 h20" stroke="#fff" stroke-width="2" opacity=".65"/></g>`;
+}
+function petV21FrontLegs(fill,outline,long=false){
+  const y1=long?128:132, y2=long?191:177, w=long?12:15;
+  return `<path class="v21-limb" d="M82 ${y1} Q75 ${y1+25} 82 ${y2}" fill="none" stroke="${fill}" stroke-width="${w}" stroke-linecap="round"/><path class="v21-limb" d="M138 ${y1} Q145 ${y1+25} 138 ${y2}" fill="none" stroke="${fill}" stroke-width="${w}" stroke-linecap="round"/><path d="M72 ${y2+2} h20 M128 ${y2+2} h20" stroke="${outline}" stroke-width="4" stroke-linecap="round"/>`;
+}
+function petV21Tail(profile,primary,secondary,outline){
+  if(profile==='rabbit')return `<circle class="v21-tail" cx="169" cy="155" r="20" fill="${secondary}" stroke="${outline}" stroke-width="3"/>`;
+  if(['fox','squirrel','skunk'].includes(profile))return `<path class="v21-tail" d="M151 164 Q201 165 186 104 Q176 79 160 101 Q174 126 149 139" fill="none" stroke="${primary}" stroke-width="28" stroke-linecap="round"/><path d="M181 102 Q192 121 180 136" fill="none" stroke="${secondary}" stroke-width="15" stroke-linecap="round"/>`;
+  if(profile==='raccoon')return `<path class="v21-tail" d="M151 160 Q195 159 186 112 Q178 94 163 105 Q174 127 151 140" fill="none" stroke="${primary}" stroke-width="21" stroke-linecap="round"/><path d="M174 112 l13 5 M169 127 l17 6 M162 141 l18 7" stroke="${secondary}" stroke-width="6"/>`;
+  if(profile==='beaver')return `<path class="v21-tail" d="M151 157 Q192 158 190 126 Q187 107 173 107 Q157 121 151 139Z" fill="${petMix(primary,'#5b392d',.28)}" stroke="${outline}" stroke-width="3"/>`;
+  if(['monkey','orangutan'].includes(profile))return `<path class="v21-tail" d="M151 158 Q195 169 185 126 Q178 101 196 92" fill="none" stroke="${primary}" stroke-width="12" stroke-linecap="round"/>`;
+  if(profile==='kangaroo')return `<path class="v21-tail" d="M145 160 Q188 173 205 187" fill="none" stroke="${primary}" stroke-width="22" stroke-linecap="round"/>`;
+  if(['cat','tiger','lion','dog','wolf','otter','rat'].includes(profile))return `<path class="v21-tail" d="M151 160 Q188 173 183 135 Q180 111 197 105" fill="none" stroke="${primary}" stroke-width="12" stroke-linecap="round"/>`;
+  if(['deer','goat','ram','sheep','llama','horse','bison','boar'].includes(profile))return `<path class="v21-tail" d="M153 150 q28 8 22 27" fill="none" stroke="${primary}" stroke-width="10" stroke-linecap="round"/>`;
+  return '';
+}
+function petV21Ears(profile,primary,secondary,outline){
+  if(['rabbit','kangaroo'].includes(profile))return `<ellipse cx="80" cy="42" rx="15" ry="42" fill="${primary}" stroke="${outline}" stroke-width="2.5" transform="rotate(-9 80 42)"/><ellipse cx="80" cy="42" rx="6.5" ry="29" fill="${secondary}" transform="rotate(-9 80 42)"/><ellipse cx="140" cy="42" rx="15" ry="42" fill="${primary}" stroke="${outline}" stroke-width="2.5" transform="rotate(9 140 42)"/><ellipse cx="140" cy="42" rx="6.5" ry="29" fill="${secondary}" transform="rotate(9 140 42)"/>`;
+  if(profile==='dog')return `<path d="M69 70 Q45 58 52 95 Q59 112 78 92Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M151 70 Q175 58 168 95 Q161 112 142 92Z" fill="${primary}" stroke="${outline}" stroke-width="3"/>`;
+  if(['fox','wolf'].includes(profile))return `<path d="M66 72 L76 24 L101 66Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M119 66 L145 24 L155 73Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M76 59 L80 40 L91 62Z" fill="${secondary}"/><path d="M130 61 L142 40 L146 60Z" fill="${secondary}"/>`;
+  if(['cat','tiger','lion'].includes(profile))return `<path d="M69 69 L76 34 L99 65Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M121 65 L145 34 L152 70Z" fill="${primary}" stroke="${outline}" stroke-width="3"/><path d="M77 59 L80 45 L90 61Z" fill="${secondary}"/><path d="M131 61 L141 45 L145 60Z" fill="${secondary}"/>`;
+  if(['bear','polarBear','panda','hamster','rat','beaver','otter','monkey','orangutan','sloth'].includes(profile))return `<circle cx="74" cy="58" r="18" fill="${primary}" stroke="${outline}" stroke-width="3"/><circle cx="146" cy="58" r="18" fill="${primary}" stroke="${outline}" stroke-width="3"/><circle cx="74" cy="58" r="8" fill="${secondary}"/><circle cx="146" cy="58" r="8" fill="${secondary}"/>`;
+  if(profile==='koala')return `<circle cx="69" cy="63" r="25" fill="${primary}" stroke="${outline}" stroke-width="3"/><circle cx="151" cy="63" r="25" fill="${primary}" stroke="${outline}" stroke-width="3"/><circle cx="69" cy="63" r="13" fill="${secondary}"/><circle cx="151" cy="63" r="13" fill="${secondary}"/>`;
+  if(profile==='squirrel')return `<path d="M66 70 Q52 37 72 29 Q91 42 92 68Z" fill="${primary}" stroke="${outline}" stroke-width="2.5"/><path d="M128 68 Q132 40 150 29 Q168 42 154 71Z" fill="${primary}" stroke="${outline}" stroke-width="2.5"/>`;
+  if(profile==='hedgehog')return `<circle cx="77" cy="64" r="12" fill="${secondary}" stroke="${outline}" stroke-width="2"/><circle cx="143" cy="64" r="12" fill="${secondary}" stroke="${outline}" stroke-width="2"/>`;
+  if(['deer','goat','ram','sheep','llama','horse','bison','unicorn'].includes(profile))return `<path d="M69 68 Q48 49 60 37 Q82 42 90 67Z" fill="${primary}" stroke="${outline}" stroke-width="2.5"/><path d="M131 67 Q139 42 160 37 Q172 49 151 68Z" fill="${primary}" stroke="${outline}" stroke-width="2.5"/>`;
+  if(profile==='boar')return `<path d="M68 72 L69 44 L91 67Z" fill="${primary}" stroke="${outline}" stroke-width="2.5"/><path d="M129 67 L151 44 L152 72Z" fill="${primary}" stroke="${outline}" stroke-width="2.5"/>`;
+  return '';
+}
+function petV21Muzzle(profile,mood,ink,primary,secondary,accent){
+  const eyes=petV21Eyes(mood,ink,110,79,21,1);
+  const blush=petV21Blush(110,98);
+  if(['cat','tiger','lion'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="101" rx="27" ry="18" fill="${petMix(secondary,'#fff',.48)}"/><path d="M105 94 L110 99 L115 94Z" fill="#6b405d"/><path d="M110 99 q-7 8-14 4 M110 99 q7 8 14 4" fill="none" stroke="${ink}" stroke-width="2.7"/><path d="M89 102 L61 97 M90 108 L60 111 M131 102 L159 97 M130 108 L160 111" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/>`;
+  if(['fox','wolf','dog'].includes(profile))return `${eyes}${blush}<path d="M83 94 Q110 82 137 94 Q132 116 110 119 Q88 116 83 94Z" fill="${petMix(secondary,'#fff',.45)}"/><ellipse cx="110" cy="96" rx="7" ry="5" fill="#493846"/><path d="M110 101 q-9 10-18 4 M110 101 q9 10 18 4" fill="none" stroke="${ink}" stroke-width="2.8"/>`;
+  if(['rabbit','kangaroo'].includes(profile))return `${eyes}${blush}<ellipse cx="99" cy="101" rx="13" ry="12" fill="#fff8fb"/><ellipse cx="121" cy="101" rx="13" ry="12" fill="#fff8fb"/><path d="M105 94 L110 99 L115 94Z" fill="#ef8cab"/><path d="M110 100 q-6 7-12 4 M110 100 q6 7 12 4" fill="none" stroke="${ink}" stroke-width="2.4"/><rect x="105" y="106" width="5" height="9" rx="2" fill="#fff"/><rect x="111" y="106" width="5" height="9" rx="2" fill="#fff"/>`;
+  if(['bear','polarBear','panda','koala'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="100" rx="29" ry="20" fill="${petMix(secondary,'#fff',.45)}"/><ellipse cx="110" cy="94" rx="${profile==='koala'?11:7}" ry="${profile==='koala'?8:5}" fill="#433846"/>${petV21Smile(ink,110,101)}`;
+  if(['hamster','rat','beaver','squirrel','otter'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="101" rx="25" ry="16" fill="${petMix(secondary,'#fff',.52)}"/><ellipse cx="110" cy="95" rx="5.5" ry="4" fill="#704756"/><path d="M92 103 L66 99 M128 103 L154 99" stroke="${ink}" stroke-width="1.6"/>${petV21Smile(ink,110,101)}${['hamster','rat','beaver','squirrel'].includes(profile)?`<rect x="105" y="106" width="4.5" height="8" rx="1" fill="#fff"/><rect x="111" y="106" width="4.5" height="8" rx="1" fill="#fff"/>`:''}`;
+  if(profile==='raccoon')return `<path d="M66 73 Q110 54 154 73 Q140 96 110 96 Q80 96 66 73Z" fill="#45414d" opacity=".86"/>${eyes}${blush}<ellipse cx="110" cy="101" rx="24" ry="16" fill="#f8f3ef"/><ellipse cx="110" cy="95" rx="6" ry="4.5" fill="#302d34"/>${petV21Smile(ink,110,101)}`;
+  if(profile==='skunk')return `${eyes}${blush}<path d="M110 41 Q101 62 110 83 Q119 62 110 41" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><ellipse cx="110" cy="101" rx="24" ry="16" fill="#f7f1ee"/><ellipse cx="110" cy="95" rx="6" ry="4" fill="#302d34"/>${petV21Smile(ink,110,101)}`;
+  if(profile==='badger')return `<path d="M81 48 L96 91 M139 48 L124 91" stroke="#f4eee8" stroke-width="10" stroke-linecap="round"/>${eyes}${blush}<ellipse cx="110" cy="101" rx="25" ry="17" fill="#f6f0ec"/><ellipse cx="110" cy="95" rx="6" ry="4" fill="#302d34"/>${petV21Smile(ink,110,101)}`;
+  if(['monkey','orangutan','sloth'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="99" rx="32" ry="26" fill="${petMix(secondary,'#f4d7bc',.28)}"/><ellipse cx="98" cy="96" rx="3" ry="2.4" fill="#684c59"/><ellipse cx="122" cy="96" rx="3" ry="2.4" fill="#684c59"/>${petV21Smile(ink,110,105)}`;
+  if(['deer','goat','ram','sheep','llama','horse','bison','unicorn','boar'].includes(profile))return `${eyes}${blush}<ellipse cx="110" cy="101" rx="30" ry="21" fill="${petMix(secondary,'#fff7ed',.42)}"/><ellipse cx="100" cy="100" rx="3" ry="2.5" fill="#6a5260"/><ellipse cx="120" cy="100" rx="3" ry="2.5" fill="#6a5260"/>${petV21Smile(ink,110,107)}${profile==='boar'?`<path d="M89 104 l-11 8 M131 104 l11 8" stroke="#fff4df" stroke-width="5" stroke-linecap="round"/>`:''}`;
+  return `${eyes}${blush}${petV21Smile(ink,110,103)}`;
+}
+function petV21Mammal(stageIndex,companion,mood,regionNumber,size,profile,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront){
+  const body=`url(#petBody${seed})`, belly=`url(#petBelly${seed})`;
+  const shadow='<ellipse cx="110" cy="202" rx="64" ry="9" fill="#5b4868" opacity=".13"/>';
+  const tail=petV21Tail(profile,primary,secondary,outline);
+  const ears=petV21Ears(profile,primary,secondary,outline);
+  const face=petV21Muzzle(profile,mood,ink,primary,secondary,accent);
+  const isHoof=['deer','goat','ram','sheep','llama','horse','bison','unicorn','boar'].includes(profile);
+  const isLong=profile==='llama'||profile==='horse'||profile==='deer';
+  const bodyRx=profile==='sloth'?48:(profile==='kangaroo'?48:(profile==='bison'?64:56));
+  const bodyRy=profile==='kangaroo'?58:(profile==='bison'?49:50);
+  let extraBehind='';
+  if(profile==='lion')extraBehind=`<circle cx="110" cy="80" r="54" fill="${petMix(accent,'#d39238',.25)}" stroke="${outline}" stroke-width="3" opacity=".9"/>`;
+  if(profile==='hedgehog')extraBehind=`<path d="M58 172 L38 150 L57 145 L39 122 L65 124 L54 95 L79 106 L82 76 L104 99 L125 77 L130 108 L158 95 L151 126 L181 122 L161 145 L183 151 L159 171Z" fill="${petMix(accent,'#704c58',.32)}" stroke="${outline}" stroke-width="2"/>`;
+  if(profile==='bison')extraBehind+=`<path d="M66 131 Q77 103 100 110 Q86 133 82 159Z" fill="${petMix(primary,'#3e2a58',.1)}" opacity=".8"/>`;
+  const horns=profile==='ram'?`<path d="M80 61 q-29-27-35 1 q-2 27 23 22 M140 61 q29-27 35 1 q2 27-23 22" fill="none" stroke="${accent}" stroke-width="9" stroke-linecap="round"/>`:['deer','goat','bison'].includes(profile)?`<path d="M87 57 Q79 31 66 24 M81 43 L63 35 M133 57 Q141 31 154 24 M139 43 L157 35" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>`:'';
+  const horn=profile==='unicorn'?`<path d="M110 48 L121 11 L130 51Z" fill="#fff0a0" stroke="${accent}" stroke-width="3"/>`:'';
+  const pandaBits=profile==='panda'?`<ellipse cx="82" cy="80" rx="15" ry="20" fill="#3c3943" opacity=".95"/><ellipse cx="138" cy="80" rx="15" ry="20" fill="#3c3943" opacity=".95"/><path d="M77 132 Q67 154 77 178 M143 132 Q153 154 143 178" stroke="#3c3943" stroke-width="17" stroke-linecap="round"/><ellipse cx="79" cy="190" rx="23" ry="12" fill="#3c3943"/><ellipse cx="141" cy="190" rx="23" ry="12" fill="#3c3943"/>`:'';
+  const tigerStripes=profile==='tiger'?`<path d="M85 50 l10 15 M110 43 v17 M135 50 l-10 15 M67 138 l18 9 M153 138 l-18 9" stroke="#553747" stroke-width="5" stroke-linecap="round" opacity=".75"/>`:'';
+  const foxMask=profile==='fox'?`<path d="M67 76 Q84 55 110 66 Q136 55 153 76 Q136 72 124 88 Q110 77 96 88 Q84 72 67 76Z" fill="${secondary}" opacity=".82"/>`:'';
+  const slothMask=profile==='sloth'?`<path d="M73 76 Q86 61 101 72 M147 76 Q134 61 119 72" fill="none" stroke="#5a4b57" stroke-width="10" stroke-linecap="round" opacity=".72"/>`:'';
+  const wool=profile==='sheep'?`<g fill="#fffaf5" opacity=".94">${[[75,136],[95,127],[116,128],[137,136],[83,154],[105,151],[129,154]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="17"/>`).join('')}</g>`:'';
+  const pouch=profile==='kangaroo'?`<path d="M89 150 Q110 166 131 150 V181 Q110 192 89 181Z" fill="${secondary}" opacity=".82" stroke="${outline}" stroke-width="2"/>`:'';
+  const legs=isHoof
+    ? `<path class="v21-limb" d="M80 158 L78 198 M140 158 L142 198" stroke="${primary}" stroke-width="13" stroke-linecap="round"/><path d="M68 199 h22 M130 199 h22" stroke="${outline}" stroke-width="6" stroke-linecap="round"/>`
+    : profile==='kangaroo'
+      ? `<path d="M77 164 Q70 186 55 199" stroke="${primary}" stroke-width="17" stroke-linecap="round"/><path d="M143 164 Q150 186 165 199" stroke="${primary}" stroke-width="17" stroke-linecap="round"/><ellipse cx="52" cy="199" rx="28" ry="9" fill="${primary}"/><ellipse cx="168" cy="199" rx="28" ry="9" fill="${primary}"/>`
+      : `${petV21FrontLegs(profile==='panda'?'#3c3943':primary,outline,false)}${profile==='panda'?'':petV21Paws(belly,outline)}`;
+  const armsLong=['sloth','orangutan'].includes(profile)?`<path d="M75 130 Q49 157 61 190 M145 130 Q171 157 159 190" fill="none" stroke="${primary}" stroke-width="15" stroke-linecap="round"/>`:'';
+  const torso=`<ellipse cx="110" cy="151" rx="${bodyRx}" ry="${bodyRy}" fill="${body}" stroke="${outline}" stroke-width="3.2"/><ellipse cx="110" cy="150" rx="31" ry="31" fill="${belly}" opacity=".9"/>`;
+  const headRy=isLong?52:46;
+  const head=`<ellipse cx="110" cy="80" rx="46" ry="${headRy}" fill="${body}" stroke="${outline}" stroke-width="3.2"/>`;
+  if(profile==='mammoth')return `${defs}${shadow}${regionBack}<ellipse cx="62" cy="88" rx="31" ry="38" fill="${secondary}" stroke="${outline}" stroke-width="3"/><ellipse cx="158" cy="88" rx="31" ry="38" fill="${secondary}" stroke="${outline}" stroke-width="3"/><ellipse cx="110" cy="151" rx="65" ry="52" fill="${body}" stroke="${outline}" stroke-width="3.2"/><path d="M79 165 L77 199 M141 165 L143 199" stroke="${primary}" stroke-width="18" stroke-linecap="round"/>${head}${petV21Eyes(mood,ink,110,72,22,1)}<path d="M110 92 Q101 122 111 154 Q121 164 128 151" fill="none" stroke="${primary}" stroke-width="16" stroke-linecap="round"/><path d="M86 111 q-17 6-16 26 M134 111 q17 6 16 26" fill="none" stroke="#fff6dc" stroke-width="6" stroke-linecap="round"/>${regionFront}`;
+  return `${defs}${shadow}${tail}${extraBehind}${regionBack}${horns}${ears}${torso}${wool}${pouch}${legs}${armsLong}${head}${foxMask}${slothMask}${pandaBits}${tigerStripes}${horn}${face}${regionFront}`;
+}
+function petV21Bird(mood,profile,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront){
+  const body=`url(#petBody${seed})`, belly=`url(#petBelly${seed})`;
+  const shadow='<ellipse cx="110" cy="201" rx="57" ry="9" fill="#5b4868" opacity=".13"/>';
+  if(['swan','flamingo','peacock','penguin'].includes(profile))return null; // v20 already has strong species silhouettes.
+  const beak=profile==='eagle'?'#d99b37':'#f2a544';
+  const feet=profile==='duck'?`<path d="M83 183 L79 199 L65 202 L80 206 L94 202 L84 198 M137 183 L141 199 L126 202 L141 206 L155 202 L140 198" fill="none" stroke="#eda33b" stroke-width="5" stroke-linecap="round"/>`:`<path d="M88 180 L86 198 M132 180 L134 198 M75 199 h24 M121 199 h24" stroke="#e69a35" stroke-width="5" stroke-linecap="round"/>`;
+  const tail=profile==='parrot'?`<path d="M98 168 L104 211 L113 173 L122 211 L128 168" fill="${accent}" stroke="${outline}" stroke-width="2"/>`:`<path d="M91 168 L103 194 L110 171 L119 194 L131 168" fill="${secondary}" stroke="${outline}" stroke-width="2"/>`;
+  const owlDisc=profile==='owl'?`<ellipse cx="86" cy="78" rx="30" ry="31" fill="${petMix(secondary,'#fff',.45)}"/><ellipse cx="134" cy="78" rx="30" ry="31" fill="${petMix(secondary,'#fff',.45)}"/><path d="M67 55 L80 31 L94 59 M126 59 L140 31 L153 55" fill="${primary}" stroke="${outline}" stroke-width="2"/>`:'';
+  const eagleCap=profile==='eagle'?`<path d="M64 69 Q110 35 156 69 Q137 61 122 68 Q110 49 98 68 Q82 60 64 69Z" fill="#fffaf0"/>`:'';
+  const parrotPatch=profile==='parrot'?`<path d="M66 72 Q110 49 154 72 Q143 89 128 94 Q110 75 92 94 Q77 89 66 72Z" fill="${secondary}" opacity=".75"/>`:'';
+  const bill=profile==='duck'?`<path d="M84 94 Q110 86 136 94 Q133 111 110 113 Q87 111 84 94Z" fill="${beak}" stroke="${outline}" stroke-width="2.3"/>`:profile==='parrot'?`<path d="M107 91 Q139 88 143 105 Q133 119 108 112 Q122 103 107 91Z" fill="${beak}" stroke="${outline}" stroke-width="2.3"/>`:`<path d="M100 93 L110 101 L124 93 L111 113Z" fill="${beak}" stroke="${outline}" stroke-width="2.1"/>`;
+  const crest=profile==='bird'?`<path d="M99 40 Q108 22 114 42 Q124 25 128 47" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>`:profile==='parrot'?`<path d="M98 43 Q110 20 118 45 Q129 26 132 51" fill="none" stroke="${accent}" stroke-width="7" stroke-linecap="round"/>`:'';
+  return `${defs}${shadow}${tail}${regionBack}<ellipse cx="110" cy="147" rx="51" ry="48" fill="${body}" stroke="${outline}" stroke-width="3.2"/><ellipse cx="110" cy="149" rx="28" ry="31" fill="${belly}" opacity=".9"/><path class="pet-wing" d="M75 125 Q48 144 65 174 Q85 166 91 137Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/><path class="pet-wing" d="M145 125 Q172 144 155 174 Q135 166 129 137Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>${feet}<circle cx="110" cy="78" r="43" fill="${body}" stroke="${outline}" stroke-width="3.2"/>${owlDisc}${eagleCap}${parrotPatch}${crest}${petV21Eyes(mood,ink,110,76,20,.95)}${petV21Blush(110,92)}${bill}${regionFront}`;
+}
+function buildPetMarkup(stageIndex,companion,mood,regionNumber=1,size='big'){
+  const seed=petHash(stageIndex+'|'+companion.name+'|'+companion.pet);
+  const rng=petRng(seed);
+  const [primary,secondary,accent]=PET_PALETTES[seed%PET_PALETTES.length];
+  const profile=stageIndex===0?'egg':petProfile(companion.pet);
+  const ink='#4b315d';
+  const outline=petMix(accent,'#3e2a58',.55);
+  const defs=petGradientDefs(seed,primary,secondary,accent);
+  const regionBack=regionAccessoryMarkup(regionNumber,seed,size,accent,outline,secondary,profile,'back');
+  const regionFront=regionAccessoryMarkup(regionNumber,seed,size,accent,outline,secondary,profile,'front');
+
+  // Ovo redesenhado: casca, rachaduras e ninho. Visual propositalmente diferente da geração anterior.
+  if(profile==='egg'){
+    const shell1='#fff1c7', shell2='#ffd993', shellOutline='#b87545';
+    return `${defs}<ellipse cx="110" cy="202" rx="67" ry="9" fill="#5b4868" opacity=".13"/><path d="M50 178 Q110 152 170 178 L156 200 Q110 212 64 200Z" fill="#c98b4a" opacity=".92"/><path d="M57 181 Q110 165 163 181 M67 191 Q110 178 153 191" fill="none" stroke="#f0bd72" stroke-width="7" stroke-linecap="round"/><defs><radialGradient id="v24Egg${seed}" cx="36%" cy="28%" r="72%"><stop offset="0" stop-color="#fffaf0"/><stop offset=".34" stop-color="${shell1}"/><stop offset=".74" stop-color="${shell2}"/><stop offset="1" stop-color="#efb463"/></radialGradient></defs><path d="M110 34 C72 34 56 82 60 124 C64 170 82 192 110 192 C138 192 156 170 160 124 C164 82 148 34 110 34Z" fill="url(#v24Egg${seed})" stroke="${shellOutline}" stroke-width="4"/><path d="M86 49 L99 63 L93 77 L109 88 L100 103" fill="none" stroke="#c88b58" stroke-width="4" stroke-linecap="round"/><path d="M130 45 L119 59 L128 71" fill="none" stroke="#c88b58" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="91" cy="77" rx="23" ry="13" fill="#fff" opacity=".4" transform="rotate(-22 91 77)"/>${petV21Eyes(mood,ink,110,116,19,.9)}${petV21Blush(110,132)}${petV21Smile(ink,110,135)}<path d="M55 69 l5 9 10 2-8 7 2 10-9-5-9 5 2-10-8-7 10-2z" fill="#fff7ad" opacity=".9"/>`;
+  }
+
+  const mammalProfiles=['rabbit','kangaroo','cat','tiger','lion','fox','wolf','dog','panda','koala','polarBear','bear','deer','goat','ram','sheep','llama','horse','bison','unicorn','hamster','squirrel','hedgehog','rat','beaver','monkey','orangutan','raccoon','otter','sloth','boar','skunk','badger','mammoth'];
+  if(mammalProfiles.includes(profile))return petV21Mammal(stageIndex,companion,mood,regionNumber,size,profile,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront);
+
+  if(['bird','owl','duck','parrot','eagle','swan','flamingo','peacock','penguin'].includes(profile)){
+    const bird=petV21Bird(mood,profile,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront);
+    if(bird)return bird;
+  }
+
+  // Aquáticos, insetos, répteis e criaturas místicas já tinham silhuetas próprias na V20.
+  return buildPetMarkupV20(stageIndex,companion,mood,regionNumber,size);
 }
 
 function createPetSvg(stageIndex,companion,size='big',forcedMood=null,regionOverride=null){
@@ -2477,14 +2992,16 @@ function playAppSound(kind){
     if(!ctx)return;
     if(ctx.state==='suspended')ctx.resume();
     const t=ctx.currentTime+.02;
-    if(kind==='study'){
-      playTone(ctx,523.25,t,.13,.026,'sine');
-      playTone(ctx,659.25,t+.10,.16,.026,'sine');
-      playTone(ctx,783.99,t+.20,.13,.018,'sine');
+    if(kind==='study' || kind==='register'){
+      playTone(ctx,523.25,t,.10,.020,'sine');
+      playTone(ctx,659.25,t+.08,.12,.019,'triangle');
+      playTone(ctx,783.99,t+.18,.12,.016,'sine');
+      if(kind==='register')playTone(ctx,1046.5,t+.25,.09,.012,'sine');
     }else if(kind==='start'){
       playTone(ctx,440,t,.12,.024,'sine');
       playTone(ctx,554.37,t+.09,.14,.024,'sine');
       playTone(ctx,659.25,t+.18,.16,.018,'triangle');
+      playTone(ctx,880,t+.28,.14,.012,'sine');
     }else if(kind==='mini'){
       playTone(ctx,587.33,t,.10,.026,'sine');
       playTone(ctx,739.99,t+.07,.11,.026,'sine');
@@ -2495,12 +3012,22 @@ function playAppSound(kind){
       playTone(ctx,659.25,t+.10,.17,.03,'triangle');
       playTone(ctx,783.99,t+.21,.28,.034,'triangle');
       playTone(ctx,1046.5,t+.34,.34,.026,'sine');
+      playTone(ctx,1318.51,t+.54,.22,.018,'sine');
     }else if(kind==='unlock'){
       playTone(ctx,392,t,.14,.028,'triangle');
       playTone(ctx,523.25,t+.10,.16,.03,'triangle');
       playTone(ctx,659.25,t+.22,.18,.032,'triangle');
       playTone(ctx,987.77,t+.36,.32,.035,'sine');
       playTone(ctx,1318.51,t+.52,.38,.026,'sine');
+    }else if(kind==='giftbox'){
+      playTone(ctx,493.88,t,.08,.018,'square');
+      playTone(ctx,659.25,t+.08,.10,.016,'triangle');
+      playTone(ctx,783.99,t+.18,.12,.014,'sine');
+    }else if(kind==='giftopen'){
+      playTone(ctx,659.25,t,.08,.024,'triangle');
+      playTone(ctx,783.99,t+.07,.10,.024,'triangle');
+      playTone(ctx,987.77,t+.14,.16,.026,'sine');
+      playTone(ctx,1318.51,t+.26,.24,.022,'sine');
     }
   }catch(e){}
 }
@@ -2525,6 +3052,31 @@ function globalSparkleBurst(count=28,symbols=['✨','⭐','🌟','💫']){
     sp.style.fontSize=(18+Math.random()*24)+'px';
     layer.appendChild(sp);
     setTimeout(()=>sp.remove(),2600);
+  }
+}
+
+function sparkleAtElement(targetId,count=18,symbols=['✨','🌸','💖']){
+  const el=document.getElementById(targetId);
+  const layer=document.getElementById('magicSparkleLayer');
+  if(!el || !layer || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const rect=el.getBoundingClientRect();
+  const cx=rect.left+rect.width/2;
+  const cy=rect.top+rect.height/2;
+  for(let i=0;i<count;i++){
+    const sp=document.createElement('span');
+    sp.className='magicSparkle';
+    sp.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    sp.style.left=(cx+(Math.random()*rect.width-rect.width/2)*.35)+'px';
+    sp.style.top=(cy+(Math.random()*rect.height-rect.height/2)*.35)+'px';
+    const angle=Math.random()*Math.PI*2;
+    const dist=34+Math.random()*120;
+    sp.style.setProperty('--sx',(Math.cos(angle)*dist).toFixed(0)+'px');
+    sp.style.setProperty('--sy',(Math.sin(angle)*dist-30).toFixed(0)+'px');
+    sp.style.setProperty('--sr',(Math.random()*620-310).toFixed(0)+'deg');
+    sp.style.setProperty('--dur',(1.0+Math.random()*.7)+'s');
+    sp.style.fontSize=(14+Math.random()*16)+'px';
+    layer.appendChild(sp);
+    setTimeout(()=>sp.remove(),2200);
   }
 }
 
@@ -2554,6 +3106,7 @@ function showCompanionDiscoveryCard(stageIndex){
 
   overlay.classList.add('show');
   overlay.setAttribute('aria-hidden','false');
+  sparkleAtElement('discoveryArt',20,['✨','🌸','⭐','💖']);
   clearTimeout(discoveryTimer);
   discoveryTimer=setTimeout(()=>{
     overlay.classList.remove('show');
@@ -2611,40 +3164,44 @@ function companionBurst(symbols=['✨','🌸','⭐'],count=12,power=1){
 
 function animateCompanionStudy(hours){
   if(companionAnimationBusy)return;
-  playAppSound('study');
+  playAppSound('register');
+  sparkleAtElement('addHours',16,['✨','🌸','💖','⭐']);
   playCompanionAction('companion-study',1000);
-  companionBurst(['🌷','✨','🌸','⭐'],10,.9);
-  companionSay('🌷 +'+formatStudyHours(hours)+' cultivada'+(Number(hours)===1?'!':'s!'),1800);
+  companionBurst(['🌷','✨','🌸','⭐','💖'],14,1);
+  companionSay('🌷 Aline, +'+formatStudyHours(hours)+' cultivada'+(Number(hours)===1?'!':'s!'),1800);
 }
 
 function animateCompanionStart(){
   if(companionAnimationBusy)return;
   playAppSound('start');
+  sparkleAtElement('start',18,['✨','🌱','💗','⭐']);
   playCompanionAction('companion-study',1000);
-  companionBurst(['✨','🌱','💗','⭐'],9,.85);
-  companionSay('✨ Bora! A missão começou.',1800);
+  companionBurst(['✨','🌱','💗','⭐','🌸'],12,.9);
+  companionSay('✨ Bora, Aline! A missão começou.',1800);
 }
 
 function animateMiniMilestone(hour){
   if(companionAnimationBusy)return;
   const labels={1:'🌱 PRIMEIRA HORA!',2:'🌸 FLORESCENDO!',3:'⭐ QUASE LÁ!'};
   playAppSound('mini');
-  globalSparkleBurst(30,['✨','🌸','🌷','💗','💖','⭐']);
+  sparkleAtElement('hours',12,['✨','⭐','💗']);
+  globalSparkleBurst(38,['✨','🌸','🌷','💗','💖','⭐','🦋']);
   playCompanionAction('companion-study',1150);
-  companionBurst(['✨','🌸','🌷','💗','💖','⭐'],18,1.05);
-  companionSay((labels[hour]||'✨ MINI META!')+' '+hour+'h completas!',2200);
+  companionBurst(['✨','🌸','🌷','💗','💖','⭐'],20,1.08);
+  companionSay('Aline! '+(labels[hour]||'✨ MINI META!')+' '+hour+'h completas!',2200);
 }
 
 function animateCompanionGoal(extraHours=0){
   if(companionAnimationBusy)return;
   playAppSound('goal');
-  globalSparkleBurst(46,['✨','⭐','🌟','💫','🌸','🌷','💖','🏆']);
+  sparkleAtElement('dailyBarFill',18,['✨','🏆','💖','⭐']);
+  globalSparkleBurst(58,['✨','⭐','🌟','💫','🌸','🌷','💖','🏆','🎉']);
   playCompanionAction('companion-goal',1650);
-  companionBurst(['✨','⭐','🌸','🌷','🌈','🏆','💖'],28,1.28);
+  companionBurst(['✨','⭐','🌸','🌷','🌈','🏆','💖','🎉'],34,1.35);
   const extra=Number(extraHours)||0;
   companionSay(extra>0
-    ? '🔥 META SUPERADA! +'+formatStudyHours(extra)+' além da missão!'
-    : '🏆 MISSÃO CUMPRIDA! 4h completas! ✨',2800);
+    ? '🔥 Aline, META SUPERADA! +'+formatStudyHours(extra)+' além da missão!'
+    : '🏆 Aline, MISSÃO CUMPRIDA! 4h completas! ✨',2800);
 }
 
 function celebrateNewCompanion(oldIndex,newIndex){
@@ -2655,12 +3212,13 @@ function celebrateNewCompanion(oldIndex,newIndex){
   const previous=stages[oldIndex]||stages[0];
   const newborn=stages[newIndex];
   const unlockedNewRegion=Number(newborn.season||0)>Number(previous.season||0);
+  const completedRegion=seasonCompanionNumber(newIndex)>=10;
   companionAnimationBusy=true;
   clearTimeout(companionActionTimer);
   clearCompanionActions();
   bigpet.classList.remove('near-hatch');
   renderPetArt(bigpet,oldIndex,previous,'big');
-  companionSay(newIndex===1?'🥚 O ovo está se mexendo...':'✨ Algo novo se aproxima da floresta...',1700);
+  companionSay(newIndex===1?'🥚 Aline, o ovo está se mexendo...':'✨ Aline, algo novo se aproxima da floresta...',1700);
   bigpet.classList.add('companion-hatch');
   companionBurst(['✨','⭐','💫'],9,.7);
 
@@ -2680,9 +3238,16 @@ function celebrateNewCompanion(oldIndex,newIndex){
     globalSparkleBurst(64,['✨','⭐','🌟','💫','🌸','🌷','💖']);
     playAppSound('unlock');
     companionSay(newIndex===1
-      ? '🐣 PIPOCA NASCEU! Novo companheiro encontrado!'
-      : '🐾 '+newborn.name+' chegou! Novo companheiro encontrado!',3300);
+      ? '🐣 Aline, PIPOCA NASCEU! Novo companheiro encontrado!'
+      : '🐾 Aline, '+newborn.name+' chegou! Novo companheiro encontrado!',3300);
     setTimeout(()=>showCompanionDiscoveryCard(newIndex),520);
+    if(completedRegion){
+      setTimeout(()=>{
+        playAppSound('goal');
+        globalSparkleBurst(44,['👑','🏆','✨','⭐','🌸']);
+        companionSay('👑 Aline! '+newborn.region+' ficou completa!',2600);
+      },720);
+    }
     if(unlockedNewRegion)setTimeout(()=>showRegionUnlockOverlay(newborn.season),1900);
   },1150);
 
@@ -2695,20 +3260,23 @@ function celebrateNewCompanion(oldIndex,newIndex){
 
 function scheduleCompanionLife(){
   clearTimeout(companionLifeTimer);
-  const delay=12000+Math.random()*12000;
+  const delay=14000+Math.random()*16000;
   companionLifeTimer=setTimeout(()=>{
     if(!document.hidden && !companionAnimationBusy && !s.petDead){
-      const actions=['companion-wiggle','companion-hop','companion-peek','rest','world'];
+      // "talk" aparece duas vezes de propósito: o companheiro GRANDE conversa com Aline com frequência.
+      const actions=['talk','talk','companion-wiggle','companion-hop','companion-peek','rest','world'];
       const action=actions[Math.floor(Math.random()*actions.length)];
-      if(action==='world'){
+      if(action==='talk'){
+        speakCompanionMemory(2800);
+      }else if(action==='world'){
         const idx=stageIndexForXP(s.xp);
         playPetSceneInteraction(s.visitedRegion || currentProgressRegion(idx),null,true);
       }else if(action==='rest'){
-        if(Math.random()>.45){
+        if(Math.random()>.52){
           showTemporaryPetMood('sleep',1650);
-          companionSay('💤 descansando um pouquinho...',1500);
+          companionSay('💤 Aline, tô descansando um pouquinho... já já eu volto pra nossa missão.',1900);
         }else{
-          companionSay('👀 de olho na sua missão!',1500);
+          speakCompanionMemory(2600);
         }
       }else{
         playCompanionAction(action,1300);
@@ -2800,22 +3368,66 @@ function hideRegionUnlockOverlay(){
   overlay.setAttribute('aria-hidden','true');
 }
 
+const regionCinematicSymbols={
+  1:['🌷','🌸','🦋','✨'],2:['🌿','🍃','🌳','✨'],3:['🫧','💧','🐚','✨'],4:['🍄','💜','✨','🔮'],
+  5:['☀️','🌾','✨','⭐'],6:['🌙','⭐','✨','🪲'],7:['❄️','🤍','🧊','✨'],8:['🌸','💗','🌺','✨'],
+  9:['🌴','🐚','🌊','✨'],10:['💎','🔮','✨','🦋'],11:['🔥','💎','🐲','✨'],12:['👑','🏆','⭐','✨']
+};
+const regionRoman=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+
+function buildRegionCinematicAtmosphere(regionNumber){
+  const layer=document.getElementById('regionCinematicAtmosphere');
+  if(!layer)return;
+  const symbols=regionCinematicSymbols[regionNumber]||regionCinematicSymbols[1];
+  layer.innerHTML='';
+  for(let i=0;i<30;i++){
+    const span=document.createElement('span');
+    span.className='regionCineParticle';
+    span.textContent=symbols[i%symbols.length];
+    span.style.setProperty('--x',(3+Math.random()*94).toFixed(1)+'%');
+    span.style.setProperty('--y',(2+Math.random()*93).toFixed(1)+'%');
+    span.style.setProperty('--size',(14+Math.random()*22).toFixed(0)+'px');
+    span.style.setProperty('--dur',(3.8+Math.random()*4.6).toFixed(2)+'s');
+    span.style.setProperty('--delay',(-Math.random()*5).toFixed(2)+'s');
+    layer.appendChild(span);
+  }
+}
+
 function showRegionUnlockOverlay(regionNumber){
   const overlay=document.getElementById('regionUnlockOverlay');
   const preview=document.getElementById('regionUnlockPreview');
   const name=document.getElementById('regionUnlockName');
   const metaEl=document.getElementById('regionUnlockMeta');
+  const chapter=document.getElementById('regionUnlockChapter');
+  const speech=document.getElementById('regionUnlockSpeech');
+  const pet=document.getElementById('regionUnlockPet');
   const meta=premiumRegionMeta[regionNumber]||premiumRegionMeta[1];
   if(!overlay || !preview || !name || !metaEl)return;
+  const safeRegion=Math.max(1,Math.min(12,Number(regionNumber)||1));
+  const regionLabel=regionNames[safeRegion-1] || 'Nova região';
+  overlay.dataset.region=String(safeRegion);
   preview.textContent=meta.preview || '✨';
-  name.textContent=regionNames[regionNumber-1] || 'Nova região';
-  metaEl.innerHTML='<b>'+((regionNames[regionNumber-1])||'Nova região')+'</b><br>'+(meta.arrival||'Um novo mundo se abriu para a sua jornada.');
+  name.textContent=regionLabel;
+  if(chapter)chapter.textContent='CAPÍTULO '+(regionRoman[safeRegion-1]||safeRegion)+' • NOVA REGIÃO';
+  if(speech)speech.textContent='Aline, olha! Chegamos: '+regionLabel+'. ✨ Olha onde a sua constância trouxe a gente.';
+  metaEl.textContent=meta.arrival||'Um novo mundo se abriu para a sua jornada.';
+  if(pet){
+    const idx=stageIndexForXP(s.xp);
+    const current=stages[idx]||stages[0];
+    renderPetArt(pet,idx,current,'big','happy',safeRegion);
+  }
+  buildRegionCinematicAtmosphere(safeRegion);
+  overlay.classList.remove('show');
+  void overlay.offsetWidth;
   overlay.classList.add('show');
   overlay.setAttribute('aria-hidden','false');
+  sparkleAtElement('discoveryArt',20,['✨','🌸','⭐','💖']);
   clearTimeout(regionUnlockTimer);
-  regionUnlockTimer=setTimeout(hideRegionUnlockOverlay,5000);
-  playRegionThemeCue(regionNumber,'unlock');
-  globalSparkleBurst(52,['✨','🌸','🌷','⭐','💖']);
+  regionUnlockTimer=setTimeout(hideRegionUnlockOverlay,8500);
+  playRegionThemeCue(safeRegion,'unlock');
+  setTimeout(()=>playRegionThemeCue(safeRegion,'travel'),520);
+  globalSparkleBurst(72,(regionCinematicSymbols[safeRegion]||['✨','🌸','⭐']).concat(['💖']));
+  companionSay('Aline, chegamos a uma nova região! ✨',2600);
 }
 
 function rareVisualType(ev){
@@ -2929,7 +3541,7 @@ function showRareEventToast(ev){
   toast.classList.add('show');
   clearTimeout(rareToastTimer);
   rareToastTimer=setTimeout(()=>toast.classList.remove('show'),4200);
-  companionSay(ev.icon+' '+ev.title+'!',1900);
+  companionSay(PLAYER_NAME+', '+ev.icon+' '+ev.title+'!',1900);
 }
 
 function maybeTriggerRareEvent(regionNumber,chance=.16){
@@ -2952,6 +3564,99 @@ function maybeTriggerRareEvent(regionNumber,chance=.16){
   showRareEventToast(ev);
   globalSparkleBurst(22,ev.particles||['✨','🌸','💖']);
   setTimeout(()=>playPetSceneInteraction(regionNumber,ev,true),500);
+}
+
+
+// ===== PRESENTE SURPRESA GARANTIDO AO COMPLETAR 4H =====
+const dailyGiftPool=[
+  {id:'flor-luminosa',icon:'🌸',name:'Flor Luminosa',rarity:'Doce',weight:24,text:'A floresta floresceu porque você cumpriu sua missão, Aline. 💗',particles:['🌸','🌷','✨','💗']},
+  {id:'estrela-missao',icon:'⭐',name:'Estrela da Missão',rarity:'Especial',weight:20,text:'Uma estrela apareceu para marcar mais um dia em que você fez o que precisava ser feito.',particles:['⭐','✨','🌟','💫']},
+  {id:'borboleta-dourada',icon:'🦋',name:'Borboleta Dourada',rarity:'Especial',weight:16,text:'Ela só pousou porque encontrou uma floresta alimentada por constância.',particles:['🦋','✨','🌸','💛']},
+  {id:'cristal-constancia',icon:'💎',name:'Cristal da Constância',rarity:'Raro',weight:13,text:'Cada bloco de hoje virou brilho dentro deste cristal. Ele é seu, Aline.',particles:['💎','✨','💫','⭐']},
+  {id:'trevo-caminho',icon:'🍀',name:'Trevo do Caminho',rarity:'Raro',weight:10,text:'Um pequeno lembrete da floresta: sorte ajuda, mas foi você quem estudou as 4h.',particles:['🍀','✨','🌿','💚']},
+  {id:'coracao-companheiro',icon:'💗',name:'Coração do Companheiro',rarity:'Muito raro',weight:7,text:'Seu companheiro guardou um pedacinho deste dia para lembrar que vocês continuam juntas.',particles:['💗','💖','✨','🌸']},
+  {id:'arcoiris-secreto',icon:'🌈',name:'Arco-íris Secreto',rarity:'Muito raro',weight:6,text:'Por alguns segundos, todas as cores da jornada apareceram de uma vez. Hoje você mereceu ver.',particles:['🌈','✨','⭐','💖','🌸']},
+  {id:'coroa-mini',icon:'👑',name:'Coroa da Futura Auditora',rarity:'Lendário',weight:4,text:'Aline, ainda não é a coroa final. É só a floresta lembrando para onde você está indo. 🏛️',particles:['👑','🏆','✨','⭐','💛'],legendary:true}
+];
+
+function pickWeightedDailyGift(){
+  const total=dailyGiftPool.reduce((sum,g)=>sum+Number(g.weight||1),0);
+  let roll=Math.random()*total;
+  for(const gift of dailyGiftPool){
+    roll-=Number(gift.weight||1);
+    if(roll<=0)return gift;
+  }
+  return dailyGiftPool[0];
+}
+
+function dailyGiftById(id){return dailyGiftPool.find(g=>g.id===id)||dailyGiftPool[0]}
+let pendingDailyGift=null;
+let pendingDailyGiftDay=null;
+
+function prepareDailyMissionGift(day){
+  if(!s.dailyGifts || typeof s.dailyGifts!=='object')s.dailyGifts={};
+  if(s.dailyGifts[day])return null; // um presente por dia
+  const gift=pickWeightedDailyGift();
+  s.dailyGifts[day]=gift.id;
+  save();
+  return gift;
+}
+
+function showDailyMissionGift(day,gift){
+  const overlay=document.getElementById('dailyGiftOverlay');
+  const card=document.getElementById('dailyGiftCard');
+  const reveal=document.getElementById('dailyGiftReveal');
+  const close=document.getElementById('dailyGiftClose');
+  if(!overlay || !card || !gift)return;
+  pendingDailyGift=gift;
+  pendingDailyGiftDay=day;
+  card.classList.remove('opened','legendary');
+  if(gift.legendary)card.classList.add('legendary');
+  if(reveal)reveal.classList.remove('show');
+  if(close)close.classList.remove('show');
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden','false');
+  sparkleAtElement('discoveryArt',20,['✨','🌸','⭐','💖']);
+  companionSay('🎁 Aline... eu achei um presente pra você na floresta!',2600);
+  playAppSound('giftbox');
+  sparkleAtElement('dailyGiftCard',18,['🎁','✨','💖','🌸']);
+  companionBurst(['🎁','✨','🌸','💖'],14,1);
+}
+
+
+function revealDailyMissionGift(){
+  const gift=pendingDailyGift;
+  const card=document.getElementById('dailyGiftCard');
+  const reveal=document.getElementById('dailyGiftReveal');
+  const close=document.getElementById('dailyGiftClose');
+  if(!gift || !card || !reveal)return;
+  document.getElementById('dailyGiftIcon').textContent=gift.icon;
+  document.getElementById('dailyGiftRarity').textContent=gift.rarity;
+  document.getElementById('dailyGiftName').textContent=gift.name;
+  document.getElementById('dailyGiftText').textContent=gift.text;
+  card.classList.add('opened');
+  reveal.classList.add('show');
+  if(close)close.classList.add('show');
+  playAppSound(gift.legendary?'unlock':'giftopen');
+  sparkleAtElement('dailyGiftCard',gift.legendary?30:20,gift.particles||['✨','🌸','💗']);
+  globalSparkleBurst(gift.legendary?80:56,gift.particles||['✨','🌸','💗']);
+  companionBurst(gift.particles||['✨','🌸','💗'],gift.legendary?36:24,gift.legendary?1.45:1.15);
+  companionSay(gift.legendary
+    ? '👑 ALINE! Isso é LENDÁRIO! '+gift.name+'!'
+    : '✨ Aline, olha! '+gift.name+'!',3000);
+}
+
+function hideDailyMissionGift(){
+  const overlay=document.getElementById('dailyGiftOverlay');
+  if(overlay){overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true')}
+  pendingDailyGift=null;
+  pendingDailyGiftDay=null;
+}
+
+function awardDailyMissionGift(day,delay=3300){
+  const gift=prepareDailyMissionGift(day);
+  if(!gift)return;
+  setTimeout(()=>showDailyMissionGift(day,gift),delay);
 }
 
 
@@ -3105,28 +3810,146 @@ function playPetSceneInteraction(regionNumber,ev=null,force=false){
 }
 
 const pingoPhrases=[
-  'Pingo está quentinho e curioso. 🥚💗',
-  'Um bloco de cada vez. 🌱',
-  'Seu mundo cresce quando você aparece. 🌷',
-  'Começar pequeno ainda é começar. ✨',
-  'Hoje só precisa existir o primeiro passo. 🐾',
-  'Pingo acredita em constância, não em perfeição. 🛡️'
+  'Aline, Pingo está quentinho e curioso. 🥚💗',
+  'Aline, um bloco de cada vez. 🌱',
+  'Seu mundo cresce quando você aparece, Aline. 🌷',
+  'Aline, começar pequeno ainda é começar. ✨',
+  'Hoje só precisa existir o primeiro passo, Aline. 🐾',
+  'Pingo acredita na sua constância, Aline. 🛡️',
+  'Aline, eu estava esperando você voltar. 🥚✨',
+  'Aline, chega mais. Vamos começar juntas. 💗',
+  'Aline, só quero ver você dar o primeiro passo hoje. 🌱',
+  'Ei, Aline! A floresta fica mais bonita quando você estuda. 🌷',
+  'Aline, eu ainda sou pequenininho, mas já tô torcendo por você. 🥹',
+  'Aline, cada hora sua deixa esse ovo mais perto de uma surpresa. 👀✨',
+  'Aline, sua aprovação está sendo construída aqui, um dia de cada vez. 🏛️',
+  'Aline, volta sempre. Eu gosto quando a nossa aventura continua. 💗'
 ];
 
 const petPhrases=[
-  'Seu guardião está feliz por ver você aqui. 💗',
-  'A floresta cresce com cada retorno. 🌳',
-  'Mais um dia construindo sua aprovação. ✨',
-  'Seu companheiro está de olho na missão de hoje. 👀',
-  'Pequenos blocos também viram grandes jornadas. 🌱'
+  'Aline, seu guardião ficou feliz de ver você aqui. 💗',
+  'A floresta cresce com cada retorno seu, Aline. 🌳',
+  'Mais um dia construindo sua aprovação, Aline. ✨',
+  'Aline, seu companheiro está de olho na missão de hoje. 👀',
+  'Pequenos blocos também viram grandes jornadas, Aline. 🌱',
+  'Aline, eu estava esperando você aparecer. 🐾💗',
+  'Aline, bora fazer mais um pedacinho da nossa jornada? 🌷',
+  'Ei, Aline! Eu quero ver até onde essa floresta vai chegar. 👀✨',
+  'Aline, sua constância está deixando nosso mundo enorme. 🌳',
+  'Aline, eu vi você voltar mais uma vez. Isso conta muito. 💗',
+  'Aline, vem. Só o próximo bloco. Depois a gente comemora. 🌸',
+  'Aline, cada estudo seu vira uma parte da nossa história. 📖✨',
+  'Aline, eu tô aqui com você até o Reino da Auditora. 👑',
+  'Aline, não esquece: essa floresta existe porque você continuou. 🌿',
+  'Aline, quero conhecer o próximo companheiro com você. 🐾',
+  'Aline, hoje tem mais aventura esperando pela gente. ✨',
+  'Aline, você estuda e eu faço a festa. Combinado? 😂💗',
+  'Aline, olha pra mim e lembra pra onde você está indo: Auditora. 🏛️✨'
 ];
 
+function playerStudyDays(){
+  return Object.values(s.daily||{}).filter(v=>Number(v)>0).length;
+}
+
+function nextHoursMilestone(){
+  const marks=[100,250,500,1000,1500,2000];
+  return marks.find(h=>Number(s.hours||0)<h)||null;
+}
+
+function companionMemoryPool(a,t){
+  const pool=[];
+  const td=today();
+  const yd=previousDay(td);
+  const yesterday=Number((s.daily||{})[yd]||0);
+  const todayHours=Number(t||0);
+  const streak=consecutiveStudyDays();
+  const idx=stageIndexForXP(Number(s.xp||0));
+  const next=stages[Math.min(idx+1,stages.length-1)];
+  const animals=Math.max(0,idx);
+  const regions=unlockedRegionCount(idx);
+  const studyDays=playerStudyDays();
+  const milestone=nextHoursMilestone();
+
+  // Memórias do dia atual.
+  if(todayHours>=4){
+    const extra=Math.max(0,todayHours-4);
+    pool.push(extra>0
+      ? `Aline, você já fez ${formatStudyHours(todayHours)} hoje — ${formatStudyHours(extra)} além da missão! 🔥`
+      : 'Aline, 4h completas. Missão vencida! 🏆✨');
+    pool.push(`Aline, ${a.name} está radiante: você cumpriu a missão de hoje. 💗`);
+  }else if(todayHours>=3){
+    pool.push(`Aline, já são ${formatStudyHours(todayHours)}. Falta muito pouco para as 4h! ⭐`);
+  }else if(todayHours>=2){
+    pool.push(`Aline, ${formatStudyHours(todayHours)} já estão na floresta hoje. 🌸`);
+  }else if(todayHours>0){
+    pool.push(`Aline, você já começou de verdade: ${formatStudyHours(todayHours)} hoje. 🌱`);
+  }
+
+  // Memória recente.
+  if(yesterday>0)pool.push(`Aline, ontem foram ${formatStudyHours(yesterday)}. E hoje você voltou. 💗`);
+  if(streak>=2)pool.push(`Aline, estamos juntas há ${streak} dias seguidos nessa ofensiva. 🔥`);
+  if(studyDays>=3)pool.push(`Aline, esta floresta já guarda ${studyDays} dias de estudo da campanha atual. 🌷`);
+
+  // Memória da jornada inteira.
+  if(Number(s.hours||0)>0)pool.push(`Aline, olha o que você construiu: ${formatStudyHours(s.hours)} acumuladas na sua jornada. 📚✨`);
+  if(animals>=2)pool.push(`Aline, lembra quando era só o Pingo? Já encontramos ${animals} companheiros. 🥹🐾`);
+  if(regions>=2)pool.push(`Aline, sua jornada já abriu ${regions} das 12 regiões. 🗺️✨`);
+
+  // Próximas descobertas.
+  if(next && idx<stages.length-1){
+    const left=Math.max(0,Number(next.xp)-Number(s.xp||0));
+    if(left>0)pool.push(`Aline, faltam só ${left} XP para conhecer ${next.name}. 👀✨`);
+  }
+  if(milestone){
+    const left=Math.max(0,milestone-Number(s.hours||0));
+    if(left>0 && left<=250)pool.push(`Aline, faltam ${formatStudyHours(left)} para a conquista de ${milestone}h. 👑`);
+  }
+
+  // Fallbacks com personalidade — o companheiro grande chama Aline pelo nome com frequência.
+  pool.push(`${a.name} ficou feliz que você apareceu, Aline. 💗`);
+  pool.push(`Aline, eu tô aqui. Vamos fazer a floresta crescer mais um pouco? 🌳✨`);
+  pool.push(`Aline, olha pra mim: hoje a gente só precisa continuar. 🐾`);
+  pool.push(`Ei, Aline! Eu tava esperando você voltar pra nossa aventura. 💗`);
+  pool.push(`Aline, você cuida da aprovação e eu cuido da fofura. 😂✨`);
+  pool.push(`Aline, cada bloco seu deixa nosso mundo mais vivo. 🌸`);
+  pool.push(`Aline, eu quero chegar no Reino da Auditora com você. 👑🏛️`);
+  pool.push(`Aline, quando bater preguiça, vem me ver e faz só mais um bloco. 🌱`);
+  pool.push(`Aline, essa floresta é a prova de que você está avançando. 🌳💗`);
+  pool.push(`Aline, seu futuro está sendo construído nas horas que ninguém vê. ✨`);
+  pool.push(`Aline, bora buscar mais XP e mais uma descoberta? 👀🐾`);
+  pool.push(`Aline, eu não quero perfeição. Quero ver você voltar. 💗`);
+  pool.push(`Aline, sua missão é estudar. A minha é comemorar cada avanço. 🎉`);
+  pool.push(`Aline, ainda tem muita floresta pra gente descobrir juntas. 🗺️✨`);
+  pool.push(`Aline, eu acredito nessa jornada porque você continua alimentando ela. 🌷`);
+  return pool;
+}
+
+function companionPersonalPhrase(a,t){
+  // Mistura memória real com falas carinhosas; quase todas chamam Aline pelo nome.
+  const memoryPool=companionMemoryPool(a,t);
+  const base=a.name==='Pingo'?pingoPhrases:petPhrases;
+  const pool=Math.random()<.72?memoryPool:base;
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+function speakCompanionMemory(duration=2700){
+  const a=stage();
+  const t=Number((s.daily||{})[today()]||0);
+  const phrase=companionPersonalPhrase(a,t);
+  companionSay(phrase,duration);
+  if(!s.petDead && !companionAnimationBusy && Math.random()<.65){
+    const action=Math.random()<.5?'companion-wiggle':'companion-peek';
+    playCompanionAction(action,1250);
+  }
+}
+
 function dynamicPhrase(a,t){
-  if(t>=4)return a.pet+' Radiante! Missão completa ✨';
-  if(t>=2)return a.pet+' Está animada! 🌸';
-  if(t>0)return a.pet+' Feliz porque você começou 💗';
-  const arr=a.name==='Pingo'?pingoPhrases:petPhrases;
-  return arr[Math.floor(Math.random()*arr.length)];
+  // Aqui é apenas o estado da missão. As falas pessoais vêm do companheiro GRANDE, no balão dele.
+  if(t>=4)return a.name+' está radiante com a missão cumprida! ✨';
+  if(t>=3)return a.name+' está quase comemorando! ⭐';
+  if(t>=2)return a.name+' está animado com seu avanço. 🌸';
+  if(t>0)return a.name+' está feliz porque você começou. 💗';
+  return a.name==='Pingo'?'Pingo está esperando seu primeiro estudo. 🥚✨':a.name+' está esperando a aventura de hoje. 🐾';
 }
 
 function resetCampaignBecauseMissed(ds){
@@ -3601,13 +4424,16 @@ function renderPremiumRegionScene(regionNumber,stageIndex){
 
   if(float){
     const baseFloat=(r===1 && premiumGardenGrowth[growthLevel].float)||theme.float||[];
-    const symbols=[...baseFloat,...(growthData.float||[])];
+    const ambientExtras=(ambientMagicThemes[r]||[]).slice(0,3);
+    const symbols=[...baseFloat,...(growthData.float||[]),...ambientExtras,...ambientExtras.slice(0,2)];
     const spots=[[8,23],[20,42],[35,18],[52,34],[68,16],[82,38],[91,25],[44,50],[14,53],[74,49],[58,22],[29,48],[87,17],[63,53]];
     float.innerHTML=symbols.map((symbol,idx)=>{
       const [left,top]=spots[idx%spots.length];
       const size=15+(idx%3)*4;
-      return '<span class="regionParticle" style="left:'+left+'%;top:'+top+'%;font-size:'+size+'px;animation-delay:-'+(idx*.73).toFixed(2)+'s">'+symbol+'</span>';
+      const soft=(idx>=((baseFloat||[]).length+(growthData.float||[]).length))?' soft':'';
+      return '<span class="regionParticle'+soft+'" style="left:'+left+'%;top:'+top+'%;font-size:'+size+'px;animation-delay:-'+(idx*.73).toFixed(2)+'s">'+symbol+'</span>';
     }).join('');
+    refreshAmbientMagic(r);
   }
 }
 
@@ -3650,6 +4476,28 @@ function render(){
   $('#xpText').textContent=i===stages.length-1?s.xp+' XP • evolução máxima':s.xp+' XP • '+(next.xp-s.xp)+' XP para '+next.name;
 
   $('#todayHours').textContent=(Math.round(t*100)/100)+'h / 4h';
+
+  // Barra visual das 4 horas: enche junto com as horas registradas e fica completa acima da meta.
+  const dailyHourFill=document.getElementById('dailyHourFill');
+  const dailyHourTrack=document.getElementById('dailyHourTrack');
+  const dailyBarStatus=document.getElementById('dailyBarStatus');
+  const dailyPct=Math.max(0,Math.min(100,(Number(t||0)/4)*100));
+  if(dailyHourFill){
+    dailyHourFill.style.width=dailyPct+'%';
+    dailyHourFill.classList.toggle('complete',Number(t||0)>=4);
+  }
+  if(dailyHourTrack){
+    dailyHourTrack.setAttribute('aria-valuenow',String(Math.min(4,Math.max(0,Number(t||0)))));
+    dailyHourTrack.setAttribute('aria-valuetext',Number(t||0)>=4 ? 'Missão diária completa' : Math.round(dailyPct)+'% da missão diária');
+  }
+  if(dailyBarStatus){
+    if(Number(t||0)>=4){
+      const extra=Math.max(0,Number(t||0)-4);
+      dailyBarStatus.textContent=extra>0 ? '🔥 Meta completa • +'+formatStudyHours(extra)+' extra' : '🏆 Missão completa!';
+    }else{
+      dailyBarStatus.textContent=(dailyPct>0?'✨ ':'🌱 ')+Math.round(dailyPct)+'% da missão';
+    }
+  }
 
   // O companheiro pequeno acompanha as mini metas; o companheiro grande continua como protagonista abaixo.
   const miniGoals=[...document.querySelectorAll('.miniGoal')];
@@ -3741,15 +4589,15 @@ function render(){
 $('#start').addEventListener('click',()=>{
   let t=today();
   if(s.starts[t]){
-    $('#message').textContent='Seu companheiro já comemorou seu começo de hoje! 🥰';
-    companionSay('🥰 Eu vi! Você já começou hoje.',1600);
+    $('#message').textContent='Aline, seu companheiro já comemorou seu começo de hoje! 🥰';
+    companionSay('🥰 Eu vi, Aline! Você já começou hoje.',1600);
     return
   }
   const beforeStageIndex=stageIndexForXP(s.xp);
   s.starts[t]=true;
   s.xp+=20;
   const afterStageIndex=stageIndexForXP(s.xp);
-  $('#message').textContent='AEEEE! Você começou! +20 XP ✨ Agora faça só o próximo bloco.';
+  $('#message').textContent='AEEEE, Aline! Você começou! +20 XP ✨ Agora faça só o próximo bloco.';
   save();
   render();
   if(afterStageIndex>beforeStageIndex)celebrateNewCompanion(beforeStageIndex,afterStageIndex);
@@ -3783,11 +4631,11 @@ $('#addHours').addEventListener('click',()=>{
   if(wasDead){
     s.petDead=false;
     s.deathDate=null;
-    $('#message').textContent='🐣 Você voltou! Um novo companheiro nasceu para continuar a jornada com você. ✨';
+    $('#message').textContent='🐣 Aline, você voltou! Um novo companheiro nasceu para continuar a jornada com você. ✨';
   }else if(crossedGoal){
     $('#message').textContent=extraHours>0
-      ? '🔥 META SUPERADA! +'+formatStudyHours(extraHours)+' além das 4h de hoje!'
-      : '🏆 4 HORAS! Seu companheiro está radiante! ✨';
+      ? '🔥 Aline, META SUPERADA! +'+formatStudyHours(extraHours)+' além das 4h de hoje!'
+      : '🏆 Aline, 4 HORAS! Seu companheiro está radiante! ✨';
   }else if(afterToday>4){
     $('#message').textContent='🔥 '+formatStudyHours(h)+' cultivada'+(h===1?'':'s')+'. Você já está '+formatStudyHours(extraHours)+' além da missão!';
   }else{
@@ -3808,12 +4656,24 @@ $('#addHours').addEventListener('click',()=>{
   }else{
     animateCompanionStudy(h);
   }
+  if(crossedGoal){
+    // Primeiro deixa a comemoração principal acontecer; depois vem o presente secreto garantido das 4h.
+    awardDailyMissionGift(t, afterStageIndex>beforeStageIndex ? 6100 : 3400);
+  }
   setTimeout(()=>maybeTriggerRareEvent(s.visitedRegion || currentProgressRegion(afterStageIndex), crossedGoal?.32:(highestMini?.24:.16)),900);
 });
 
+
+const dailyGiftOpen=document.getElementById('dailyGiftOpen');
+if(dailyGiftOpen)dailyGiftOpen.addEventListener('click',revealDailyMissionGift);
+const dailyGiftBox=document.getElementById('dailyGiftBox');
+if(dailyGiftBox)dailyGiftBox.addEventListener('click',revealDailyMissionGift);
+const dailyGiftClose=document.getElementById('dailyGiftClose');
+if(dailyGiftClose)dailyGiftClose.addEventListener('click',hideDailyMissionGift);
+
 $('#reset').addEventListener('click',()=>{
   if(confirm('Quer mesmo apagar o progresso desta campanha?')){
-    s={xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},campaignStart:today(),lastOpened:today(),petDead:false,deathDate:null,shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[],lastRareEventAt:0,activeRareEvent:null,discoveredRareEvents:[]};
+    s={xp:0,hours:0,days:Array(30).fill(false),starts:{},daily:{},campaignStart:today(),lastOpened:today(),petDead:false,deathDate:null,shields:1,lastShieldAward:0,protectedDays:{},visitedRegion:null,unlockedAchievements:[],lastRareEventAt:0,activeRareEvent:null,discoveredRareEvents:[],dailyGifts:{}};
     save();render()
   }
 });
@@ -3859,6 +4719,30 @@ if(albumToggle)albumToggle.onclick=()=>{
 document.querySelectorAll('.albumTab').forEach(btn=>btn.onclick=()=>{albumActiveTab=btn.dataset.albumTab||'animals';renderAlbum();});
 
 render();
+// O companheiro GRANDE é quem conversa com Aline. Toque nele para ouvir uma fala/memória nova.
+const bigCompanionEl=document.getElementById('bigpet');
+if(bigCompanionEl){
+  bigCompanionEl.setAttribute('title','Toque em mim, Aline 💗');
+  bigCompanionEl.setAttribute('role','button');
+  bigCompanionEl.setAttribute('tabindex','0');
+  const bigCompanionTalk=()=>{
+    if(s.petDead){
+      companionSay('Aline... estuda hoje e traz nossa aventura de volta. 🌱💗',2800);
+      return;
+    }
+    speakCompanionMemory(3000);
+  };
+  bigCompanionEl.addEventListener('click',bigCompanionTalk);
+  bigCompanionEl.addEventListener('keydown',e=>{
+    if(e.key==='Enter' || e.key===' '){e.preventDefault();bigCompanionTalk()}
+  });
+}
+
+// Primeira saudação: deixa claro logo ao abrir que é o companheiro grande falando.
+setTimeout(()=>{
+  if(!document.hidden && !s.petDead) speakCompanionMemory(3200);
+},1100);
+
 scheduleCompanionLife();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 
@@ -3883,35 +4767,77 @@ if(calendarNext)calendarNext.onclick=()=>{
   renderStudyCalendar();
 };
 
-function createAmbientMagic(){
+const ambientMagicThemes={
+  1:['✨','🌸','🌷','💗','⭐','✦'],2:['✨','🍃','🌿','✦','⭐'],3:['✨','🫧','💧','🐚','✦'],4:['✨','🍄','🔮','💜','✦'],
+  5:['✨','☀️','🌾','⭐','🍂'],6:['✨','🌙','⭐','🪲','✦'],7:['✨','❄️','🤍','🧊','✦'],8:['✨','🌸','💗','🌺','✦'],
+  9:['✨','🌊','🐚','🌺','☀️'],10:['✨','💎','🔮','💫','✦'],11:['✨','🔥','💎','💫','⭐'],12:['✨','👑','🏆','⭐','💛']
+};
+let lastAmbientRegion=0;
+let ambientSoundTimer=null;
+
+function createAmbientMagic(regionNumber=1){
   const layer=document.getElementById('ambientMagic');
-  if(!layer || layer.childElementCount)return;
-  const symbols=['✨','✦','💫','🌸','🌷','💗','💖','⭐','⋆'];
-  for(let n=0;n<32;n++){
+  if(!layer)return;
+  layer.innerHTML='';
+  const symbols=ambientMagicThemes[regionNumber]||ambientMagicThemes[1];
+  for(let n=0;n<58;n++){
     const sp=document.createElement('span');
-    sp.textContent=symbols[n%symbols.length];
+    sp.textContent=symbols[Math.floor(Math.random()*symbols.length)];
     sp.style.setProperty('--left',(3+Math.random()*94)+'%');
-    sp.style.setProperty('--size',(9+Math.random()*13)+'px');
-    sp.style.setProperty('--dur',(11+Math.random()*10)+'s');
-    sp.style.setProperty('--delay',(-Math.random()*20)+'s');
-    sp.style.setProperty('--drift',(-28+Math.random()*56)+'px');
-    sp.style.setProperty('--drift2',(-38+Math.random()*76)+'px');
+    sp.style.setProperty('--size',(10+Math.random()*13)+'px');
+    sp.style.setProperty('--dur',(13+Math.random()*14)+'s');
+    sp.style.setProperty('--delay',(-Math.random()*26)+'s');
+    sp.style.setProperty('--drift',(-24+Math.random()*48)+'px');
+    sp.style.setProperty('--drift2',(-30+Math.random()*60)+'px');
+    sp.style.opacity=(.32+Math.random()*.28).toFixed(2);
     layer.appendChild(sp);
   }
+  lastAmbientRegion=regionNumber;
 }
-createAmbientMagic();
+function refreshAmbientMagic(regionNumber=1){
+  if(regionNumber!==lastAmbientRegion)createAmbientMagic(regionNumber);
+}
+function playAmbientWhisper(regionNumber=1){
+  try{
+    const ctx=getAudioContext();
+    if(!ctx)return;
+    if(ctx.state==='suspended')return;
+    const palette={
+      1:[659.25,783.99],2:[392,523.25],3:[523.25,698.46],4:[466.16,698.46],5:[440,659.25],6:[349.23,523.25],
+      7:[523.25,783.99],8:[587.33,739.99],9:[523.25,659.25],10:[415.3,830.61],11:[392,739.99],12:[659.25,1046.5]
+    };
+    const notes=palette[regionNumber]||palette[1];
+    const t=ctx.currentTime+.02;
+    playTone(ctx,notes[0],t,.18,.006,'sine');
+    playTone(ctx,notes[1],t+.14,.22,.005,'triangle');
+  }catch(e){}
+}
+function scheduleAmbientSound(){
+  clearTimeout(ambientSoundTimer);
+  const delay=42000+Math.random()*38000;
+  ambientSoundTimer=setTimeout(()=>{
+    if(!document.hidden){
+      const idx=stageIndexForXP(s.xp);
+      const region=s.visitedRegion || currentProgressRegion(idx);
+      playAmbientWhisper(region);
+    }
+    scheduleAmbientSound();
+  },delay);
+}
+createAmbientMagic(1);
+scheduleAmbientSound();
 
 function createMissionMagic(){
   const layer=document.getElementById('missionMagic');
   if(!layer || layer.childElementCount || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const symbols=['✨','💗','🌸','✦','💫','🌷','💖'];
-  for(let n=0;n<14;n++){
+  const symbols=['✨','💗','🌸','✦','💫','🌷','💖','⭐','🦋'];
+  for(let n=0;n<24;n++){
     const sp=document.createElement('span');
     sp.textContent=symbols[n%symbols.length];
     sp.style.setProperty('--x',(4+Math.random()*92)+'%');
     sp.style.setProperty('--y',(5+Math.random()*80)+'%');
-    sp.style.setProperty('--s',(8+Math.random()*8)+'px');
-    sp.style.setProperty('--d',(2.4+Math.random()*3.3)+'s');
+    sp.style.setProperty('--s',(9+Math.random()*10)+'px');
+    sp.style.setProperty('--d',(2.2+Math.random()*3.1)+'s');
     sp.style.setProperty('--delay',(-Math.random()*5)+'s');
     layer.appendChild(sp);
   }
@@ -3945,6 +4871,7 @@ function openApprovalFinale(){
   }
   overlay.classList.add('show');
   overlay.setAttribute('aria-hidden','false');
+  sparkleAtElement('discoveryArt',20,['✨','🌸','⭐','💖']);
 }
 const approvalFinalBtn=document.getElementById('approvalFinalBtn');
 if(approvalFinalBtn)approvalFinalBtn.onclick=openApprovalFinale;
