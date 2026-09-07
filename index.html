@@ -2769,6 +2769,159 @@ function petV21Bird(mood,profile,seed,primary,secondary,accent,ink,outline,defs,
   const crest=profile==='bird'?`<path d="M99 40 Q108 22 114 42 Q124 25 128 47" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>`:profile==='parrot'?`<path d="M98 43 Q110 20 118 45 Q129 26 132 51" fill="none" stroke="${accent}" stroke-width="7" stroke-linecap="round"/>`:'';
   return `${defs}${shadow}${tail}${regionBack}<ellipse cx="110" cy="147" rx="51" ry="48" fill="${body}" stroke="${outline}" stroke-width="3.2"/><ellipse cx="110" cy="149" rx="28" ry="31" fill="${belly}" opacity=".9"/><path class="pet-wing" d="M75 125 Q48 144 65 174 Q85 166 91 137Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/><path class="pet-wing" d="M145 125 Q172 144 155 174 Q135 166 129 137Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>${feet}<circle cx="110" cy="78" r="43" fill="${body}" stroke="${outline}" stroke-width="3.2"/>${owlDisc}${eagleCap}${parrotPatch}${crest}${petV21Eyes(mood,ink,110,76,20,.95)}${petV21Blush(110,92)}${bill}${regionFront}`;
 }
+
+function cleanPetEyes(mood,ink,cx=110,cy=98,spread=21){
+  const lx=cx-spread, rx=cx+spread;
+  if(mood==='sleep')return `<path d="M${lx-8} ${cy} Q${lx} ${cy+6} ${lx+8} ${cy}" fill="none" stroke="${ink}" stroke-width="4" stroke-linecap="round"/><path d="M${rx-8} ${cy} Q${rx} ${cy+6} ${rx+8} ${cy}" fill="none" stroke="${ink}" stroke-width="4" stroke-linecap="round"/>`;
+  if(mood==='happy')return `<path d="M${lx-8} ${cy} Q${lx} ${cy-7} ${lx+8} ${cy}" fill="none" stroke="${ink}" stroke-width="4" stroke-linecap="round"/><path d="M${rx-8} ${cy} Q${rx} ${cy-7} ${rx+8} ${cy}" fill="none" stroke="${ink}" stroke-width="4" stroke-linecap="round"/>`;
+  if(mood==='radiant')return `<path d="M${lx} ${cy-9} l3 6 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="${ink}"/><path d="M${rx} ${cy-9} l3 6 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="${ink}"/>`;
+  return `<ellipse cx="${lx}" cy="${cy}" rx="6.8" ry="8.4" fill="${ink}"/><ellipse cx="${rx}" cy="${cy}" rx="6.8" ry="8.4" fill="${ink}"/><circle cx="${lx-2.2}" cy="${cy-3.4}" r="2.3" fill="#fff"/><circle cx="${rx-2.2}" cy="${cy-3.4}" r="2.3" fill="#fff"/>`;
+}
+function cleanPetBlush(cx=110,cy=114){
+  return `<ellipse cx="${cx-33}" cy="${cy}" rx="9.5" ry="4.8" fill="#ff9abb" opacity=".48"/><ellipse cx="${cx+33}" cy="${cy}" rx="9.5" ry="4.8" fill="#ff9abb" opacity=".48"/>`;
+}
+function cleanPetSmile(ink,cx=110,cy=122){
+  return `<path d="M${cx-9} ${cy} Q${cx} ${cy+7} ${cx+9} ${cy}" fill="none" stroke="${ink}" stroke-width="3.2" stroke-linecap="round"/>`;
+}
+function buildCleanPetMarkup(profile,mood,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront){
+  const body=`url(#petBody${seed})`;
+  const belly=`url(#petBelly${seed})`;
+  const accentFill=`url(#petAccent${seed})`;
+  const shadow='<ellipse cx="110" cy="205" rx="58" ry="10" fill="#564663" opacity=".12"/>';
+  const cheeks=cleanPetBlush(110,115);
+  const eyes=cleanPetEyes(mood,ink,110,98,21);
+  const smile=cleanPetSmile(ink,110,123);
+  const muzzle=(fill='#fff9f4', w=22,h=14,y=114)=>`<ellipse cx="110" cy="${y}" rx="${w}" ry="${h}" fill="${fill}" opacity=".98"/>`;
+  if(profile==='bird'){
+    return `${defs}${shadow}${regionBack}
+      <g class="clean-pet clean-bird">
+        <path d="M83 63 Q92 34 110 38 Q128 34 137 63" fill="${accentFill}" opacity=".85"/>
+        <ellipse cx="110" cy="148" rx="43" ry="39" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="152" rx="24" ry="20" fill="${belly}" opacity=".96"/>
+        <path d="M81 138 Q57 149 67 171 Q84 166 91 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <path d="M139 138 Q163 149 153 171 Q136 166 129 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <circle cx="110" cy="85" r="39" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${eyes}${cheeks}
+        <path d="M102 112 L110 118 L118 112 Q110 128 102 112Z" fill="#f6a43a" stroke="#b67124" stroke-width="2.2"/>
+        ${smile}
+        <path d="M95 183 l-6 12 M125 183 l6 12" stroke="#e2943c" stroke-width="4.2" stroke-linecap="round"/>
+      </g>${regionFront}`;
+  }
+  if(profile==='rabbit'){
+    return `${defs}${shadow}${regionBack}
+      <g class="clean-pet clean-rabbit">
+        <ellipse cx="92" cy="53" rx="14" ry="33" fill="${secondary}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="128" cy="53" rx="14" ry="33" fill="${secondary}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="92" cy="56" rx="7" ry="23" fill="#ffd6e4" opacity=".9"/>
+        <ellipse cx="128" cy="56" rx="7" ry="23" fill="#ffd6e4" opacity=".9"/>
+        <ellipse cx="110" cy="149" rx="45" ry="38" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="154" rx="23" ry="18" fill="${belly}" opacity=".95"/>
+        <ellipse cx="84" cy="183" rx="13" ry="9" fill="${secondary}" stroke="${outline}" stroke-width="2.6"/>
+        <ellipse cx="136" cy="183" rx="13" ry="9" fill="${secondary}" stroke="${outline}" stroke-width="2.6"/>
+        <circle cx="110" cy="91" r="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${eyes}${cheeks}
+        ${muzzle('#fff8f6',22,14,114)}
+        <path d="M110 109 l-5 5 5 4 5-4z" fill="#d680a2"/>
+        <path d="M102 119 Q110 127 118 119" fill="none" stroke="${ink}" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M104 125 v8 M116 125 v8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="152" cy="162" r="8" fill="#fff" stroke="${outline}" stroke-width="2.5"/>
+      </g>${regionFront}`;
+  }
+  if(profile==='cat'){
+    return `${defs}${shadow}${regionBack}
+      <g class="clean-pet clean-cat">
+        <path d="M82 66 L93 41 L105 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path d="M138 66 L127 41 L115 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path d="M90 56 L95 47 L100 59 Z" fill="#ffd4e6" opacity=".95"/><path d="M130 56 L125 47 L120 59 Z" fill="#ffd4e6" opacity=".95"/>
+        <path d="M154 161 Q176 140 168 109 Q188 129 181 160 Q176 182 152 185" fill="${body}" stroke="${outline}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <ellipse cx="110" cy="150" rx="44" ry="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="155" rx="22" ry="18" fill="${belly}" opacity=".94"/>
+        <circle cx="110" cy="92" r="36" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${eyes}${cheeks}${muzzle()}
+        <path d="M110 110 l-5 4 5 4 5-4z" fill="#d47a93"/>
+        ${smile}
+        <path d="M91 114 L71 110 M91 121 L70 124 M129 114 L149 110 M129 121 L150 124" stroke="${ink}" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+      </g>${regionFront}`;
+  }
+  if(profile==='dog'){
+    return `${defs}${shadow}${regionBack}
+      <g class="clean-pet clean-dog">
+        <ellipse cx="82" cy="86" rx="16" ry="24" fill="${secondary}" stroke="${outline}" stroke-width="3" transform="rotate(-24 82 86)"/>
+        <ellipse cx="138" cy="86" rx="16" ry="24" fill="${secondary}" stroke="${outline}" stroke-width="3" transform="rotate(24 138 86)"/>
+        <path d="M157 162 Q178 147 170 118 Q189 136 183 163 Q180 181 156 185" fill="${body}" stroke="${outline}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <ellipse cx="110" cy="151" rx="45" ry="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="156" rx="24" ry="18" fill="${belly}" opacity=".95"/>
+        <circle cx="110" cy="95" r="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${eyes}${cheeks}${muzzle('#fff9f5',23,15,116)}
+        <ellipse cx="110" cy="113" rx="6.5" ry="4.8" fill="#6a4459"/>
+        ${smile}
+      </g>${regionFront}`;
+  }
+  if(profile==='fox'){
+    return `${defs}${shadow}${regionBack}
+      <g class="clean-pet clean-fox">
+        <path d="M79 67 L92 42 L105 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path d="M141 67 L128 42 L115 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path d="M90 55 L95 47 L100 59 Z" fill="#fff2f2" opacity=".95"/><path d="M130 55 L125 47 L120 59 Z" fill="#fff2f2" opacity=".95"/>
+        <path d="M150 163 Q180 147 175 121 Q196 140 192 165 Q189 187 161 188 Q147 187 140 181" fill="${body}" stroke="${outline}" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M150 164 Q176 152 171 129 Q185 143 183 163 Q180 179 160 181 Q151 180 145 176" fill="#fff9f1" opacity=".9"/>
+        <ellipse cx="110" cy="151" rx="44" ry="36" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path d="M90 141 Q110 128 130 141 L124 170 Q110 178 96 170 Z" fill="${belly}" opacity=".96"/>
+        <circle cx="110" cy="92" r="36" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${eyes}${cheeks}
+        <path d="M90 108 Q110 129 130 108 Q129 123 121 133 Q110 140 99 133 Q91 123 90 108Z" fill="#fffaf4"/>
+        <ellipse cx="110" cy="113" rx="6" ry="4.6" fill="#6a4459"/>
+        ${smile}
+      </g>${regionFront}`;
+  }
+  if(profile==='panda'){
+    return `${defs}${shadow}${regionBack}
+      <g class="clean-pet clean-panda">
+        <circle cx="86" cy="63" r="13" fill="#3f3651"/><circle cx="134" cy="63" r="13" fill="#3f3651"/>
+        <ellipse cx="110" cy="152" rx="46" ry="39" fill="#fffdfd" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="88" cy="150" rx="16" ry="21" fill="#3f3651" opacity=".95"/><ellipse cx="132" cy="150" rx="16" ry="21" fill="#3f3651" opacity=".95"/>
+        <ellipse cx="110" cy="156" rx="22" ry="19" fill="${belly}" opacity=".9"/>
+        <circle cx="110" cy="93" r="37" fill="#fffdfd" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="89" cy="97" rx="12" ry="16" fill="#3f3651" opacity=".95" transform="rotate(-14 89 97)"/>
+        <ellipse cx="131" cy="97" rx="12" ry="16" fill="#3f3651" opacity=".95" transform="rotate(14 131 97)"/>
+        ${cleanPetEyes(mood,ink,110,98,21)}${cheeks}${muzzle('#fff8f6',22,14,116)}
+        <ellipse cx="110" cy="113" rx="6" ry="4.5" fill="#6a4459"/>
+        ${smile}
+      </g>${regionFront}`;
+  }
+  if(profile==='owl'){
+    return `${defs}${shadow}${regionBack}
+      <g class="clean-pet clean-owl">
+        <ellipse cx="110" cy="147" rx="46" ry="42" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="153" rx="23" ry="22" fill="${belly}" opacity=".95"/>
+        <path d="M83 140 Q59 151 69 172 Q85 167 91 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>
+        <path d="M137 140 Q161 151 151 172 Q135 167 129 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>
+        <circle cx="110" cy="86" r="40" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <circle cx="88" cy="97" r="18" fill="#fff8ef" opacity=".97"/><circle cx="132" cy="97" r="18" fill="#fff8ef" opacity=".97"/>
+        ${cleanPetEyes(mood,ink,110,100,22)}${cheeks}
+        <path d="M104 112 L110 121 L116 112 Z" fill="#e8a03d" stroke="#af6b1f" stroke-width="2"/>
+        ${cleanPetSmile(ink,110,124)}
+        <path d="M96 183 l-5 10 M124 183 l5 10" stroke="#d48f38" stroke-width="4" stroke-linecap="round"/>
+      </g>${regionFront}`;
+  }
+  if(profile==='penguin'){
+    return `${defs}${shadow}${regionBack}
+      <g class="clean-pet clean-penguin">
+        <ellipse cx="110" cy="148" rx="43" ry="46" fill="#3f3651" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="150" rx="27" ry="36" fill="#fffdf9" opacity=".98"/>
+        <path d="M82 135 Q61 149 72 175 Q89 169 94 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>
+        <path d="M138 135 Q159 149 148 175 Q131 169 126 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>
+        <circle cx="110" cy="85" r="37" fill="#3f3651" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="94" rx="25" ry="20" fill="#fffdf9" opacity=".98"/>
+        ${cleanPetEyes(mood,ink,110,95,19)}${cleanPetBlush(110,112)}
+        <path d="M101 108 L110 115 L119 108 Q110 124 101 108Z" fill="#f4a33d" stroke="#ae6b1f" stroke-width="2"/>
+        ${cleanPetSmile(ink,110,122)}
+        <ellipse cx="96" cy="188" rx="8" ry="4.5" fill="#f4a33d"/><ellipse cx="124" cy="188" rx="8" ry="4.5" fill="#f4a33d"/>
+      </g>${regionFront}`;
+  }
+  return '';
+}
+
 function buildPetMarkup(stageIndex,companion,mood,regionNumber=1,size='big'){
   const seed=petHash(stageIndex+'|'+companion.name+'|'+companion.pet);
   const rng=petRng(seed);
@@ -2785,6 +2938,9 @@ function buildPetMarkup(stageIndex,companion,mood,regionNumber=1,size='big'){
     const shell1='#fff1c7', shell2='#ffd993', shellOutline='#b87545';
     return `${defs}<ellipse cx="110" cy="202" rx="67" ry="9" fill="#5b4868" opacity=".13"/><path d="M50 178 Q110 152 170 178 L156 200 Q110 212 64 200Z" fill="#c98b4a" opacity=".92"/><path d="M57 181 Q110 165 163 181 M67 191 Q110 178 153 191" fill="none" stroke="#f0bd72" stroke-width="7" stroke-linecap="round"/><defs><radialGradient id="v24Egg${seed}" cx="36%" cy="28%" r="72%"><stop offset="0" stop-color="#fffaf0"/><stop offset=".34" stop-color="${shell1}"/><stop offset=".74" stop-color="${shell2}"/><stop offset="1" stop-color="#efb463"/></radialGradient></defs><path d="M110 34 C72 34 56 82 60 124 C64 170 82 192 110 192 C138 192 156 170 160 124 C164 82 148 34 110 34Z" fill="url(#v24Egg${seed})" stroke="${shellOutline}" stroke-width="4"/><path d="M86 49 L99 63 L93 77 L109 88 L100 103" fill="none" stroke="#c88b58" stroke-width="4" stroke-linecap="round"/><path d="M130 45 L119 59 L128 71" fill="none" stroke="#c88b58" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="91" cy="77" rx="23" ry="13" fill="#fff" opacity=".4" transform="rotate(-22 91 77)"/>${petV21Eyes(mood,ink,110,116,19,.9)}${petV21Blush(110,132)}${petV21Smile(ink,110,135)}<path d="M55 69 l5 9 10 2-8 7 2 10-9-5-9 5 2-10-8-7 10-2z" fill="#fff7ad" opacity=".9"/>`;
   }
+
+  const cleanProfiles=['bird','rabbit','cat','dog','fox','panda','owl','penguin'];
+  if(cleanProfiles.includes(profile))return buildCleanPetMarkup(profile,mood,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront);
 
   const mammalProfiles=['rabbit','kangaroo','cat','tiger','lion','fox','wolf','dog','panda','koala','polarBear','bear','deer','goat','ram','sheep','llama','horse','bison','unicorn','hamster','squirrel','hedgehog','rat','beaver','monkey','orangutan','raccoon','otter','sloth','boar','skunk','badger','mammoth'];
   if(mammalProfiles.includes(profile))return petV21Mammal(stageIndex,companion,mood,regionNumber,size,profile,seed,primary,secondary,accent,ink,outline,defs,regionBack,regionFront);
