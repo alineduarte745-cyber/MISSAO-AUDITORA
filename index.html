@@ -2787,138 +2787,150 @@ function buildCleanPetMarkup(profile,mood,seed,primary,secondary,accent,ink,outl
   const body=`url(#petBody${seed})`;
   const belly=`url(#petBelly${seed})`;
   const accentFill=`url(#petAccent${seed})`;
-  const shadow='<ellipse cx="110" cy="205" rx="58" ry="10" fill="#564663" opacity=".12"/>';
-  const cheeks=cleanPetBlush(110,115);
-  const eyes=cleanPetEyes(mood,ink,110,98,21);
-  const smile=cleanPetSmile(ink,110,123);
-  const muzzle=(fill='#fff9f4', w=22,h=14,y=114)=>`<ellipse cx="110" cy="${y}" rx="${w}" ry="${h}" fill="${fill}" opacity=".98"/>`;
+  const shadow='<ellipse cx="110" cy="205" rx="56" ry="10" fill="#564663" opacity=".12"/>';
+  const cheeks=cleanPetBlush(110,114);
+  const eyes=cleanPetEyes(mood,ink,110,97,20);
+  const smile=cleanPetSmile(ink,110,122);
+  const muzzle=(fill='#fff9f4', w=21,h=13,y=114)=>`<ellipse cx="110" cy="${y}" rx="${w}" ry="${h}" fill="${fill}" stroke="${outline}" stroke-width="2.4"/>`;
+
   if(profile==='bird'){
     return `${defs}${shadow}${regionBack}
       <g class="clean-pet clean-bird">
-        <path d="M83 63 Q92 34 110 38 Q128 34 137 63" fill="${accentFill}" opacity=".85"/>
-        <ellipse cx="110" cy="148" rx="43" ry="39" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="110" cy="152" rx="24" ry="20" fill="${belly}" opacity=".96"/>
-        <path d="M81 138 Q57 149 67 171 Q84 166 91 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
-        <path d="M139 138 Q163 149 153 171 Q136 166 129 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
-        <circle cx="110" cy="85" r="39" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path class="no-outline" d="M90 58 Q98 38 110 39 Q122 38 130 58 Q120 49 110 50 Q100 49 90 58Z" fill="${accentFill}" opacity=".92"/>
+        <ellipse cx="110" cy="146" rx="40" ry="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="148" rx="23" ry="18" fill="${belly}" class="no-outline" opacity=".97"/>
+        <path d="M83 136 Q60 148 69 168 Q85 162 91 143 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <path d="M137 136 Q160 148 151 168 Q135 162 129 143 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <circle cx="110" cy="87" r="35" fill="${body}" stroke="${outline}" stroke-width="3"/>
         ${eyes}${cheeks}
-        <path d="M102 112 L110 118 L118 112 Q110 128 102 112Z" fill="#f6a43a" stroke="#b67124" stroke-width="2.2"/>
+        <path d="M102 109 L110 116 L118 109 Q110 124 102 109Z" fill="#f2a43b" stroke="#b57125" stroke-width="2.2"/>
         ${smile}
-        <path d="M95 183 l-6 12 M125 183 l6 12" stroke="#e2943c" stroke-width="4.2" stroke-linecap="round"/>
+        <path d="M97 180 l-4 12 M123 180 l4 12" stroke="#df933a" stroke-width="4"/>
       </g>${regionFront}`;
   }
+
   if(profile==='rabbit'){
     return `${defs}${shadow}${regionBack}
       <g class="clean-pet clean-rabbit">
-        <ellipse cx="92" cy="53" rx="14" ry="33" fill="${secondary}" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="128" cy="53" rx="14" ry="33" fill="${secondary}" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="92" cy="56" rx="7" ry="23" fill="#ffd6e4" opacity=".9"/>
-        <ellipse cx="128" cy="56" rx="7" ry="23" fill="#ffd6e4" opacity=".9"/>
-        <ellipse cx="110" cy="149" rx="45" ry="38" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="110" cy="154" rx="23" ry="18" fill="${belly}" opacity=".95"/>
-        <ellipse cx="84" cy="183" rx="13" ry="9" fill="${secondary}" stroke="${outline}" stroke-width="2.6"/>
-        <ellipse cx="136" cy="183" rx="13" ry="9" fill="${secondary}" stroke="${outline}" stroke-width="2.6"/>
-        <circle cx="110" cy="91" r="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        ${eyes}${cheeks}
-        ${muzzle('#fff8f6',22,14,114)}
-        <path d="M110 109 l-5 5 5 4 5-4z" fill="#d680a2"/>
-        <path d="M102 119 Q110 127 118 119" fill="none" stroke="${ink}" stroke-width="2.8" stroke-linecap="round"/>
-        <path d="M104 125 v8 M116 125 v8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="152" cy="162" r="8" fill="#fff" stroke="${outline}" stroke-width="2.5"/>
+        <ellipse cx="92" cy="54" rx="13" ry="33" fill="${secondary}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="128" cy="54" rx="13" ry="33" fill="${secondary}" stroke="${outline}" stroke-width="3"/>
+        <ellipse class="no-outline" cx="92" cy="57" rx="6.5" ry="22" fill="#ffd6e4" opacity=".96"/>
+        <ellipse class="no-outline" cx="128" cy="57" rx="6.5" ry="22" fill="#ffd6e4" opacity=".96"/>
+        <ellipse cx="110" cy="149" rx="41" ry="35" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="151" rx="22" ry="17" fill="${belly}" class="no-outline" opacity=".95"/>
+        <ellipse cx="85" cy="182" rx="12" ry="8.5" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <ellipse cx="135" cy="182" rx="12" ry="8.5" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <circle cx="110" cy="91" r="34" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${cleanPetEyes(mood,ink,110,96,19)}${cheeks}
+        ${muzzle('#fff9f6',20,12,113)}
+        <path class="no-outline" d="M110 109 l-4.5 4.6 4.5 3.8 4.5-3.8z" fill="#d47ca0"/>
+        <path d="M102 119 Q110 126 118 119" fill="none" stroke="${ink}" stroke-width="2.8"/>
+        <path d="M105 124 v7 M115 124 v7" stroke="#fff" stroke-width="3"/>
+        <circle cx="149" cy="161" r="6.5" fill="#fff" stroke="${outline}" stroke-width="2.2"/>
       </g>${regionFront}`;
   }
+
   if(profile==='cat'){
     return `${defs}${shadow}${regionBack}
       <g class="clean-pet clean-cat">
-        <path d="M82 66 L93 41 L105 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <path d="M138 66 L127 41 L115 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <path d="M90 56 L95 47 L100 59 Z" fill="#ffd4e6" opacity=".95"/><path d="M130 56 L125 47 L120 59 Z" fill="#ffd4e6" opacity=".95"/>
-        <path d="M154 161 Q176 140 168 109 Q188 129 181 160 Q176 182 152 185" fill="${body}" stroke="${outline}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <ellipse cx="110" cy="150" rx="44" ry="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="110" cy="155" rx="22" ry="18" fill="${belly}" opacity=".94"/>
-        <circle cx="110" cy="92" r="36" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        ${eyes}${cheeks}${muzzle()}
-        <path d="M110 110 l-5 4 5 4 5-4z" fill="#d47a93"/>
+        <path d="M84 67 L95 44 L104 67 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path d="M136 67 L125 44 L116 67 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path class="no-outline" d="M91 57 L95 49 L99 58 Z" fill="#ffd6e6"/><path class="no-outline" d="M129 57 L125 49 L121 58 Z" fill="#ffd6e6"/>
+        <path d="M149 163 Q170 147 164 118 Q181 135 176 159 Q173 178 151 180" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="149" rx="41" ry="34" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="151" rx="20" ry="16" fill="${belly}" class="no-outline" opacity=".95"/>
+        <circle cx="110" cy="92" r="35" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${cleanPetEyes(mood,ink,110,97,19)}${cheeks}${muzzle('#fffaf6',20,12,114)}
+        <path class="no-outline" d="M110 110 l-4.5 3.8 4.5 3.7 4.5-3.7z" fill="#d07a93"/>
         ${smile}
-        <path d="M91 114 L71 110 M91 121 L70 124 M129 114 L149 110 M129 121 L150 124" stroke="${ink}" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+        <path class="soft-line" d="M92 114 L74 111 M91 121 L72 124 M128 114 L146 111 M129 121 L148 124" stroke="${ink}" stroke-width="2" fill="none"/>
       </g>${regionFront}`;
   }
+
   if(profile==='dog'){
     return `${defs}${shadow}${regionBack}
       <g class="clean-pet clean-dog">
-        <ellipse cx="82" cy="86" rx="16" ry="24" fill="${secondary}" stroke="${outline}" stroke-width="3" transform="rotate(-24 82 86)"/>
-        <ellipse cx="138" cy="86" rx="16" ry="24" fill="${secondary}" stroke="${outline}" stroke-width="3" transform="rotate(24 138 86)"/>
-        <path d="M157 162 Q178 147 170 118 Q189 136 183 163 Q180 181 156 185" fill="${body}" stroke="${outline}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <ellipse cx="110" cy="151" rx="45" ry="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="110" cy="156" rx="24" ry="18" fill="${belly}" opacity=".95"/>
-        <circle cx="110" cy="95" r="37" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        ${eyes}${cheeks}${muzzle('#fff9f5',23,15,116)}
-        <ellipse cx="110" cy="113" rx="6.5" ry="4.8" fill="#6a4459"/>
+        <ellipse cx="84" cy="85" rx="14" ry="23" fill="${secondary}" stroke="${outline}" stroke-width="3" transform="rotate(-22 84 85)"/>
+        <ellipse cx="136" cy="85" rx="14" ry="23" fill="${secondary}" stroke="${outline}" stroke-width="3" transform="rotate(22 136 85)"/>
+        <path d="M151 164 Q171 150 164 121 Q180 137 176 160 Q172 179 151 180" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="149" rx="42" ry="34" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="151" rx="21" ry="16" fill="${belly}" class="no-outline" opacity=".96"/>
+        <circle cx="110" cy="95" r="35" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${cleanPetEyes(mood,ink,110,98,19)}${cheeks}${muzzle('#fffaf6',21,13,116)}
+        <ellipse class="no-outline" cx="110" cy="113" rx="6" ry="4.6" fill="#634556"/>
         ${smile}
+        <ellipse cx="90" cy="182" rx="9" ry="6" fill="${secondary}" stroke="${outline}" stroke-width="2.2"/>
+        <ellipse cx="130" cy="182" rx="9" ry="6" fill="${secondary}" stroke="${outline}" stroke-width="2.2"/>
       </g>${regionFront}`;
   }
+
   if(profile==='fox'){
     return `${defs}${shadow}${regionBack}
       <g class="clean-pet clean-fox">
-        <path d="M79 67 L92 42 L105 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <path d="M141 67 L128 42 L115 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <path d="M90 55 L95 47 L100 59 Z" fill="#fff2f2" opacity=".95"/><path d="M130 55 L125 47 L120 59 Z" fill="#fff2f2" opacity=".95"/>
-        <path d="M150 163 Q180 147 175 121 Q196 140 192 165 Q189 187 161 188 Q147 187 140 181" fill="${body}" stroke="${outline}" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M150 164 Q176 152 171 129 Q185 143 183 163 Q180 179 160 181 Q151 180 145 176" fill="#fff9f1" opacity=".9"/>
-        <ellipse cx="110" cy="151" rx="44" ry="36" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <path d="M90 141 Q110 128 130 141 L124 170 Q110 178 96 170 Z" fill="${belly}" opacity=".96"/>
-        <circle cx="110" cy="92" r="36" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        ${eyes}${cheeks}
-        <path d="M90 108 Q110 129 130 108 Q129 123 121 133 Q110 140 99 133 Q91 123 90 108Z" fill="#fffaf4"/>
-        <ellipse cx="110" cy="113" rx="6" ry="4.6" fill="#6a4459"/>
+        <path d="M84 67 L95 43 L104 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path d="M136 67 L125 43 L116 69 Z" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path class="no-outline" d="M91 56 L95 49 L99 58 Z" fill="#fff7f2"/><path class="no-outline" d="M129 56 L125 49 L121 58 Z" fill="#fff7f2"/>
+        <path d="M149 162 Q177 148 172 123 Q191 141 186 164 Q184 183 157 184 Q147 184 140 179" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path class="no-outline" d="M151 162 Q174 152 169 130 Q180 143 178 161 Q176 174 159 176 Q151 176 146 173" fill="#fff8f0" opacity=".97"/>
+        <ellipse cx="110" cy="149" rx="41" ry="34" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <path class="no-outline" d="M90 141 Q110 130 130 141 L124 167 Q110 176 96 167 Z" fill="${belly}" opacity=".98"/>
+        <circle cx="110" cy="92" r="35" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        ${cleanPetEyes(mood,ink,110,97,19)}${cheeks}
+        <path d="M92 108 Q110 126 128 108 Q126 123 119 132 Q110 137 101 132 Q94 123 92 108Z" fill="#fff8f0" stroke="${outline}" stroke-width="2.2"/>
+        <ellipse class="no-outline" cx="110" cy="113" rx="5.8" ry="4.3" fill="#5e4251"/>
         ${smile}
       </g>${regionFront}`;
   }
+
   if(profile==='panda'){
     return `${defs}${shadow}${regionBack}
       <g class="clean-pet clean-panda">
-        <circle cx="86" cy="63" r="13" fill="#3f3651"/><circle cx="134" cy="63" r="13" fill="#3f3651"/>
-        <ellipse cx="110" cy="152" rx="46" ry="39" fill="#fffdfd" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="88" cy="150" rx="16" ry="21" fill="#3f3651" opacity=".95"/><ellipse cx="132" cy="150" rx="16" ry="21" fill="#3f3651" opacity=".95"/>
-        <ellipse cx="110" cy="156" rx="22" ry="19" fill="${belly}" opacity=".9"/>
-        <circle cx="110" cy="93" r="37" fill="#fffdfd" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="89" cy="97" rx="12" ry="16" fill="#3f3651" opacity=".95" transform="rotate(-14 89 97)"/>
-        <ellipse cx="131" cy="97" rx="12" ry="16" fill="#3f3651" opacity=".95" transform="rotate(14 131 97)"/>
-        ${cleanPetEyes(mood,ink,110,98,21)}${cheeks}${muzzle('#fff8f6',22,14,116)}
-        <ellipse cx="110" cy="113" rx="6" ry="4.5" fill="#6a4459"/>
+        <circle class="no-outline" cx="87" cy="65" r="12" fill="#42394f"/><circle class="no-outline" cx="133" cy="65" r="12" fill="#42394f"/>
+        <ellipse cx="110" cy="149" rx="42" ry="35" fill="#fffdfd" stroke="${outline}" stroke-width="3"/>
+        <ellipse class="no-outline" cx="89" cy="151" rx="14" ry="19" fill="#42394f"/><ellipse class="no-outline" cx="131" cy="151" rx="14" ry="19" fill="#42394f"/>
+        <ellipse cx="110" cy="152" rx="20" ry="16" fill="${belly}" class="no-outline" opacity=".92"/>
+        <circle cx="110" cy="92" r="35" fill="#fffdfd" stroke="${outline}" stroke-width="3"/>
+        <ellipse class="no-outline" cx="90" cy="98" rx="11" ry="15" fill="#42394f" transform="rotate(-14 90 98)"/>
+        <ellipse class="no-outline" cx="130" cy="98" rx="11" ry="15" fill="#42394f" transform="rotate(14 130 98)"/>
+        ${cleanPetEyes(mood,ink,110,98,20)}${cheeks}${muzzle('#fffaf7',20,12,116)}
+        <ellipse class="no-outline" cx="110" cy="112" rx="5.8" ry="4.3" fill="#5e4251"/>
         ${smile}
       </g>${regionFront}`;
   }
+
   if(profile==='owl'){
     return `${defs}${shadow}${regionBack}
       <g class="clean-pet clean-owl">
-        <ellipse cx="110" cy="147" rx="46" ry="42" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="110" cy="153" rx="23" ry="22" fill="${belly}" opacity=".95"/>
-        <path d="M83 140 Q59 151 69 172 Q85 167 91 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>
-        <path d="M137 140 Q161 151 151 172 Q135 167 129 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>
-        <circle cx="110" cy="86" r="40" fill="${body}" stroke="${outline}" stroke-width="3"/>
-        <circle cx="88" cy="97" r="18" fill="#fff8ef" opacity=".97"/><circle cx="132" cy="97" r="18" fill="#fff8ef" opacity=".97"/>
-        ${cleanPetEyes(mood,ink,110,100,22)}${cheeks}
-        <path d="M104 112 L110 121 L116 112 Z" fill="#e8a03d" stroke="#af6b1f" stroke-width="2"/>
+        <ellipse cx="110" cy="146" rx="41" ry="39" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="149" rx="22" ry="21" fill="${belly}" class="no-outline" opacity=".96"/>
+        <path d="M83 139 Q61 151 70 170 Q85 164 91 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <path d="M137 139 Q159 151 150 170 Q135 164 129 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <circle cx="110" cy="86" r="36" fill="${body}" stroke="${outline}" stroke-width="3"/>
+        <circle cx="90" cy="98" r="17" fill="#fff8f1" stroke="${outline}" stroke-width="2.2"/>
+        <circle cx="130" cy="98" r="17" fill="#fff8f1" stroke="${outline}" stroke-width="2.2"/>
+        ${cleanPetEyes(mood,ink,110,100,20)}${cheeks}
+        <path d="M103 112 L110 121 L117 112 Z" fill="#e3a03d" stroke="#a96920" stroke-width="2"/>
         ${cleanPetSmile(ink,110,124)}
-        <path d="M96 183 l-5 10 M124 183 l5 10" stroke="#d48f38" stroke-width="4" stroke-linecap="round"/>
+        <path d="M98 181 l-4 10 M122 181 l4 10" stroke="#d48f38" stroke-width="4"/>
       </g>${regionFront}`;
   }
+
   if(profile==='penguin'){
     return `${defs}${shadow}${regionBack}
       <g class="clean-pet clean-penguin">
-        <ellipse cx="110" cy="148" rx="43" ry="46" fill="#3f3651" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="110" cy="150" rx="27" ry="36" fill="#fffdf9" opacity=".98"/>
-        <path d="M82 135 Q61 149 72 175 Q89 169 94 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>
-        <path d="M138 135 Q159 149 148 175 Q131 169 126 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.4"/>
-        <circle cx="110" cy="85" r="37" fill="#3f3651" stroke="${outline}" stroke-width="3"/>
-        <ellipse cx="110" cy="94" rx="25" ry="20" fill="#fffdf9" opacity=".98"/>
-        ${cleanPetEyes(mood,ink,110,95,19)}${cleanPetBlush(110,112)}
-        <path d="M101 108 L110 115 L119 108 Q110 124 101 108Z" fill="#f4a33d" stroke="#ae6b1f" stroke-width="2"/>
-        ${cleanPetSmile(ink,110,122)}
-        <ellipse cx="96" cy="188" rx="8" ry="4.5" fill="#f4a33d"/><ellipse cx="124" cy="188" rx="8" ry="4.5" fill="#f4a33d"/>
+        <ellipse cx="110" cy="148" rx="40" ry="44" fill="#3f3651" stroke="${outline}" stroke-width="3"/>
+        <ellipse cx="110" cy="150" rx="26" ry="34" fill="#fffefb" class="no-outline" opacity=".99"/>
+        <path d="M83 137 Q64 149 74 173 Q89 166 95 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <path d="M137 137 Q156 149 146 173 Q131 166 125 145 Z" fill="${secondary}" stroke="${outline}" stroke-width="2.5"/>
+        <circle cx="110" cy="85" r="35" fill="#3f3651" stroke="${outline}" stroke-width="3"/>
+        <ellipse class="no-outline" cx="110" cy="94" rx="24" ry="18" fill="#fffefb" opacity=".99"/>
+        ${cleanPetEyes(mood,ink,110,95,18)}${cleanPetBlush(110,111)}
+        <path d="M101 107 L110 114 L119 107 Q110 121 101 107Z" fill="#f3a33f" stroke="#ac6c21" stroke-width="2"/>
+        ${cleanPetSmile(ink,110,121)}
+        <ellipse class="no-outline" cx="96" cy="188" rx="8" ry="4.5" fill="#f3a33f"/><ellipse class="no-outline" cx="124" cy="188" rx="8" ry="4.5" fill="#f3a33f"/>
       </g>${regionFront}`;
   }
+
   return '';
 }
 
